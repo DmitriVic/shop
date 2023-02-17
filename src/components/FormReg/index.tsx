@@ -24,8 +24,7 @@ import { indexProps } from "./index.props";
 // 	</button>)
 // }
 
-export const FormAufh = ({setChangeModal}: indexProps): JSX.Element => {
-	
+export const FormReg = ({setChangeModal}: indexProps): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -34,11 +33,11 @@ export const FormAufh = ({setChangeModal}: indexProps): JSX.Element => {
   const onSubmit = (data: any) => console.log(data);
   
   console.log(errors);
-  
-  console.log(setChangeModal);
+
+
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-		<h2>Войти</h2>
+		<h2>Зарегистрироваться</h2>
       <input
         type="text"
         placeholder="First name"
@@ -50,8 +49,8 @@ export const FormAufh = ({setChangeModal}: indexProps): JSX.Element => {
         {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
       />
 
-      <button>Войти</button>
-		<div onClick={()=>setChangeModal(a =>!a)} className={s['switch-modal']}>Регистрация</div>
+      <button>Регистрация</button>
+		<div onClick={()=>setChangeModal(a =>!a)}>войти</div>
     </form>
   );
 };

@@ -7,5 +7,7 @@ export interface indexProps extends DetailedHTMLProps<HtmlHTMLAttributes<HTMLDiv
 	// appearance: 'primary' | 'ghost';
 	// arrow?: 'right' | 'down' | 'none';
 	// modalActive: boolean
-	// setModalActive: Dispatch<SetStateAction<boolean>>
+	setChangeModal: Dispatch<SetStateAction<boolean>>
 }
+
+
