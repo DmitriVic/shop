@@ -29,3 +29,7 @@ form > div {
 	margin: 0 auto;
 	cursor: pointer;
 }
+
+form  span {
+	cursor: pointer;
+}
