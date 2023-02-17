@@ -37,12 +37,12 @@ export const Registration = ({}: indexProps): JSX.Element => {
       <div className={s.registration} onClick={() => setModalActive(true)}>
         войти
       </div>
-      <Modal modalActive={modalActive} setModalActive={setModalActive}>
-        {changeModal ? (
-          <FormAufh setChangeModal={setChangeModal} />
-        ) : (
-          <FormReg setChangeModal={setChangeModal} />
-        )}
+      <Modal
+		 modalActive={modalActive} 
+		 setModalActive={setModalActive}>
+			
+        <FormAufh setChangeModal={setChangeModal} 
+		  changeModal={changeModal} />
       </Modal>
     </div>
   );

@@ -5,6 +5,7 @@
 
 import { useForm } from "react-hook-form";
 import { indexProps } from "./index.props";
+import { useEffect, useState } from 'react';
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
 // 	return (
@@ -24,7 +25,12 @@ import { indexProps } from "./index.props";
 // 	</button>)
 // }
 
-export const FormAufh = ({setChangeModal}: indexProps): JSX.Element => {
+export const FormAufh = ({setChangeModal,changeModal}: indexProps): JSX.Element => {
+	const [first, setfirst] = useState(['Войти', 'Регистрация'])
+	const [first2, setfirst2] = useState(false)
+	console.log(first);
+	console.log(first2);
+	console.log(changeModal);
 	
   const {
     register,
@@ -35,10 +41,25 @@ export const FormAufh = ({setChangeModal}: indexProps): JSX.Element => {
   
   console.log(errors);
   
-  console.log(setChangeModal);
+	// useEffect(() => {
+	//   if (!changeModal) {
+	// 	setfirst(ar => ar.reverse())
+	//   }
+	// }, [changeModal])
+	function handleChangeModal(){
+		
+		
+		  if (first) {
+			console.log(first);
+		setfirst(el => el.reverse())
+		setfirst2(el => !el)
+	  } else {console.log('no')}
+	  
+	}
+
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-		<h2>Войти</h2>
+		<h2>{first[0]}</h2>
       <input
         type="text"
         placeholder="First name"
@@ -51,7 +72,7 @@ export const FormAufh = ({setChangeModal}: indexProps): JSX.Element => {
       />
 
       <button>Войти</button>
-		<div onClick={()=>setChangeModal(a =>!a)} className={s['switch-modal']}>Регистрация</div>
+		<div onClick={handleChangeModal} className={s['switch-modal']}>{first[1]}</div>
     </form>
   );
 };
