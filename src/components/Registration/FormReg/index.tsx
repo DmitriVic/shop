@@ -50,7 +50,7 @@ export const FormReg = ({setChangeModal}: indexProps): JSX.Element => {
       />
 
       <button>Регистрация</button>
-		<div onClick={()=>setChangeModal(a =>!a)}>войти</div>
+		<div onClick={()=>setChangeModal(a =>!a)}>Войти</div>
     </form>
   );
 };

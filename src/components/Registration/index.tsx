@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { FormAufh } from "../FormAufh";
-import { FormReg } from "../FormReg";
-import { Modal } from "../Modal/Modal";
+import { FormAufh } from "./FormAufh";
+import { FormReg } from "./FormReg";
+//import { Modal } from "../Modal/Modal";
 import s from "./index.module.css";
 // import { ButtonProps } from './Button.props'
 // import cn from 'classnames'
 // import ArrowIcon from './arrow.svg';
 
 import { indexProps } from "./index.props";
+import { Modal } from "./Modal/Modal";
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
 // 	return (
