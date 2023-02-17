@@ -1,0 +1,24 @@
+/* stylelint-disable-next-line no-empty-source */
+.form {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	height: 200px;
+	width: 200px;
+	gap: 20px;
+}
+.form input {
+	width: 100%;
+	height: 40px;
+	border-radius: 5px;
+}
+.form button {
+	width: 100%;
+	height: 40px;
+	border-radius: 5px;
+}
+.form button:hover {
+	background: rgb(167, 154, 154);
+	transition: all 0.5s ease-in-out;
+	cursor: pointer;
+}
