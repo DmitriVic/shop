@@ -24,7 +24,7 @@ import { indexProps } from "./index.props";
 // 	</button>)
 // }
 
-export const FormAufh = ({}: indexProps): JSX.Element => {
+export const FormReg = ({setChangeModal}: indexProps): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -34,8 +34,10 @@ export const FormAufh = ({}: indexProps): JSX.Element => {
   
   console.log(errors);
 
+
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+		<h2>Зарегистрироваться</h2>
       <input
         type="text"
         placeholder="First name"
@@ -48,6 +50,7 @@ export const FormAufh = ({}: indexProps): JSX.Element => {
       />
 
       <button>Регистрация</button>
+		<div onClick={()=>setChangeModal(a =>!a)}>Войти</div>
     </form>
   );
 };

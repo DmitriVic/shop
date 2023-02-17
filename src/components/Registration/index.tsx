@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { FormAufh } from "../FormAufh";
-import { Modal } from "../Modal/Modal";
+import { FormAufh } from "./FormAufh";
+import { FormReg } from "./FormReg";
+//import { Modal } from "../Modal/Modal";
 import s from "./index.module.css";
 // import { ButtonProps } from './Button.props'
 // import cn from 'classnames'
 // import ArrowIcon from './arrow.svg';
 
 import { indexProps } from "./index.props";
+import { Modal } from "./Modal/Modal";
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
 // 	return (
@@ -28,13 +30,19 @@ import { indexProps } from "./index.props";
 
 export const Registration = ({}: indexProps): JSX.Element => {
   const [modalActive, setModalActive] = useState(false);
+  const [changeModal, setChangeModal] = useState(true);
+  //console.log(setChangeModal);
   return (
     <div>
       <div className={s.registration} onClick={() => setModalActive(true)}>
         войти
       </div>
       <Modal modalActive={modalActive} setModalActive={setModalActive}>
-        <FormAufh />
+        {changeModal ? (
+          <FormAufh setChangeModal={setChangeModal} />
+        ) : (
+          <FormReg setChangeModal={setChangeModal} />
+        )}
       </Modal>
     </div>
   );

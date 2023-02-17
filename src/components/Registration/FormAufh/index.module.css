@@ -3,8 +3,6 @@
 	margin-top: 20px;
 	display: flex;
 	flex-direction: column;
-	height: 200px;
-	width: 200px;
 	gap: 20px;
 }
 .form input {
@@ -20,5 +18,14 @@
 .form button:hover {
 	background: rgb(167, 154, 154);
 	transition: all 0.5s ease-in-out;
+	cursor: pointer;
+}
+
+form h2 {
+	text-align: center;
+}
+form > div {
+	display: flex;
+	margin: 0 auto;
 	cursor: pointer;
 }

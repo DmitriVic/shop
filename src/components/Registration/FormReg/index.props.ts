@@ -1,9 +1,13 @@
 // example
 
-import { DetailedHTMLProps, HtmlHTMLAttributes,  } from 'react';
+import { DetailedHTMLProps, Dispatch, HtmlHTMLAttributes, SetStateAction,  } from 'react';
 
 export interface indexProps extends DetailedHTMLProps<HtmlHTMLAttributes<HTMLDivElement>, HTMLDivElement> {
 	// children: ReactNode;
 	// appearance: 'primary' | 'ghost';
 	// arrow?: 'right' | 'down' | 'none';
+	// modalActive: boolean
+	setChangeModal: Dispatch<SetStateAction<boolean>>
 }
+
+

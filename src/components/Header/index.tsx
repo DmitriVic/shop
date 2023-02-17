@@ -28,6 +28,7 @@ import { indexProps } from "./index.props"
 export const Header = ({  }:indexProps): JSX.Element => {
 	return (
 		<div className={s.header}>
+			<div className={s.branch}>Ветка DEV</div>
 			<h1>header</h1>
 			<Registration/>
 		</div>
