@@ -17,9 +17,16 @@ export const FormAufh = ({}: indexProps): JSX.Element => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: any) => console.log(data);
+  //const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data: any) => {
+    if (arrText[0] === "Войти") {
+      console.log(` "Данные для входа"`);
+    } else {
+      console.log(` "Данные для регистрации"`);
+    }
+  };
 
-  console.log(errors);
+  //console.log(errors);
 
   function handleChangeModal() {
     if (arrText[0] === "Войти") {
@@ -30,7 +37,6 @@ export const FormAufh = ({}: indexProps): JSX.Element => {
   }
   const togglePasswordVisibility = () => {
     console.log(isPasswordVisible);
-
     setPasswordVisibility((a) => !a);
   };
   return (
