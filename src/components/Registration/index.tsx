@@ -30,7 +30,7 @@ import { Modal } from "./Modal/Modal";
 
 export const Registration = ({}: indexProps): JSX.Element => {
   const [modalActive, setModalActive] = useState(false);
-  const [changeModal, setChangeModal] = useState(true);
+  //const [changeModal, setChangeModal] = useState(true);
   //console.log(setChangeModal);
   return (
     <div>
@@ -41,8 +41,10 @@ export const Registration = ({}: indexProps): JSX.Element => {
 		 modalActive={modalActive} 
 		 setModalActive={setModalActive}>
 			
-        <FormAufh setChangeModal={setChangeModal} 
-		  changeModal={changeModal} />
+        <FormAufh 
+		  //setChangeModal={setChangeModal} 
+		  //changeModal={changeModal}
+		   />
       </Modal>
     </div>
   );

@@ -6,6 +6,6 @@ export interface indexProps extends DetailedHTMLProps<HtmlHTMLAttributes<HTMLDiv
 	// children: ReactNode;
 	// appearance: 'primary' | 'ghost';
 	// arrow?: 'right' | 'down' | 'none';
-	changeModal: boolean
-	setChangeModal: Dispatch<SetStateAction<boolean>>
+	changeModal?: boolean
+	setChangeModal?: Dispatch<SetStateAction<boolean>>
 }
