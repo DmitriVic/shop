@@ -7,46 +7,41 @@ import { useForm } from "react-hook-form";
 import { indexProps } from "./index.props";
 import { useState } from "react";
 
-// export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
-// 	return (
-// 	<button  className={cn(s.button, className, {
-// 		[s.primary]: appearance == 'primary',
-// 		[s.ghost]: appearance == 'ghost',
-// 	})}
-// 	{...props}
-// 	>
-// 		{children}
-// 		{arrow != 'none' && <span className={cn(s.arrow, {
-// 				[s.down]: arrow == 'down'
-// 			})}>
-// 				<ArrowIcon />
-// 			</span>}
-
-// 	</button>)
-// }
-
-export const FormAufh = ({ setChangeModal }: indexProps): JSX.Element => {
+export const FormAufh = ({}: indexProps): JSX.Element => {
+  const [arrText, setArrText] = useState(["Войти", "Создать акаунт"]);
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: any) => console.log(data);
-
-  console.log(errors);
-
-  //console.log(setChangeModal);
-  const togglePasswordVisibility = () => {
-	console.log(isPasswordVisible);
-	
-    setPasswordVisibility(a => !a);
+  //const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data: any) => {
+    if (arrText[0] === "Войти") {
+      console.log(` "Данные для входа"`);
+    } else {
+      console.log(` "Данные для регистрации"`);
+    }
   };
 
+  //console.log(errors);
+
+  function handleChangeModal() {
+    if (arrText[0] === "Войти") {
+      setArrText(["Создать акаунт", "Войти"]);
+    } else {
+      setArrText(["Войти", "Создать акаунт"]);
+    }
+  }
+  const togglePasswordVisibility = () => {
+    console.log(isPasswordVisible);
+    setPasswordVisibility((a) => !a);
+  };
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-      <h2>Войти</h2>
+      <h2>{arrText[0]}</h2>
       <input
         type="text"
         placeholder="First name"
@@ -59,15 +54,14 @@ export const FormAufh = ({ setChangeModal }: indexProps): JSX.Element => {
           placeholder="Password"
           {...register("Password", { required: true, maxLength: 12 })}
         />
-        <span className={s['hidden-pass']} onClick={togglePasswordVisibility}>показать/скрыть </span>
+        <span className={s["hidden-pass"]} onClick={togglePasswordVisibility}>
+          показать/скрыть{" "}
+        </span>
       </label>
 
       <button>Отправить</button>
-      <div
-        onClick={() => setChangeModal((a) => !a)}
-        className={s["switch-modal"]}
-      >
-        Регистрация
+      <div onClick={handleChangeModal} className={s["switch-modal"]}>
+        {arrText[1]}
       </div>
     </form>
   );
