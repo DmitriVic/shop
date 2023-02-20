@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views import UserViewSet, UserListViewSet
 
 router = routers.DefaultRouter()
-router.register(r'api/auth', UserListViewSet)
+router.register(r'api/auth/register', UserListViewSet)
 
 router_detail = routers.DefaultRouter()
 router_detail.register('', UserViewSet)
