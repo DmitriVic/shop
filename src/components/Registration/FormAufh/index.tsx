@@ -25,14 +25,15 @@ export const FormAufh = ({}: indexProps): JSX.Element => {
       .then(json => console.log(json))
       console.log(` "Данные для входа"`);
     } else {
-		fetch('http://127.0.0.1:8000/api/auth/', {
+		fetch('http://localhost:8000/api/auth/register/', {
   		method: "get",
  		headers: {
     'Accept': 'application/json',
-	 'Access-Control-Allow-Origin': "*"
-   //  'Content-Type': 'application/json',
-	//  'Access-Control-Allow-Origin': 'http://localhost:5173'
-  },
+	 'Access-Control-Allow-Origin': 'http://127.0.0.1:8000'
+   //'Content-Type': 'application/json',
+	//'Access-Control-Allow-Origin': 'http://localhost:5173'
+  }
+  
 
   //make sure to serialize your JSON body
 //   body: JSON.stringify({
