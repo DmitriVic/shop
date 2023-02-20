@@ -20,8 +20,32 @@ export const FormAufh = ({}: indexProps): JSX.Element => {
   //const onSubmit = (data: any) => console.log(data);
   const onSubmit = (data: any) => {
     if (arrText[0] === "Войти") {
+		fetch('https://jsonplaceholder.typicode.com/todos/1')
+      .then(response => response.json())
+      .then(json => console.log(json))
       console.log(` "Данные для входа"`);
     } else {
+		fetch('http://127.0.0.1:8000/api/auth/', {
+  		method: "get",
+ 		headers: {
+    'Accept': 'application/json',
+	 'Access-Control-Allow-Origin': "*"
+   //  'Content-Type': 'application/json',
+	//  'Access-Control-Allow-Origin': 'http://localhost:5173'
+  },
+
+  //make sure to serialize your JSON body
+//   body: JSON.stringify({
+// 	data,
+//    //  name: '',
+//    //  password: ''
+//   })
+})
+.then( (response) => { 
+   console.log(response);
+	
+})
+		
       console.log(` "Данные для регистрации"`);
     }
   };
