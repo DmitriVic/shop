@@ -22,3 +22,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             from django.contrib.auth.hashers import make_password
             validated_data["password"] = make_password(validated_data["password"])
         return super().update(instance, validated_data)
+
+
+class UserDetailSerializer(UserSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+        extra_kwargs = {
+            'password': {'write_only': True},
+            'is_staff': {'read_only': True},
+        }
