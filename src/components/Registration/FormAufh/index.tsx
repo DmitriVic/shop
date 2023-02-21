@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { indexProps } from "./index.props";
 import { useState } from "react";
 
-export const FormAufh = ({}: indexProps): JSX.Element => {
+export const FormAufh = ({setModalActive, setLoginIcon }: indexProps): JSX.Element => {
   const [arrText, setArrText] = useState(["Войти", "Создать акаунт"]);
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
 
@@ -20,33 +20,33 @@ export const FormAufh = ({}: indexProps): JSX.Element => {
   //const onSubmit = (data: any) => console.log(data);
   const onSubmit = (data: any) => {
     if (arrText[0] === "Войти") {
-		fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then(response => response.json())
-      .then(json => console.log(json))
-      console.log(` "Данные для входа"`);
+      fetch("http://127.0.0.1:8000/api/auth/token/", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+		}).then((res) => {
+			if (res.ok) {
+				setModalActive(false)
+				setLoginIcon(true)
+				alert('добро пожаловать')
+				//console.log(data.username);
+				console.log(res);
+				
+			}
+		 });
     } else {
-		fetch('http://localhost:8000/api/auth/register/', {
-  		method: "get",
- 		headers: {
-    'Accept': 'application/json',
-	 'Access-Control-Allow-Origin': 'http://127.0.0.1:8000'
-   //'Content-Type': 'application/json',
-	//'Access-Control-Allow-Origin': 'http://localhost:5173'
-  }
-  
+      fetch("http://127.0.0.1:8000/api/auth/register/", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((response) => {
+        console.log(response);
+      });
 
-  //make sure to serialize your JSON body
-//   body: JSON.stringify({
-// 	data,
-//    //  name: '',
-//    //  password: ''
-//   })
-})
-.then( (response) => { 
-   console.log(response);
-	
-})
-		
       console.log(` "Данные для регистрации"`);
     }
   };
@@ -70,14 +70,14 @@ export const FormAufh = ({}: indexProps): JSX.Element => {
       <input
         type="text"
         placeholder="First name"
-        {...register("First name", { required: true, maxLength: 80 })}
+        {...register("username", { required: true, maxLength: 80 })}
       />
 
       <label htmlFor="">
         <input
           type={isPasswordVisible ? "text" : "password"}
           placeholder="Password"
-          {...register("Password", { required: true, maxLength: 12 })}
+          {...register("password", { required: true, maxLength: 12 })}
         />
         <span className={s["hidden-pass"]} onClick={togglePasswordVisibility}>
           показать/скрыть{" "}

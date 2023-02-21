@@ -8,4 +8,6 @@ export interface indexProps extends DetailedHTMLProps<HtmlHTMLAttributes<HTMLDiv
 	// arrow?: 'right' | 'down' | 'none';
 	changeModal?: boolean
 	setChangeModal?: Dispatch<SetStateAction<boolean>>
+	setModalActive : Dispatch<SetStateAction<boolean>>
+	setLoginIcon : Dispatch<SetStateAction<boolean>>
 }
