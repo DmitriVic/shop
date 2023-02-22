@@ -1,9 +1,10 @@
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from rest_framework import mixins
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
 
+from .models import User
 from .serializers import UserSerializer, UserDetailSerializer
 
 
@@ -19,13 +20,12 @@ class UserViewSet(mixins.RetrieveModelMixin,
                   GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
-    # pagination_class = StandardResultsSetPagination
     permission_classes = (IsAuthenticated, )
 
 
 class UserListViewSet(mixins.CreateModelMixin,
                       mixins.ListModelMixin,
                       GenericViewSet):
-    queryset = User.objects.all()
+    queryset = User.objects.all()#.order_by('pk')
     serializer_class = UserSerializer
     # pagination_class = StandardResultsSetPagination
