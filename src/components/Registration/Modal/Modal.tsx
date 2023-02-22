@@ -13,10 +13,10 @@ export function Modal({ children, modalActive, setModalActive }: ModalProps): JS
 	return (
 		<div
 			className={cn(s.modal, { [s.active]: modalActive })}
-			onClick={() => setModalActive(false)}
+			onMouseDown={() => setModalActive(false)}
 		>
 			<div className={cn(s.modalWrapper, { [s.active]: modalActive })}
-				onClick={(e) => e.stopPropagation()}
+				onMouseDown={(e) => e.stopPropagation()}
 			>
 				<div className={s.modalBody}>
 					<div className={s['more-snow']}>

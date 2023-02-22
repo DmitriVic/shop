@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUserInfo, refreshToken } from "../../Api/Auth";
+import { getUserInfo, putTokenData, refreshToken, tokenDate } from "../../Api/Auth";
 import { Registration } from "../Registration";
 import s from "./index.module.css";
 // import { ButtonProps } from './Button.props'
@@ -33,13 +33,26 @@ export const Header = ({}: indexProps): JSX.Element => {
  
   
   function hadleClickRefresh(params: any) {
-	const storageData = sessionStorage.getItem("tokenData");
-    if (storageData !== null) {
-      const myDataObject = JSON.parse(storageData);
-      refreshToken(myDataObject.refresh)
-		.then((res) =>
-        alert(`Токен access получен  ${res.access}`)
-      );
+    if (tokenDate()) {
+      refreshToken(tokenDate().refresh) // refreshToken-api запрос, tokenDate f вернет {tokenDate} из sessionStorege
+		.then((res) =>{
+			
+			  //console.log(tokenDate())
+			  console.log(res)
+			 let newTokenData = tokenDate()
+			 newTokenData.access = res.access 
+			// //console.log(putTokenData(newTokenData));
+			 
+			 console.log(newTokenData);
+			 console.log(putTokenData(newTokenData));
+			  //sessionStorage.setItem("tokenData", JSON.stringify(newTokenData));
+			console.log(sessionStorage.tokenData);
+			
+		}
+			
+			
+        //alert(`Токен access получен  ${res.access}`)
+		)
     } else {
       alert(
         "ssisionStorege пусто, чтобы обновить токен, войдите пользователем и получите токен"
@@ -52,7 +65,19 @@ export const Header = ({}: indexProps): JSX.Element => {
   });
 
   const handleClickUserInfo = () => {
-	//getUserInfo()
+	getUserInfo(tokenDate())
+	.then(res => {
+		alert(JSON.stringify(res));
+		 
+		
+		
+		//console.log(result.JSON.stringify());
+		
+		// for (const key in res) {
+		// 	console.log(key)
+			
+		// }
+	})
   };
 
   return (
