@@ -10,4 +10,6 @@ export interface indexProps extends DetailedHTMLProps<HtmlHTMLAttributes<HTMLDiv
 	setChangeModal?: Dispatch<SetStateAction<boolean>>
 	setModalActive : Dispatch<SetStateAction<boolean>>
 	setLoginIcon : Dispatch<SetStateAction<boolean>>
+	setUserData : Dispatch<SetStateAction<object>>
+	
 }

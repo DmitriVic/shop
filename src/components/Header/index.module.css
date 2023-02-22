@@ -9,3 +9,17 @@
 .branch{
 	background: rgb(97, 228, 97);
 }
+
+.wrapper  button {
+	margin: 10px;
+	font-size: 20px;
+	cursor: pointer;
+	display: block;
+	border: 1px solid #000;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.wrapper{
+	text-align: center;
+}
