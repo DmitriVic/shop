@@ -27,8 +27,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class UserDetailSerializer(UserSerializer):
     class Meta:
         model = User
-        fields = '__all__'
-        extra_kwargs = {
-            'password': {'write_only': True},
-            'is_staff': {'read_only': True},
-        }
+        # fields = '__all__'
+        exclude = ('password',)
+        depth = 1
+        read_only_fields = ('is_staff', 'last_login', 'date_joined', 'is_superuser', 'is_active')
+        # extra_kwargs = {
+        #     'password': {
+        #         'write_only': True,
+        #         'allow_blank': True
+        #     },
+        # }
