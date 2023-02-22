@@ -14,6 +14,7 @@ router_detail.register('', UserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('api/auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/auth/users/', include(router_detail.urls)),
     path('api/auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

@@ -15,6 +15,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 import rest_framework.permissions
 
+import auth.apps
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 

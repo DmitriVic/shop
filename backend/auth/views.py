@@ -19,8 +19,8 @@ class UserViewSet(mixins.RetrieveModelMixin,
                   GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
-    permission_classes = [IsAuthenticated]
-    pagination_class = StandardResultsSetPagination
+    # pagination_class = StandardResultsSetPagination
+    permission_classes = (IsAuthenticated, )
 
 
 class UserListViewSet(mixins.CreateModelMixin,
@@ -28,4 +28,4 @@ class UserListViewSet(mixins.CreateModelMixin,
                       GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    pagination_class = StandardResultsSetPagination
+    # pagination_class = StandardResultsSetPagination
