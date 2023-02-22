@@ -2,12 +2,16 @@ import s from "./index.module.css";
 // import { ButtonProps } from './Button.props'
 // import cn from 'classnames'
 // import ArrowIcon from './arrow.svg';
-
 import { useForm } from "react-hook-form";
 import { indexProps } from "./index.props";
 import { useState } from "react";
+import { authorize } from "../../../Api/Auth";
 
-export const FormAufh = ({setModalActive, setLoginIcon }: indexProps): JSX.Element => {
+export const FormAufh = ({
+  setModalActive,
+  setLoginIcon,
+  setUserData,
+}: indexProps): JSX.Element => {
   const [arrText, setArrText] = useState(["Войти", "Создать акаунт"]);
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
 
@@ -17,25 +21,14 @@ export const FormAufh = ({setModalActive, setLoginIcon }: indexProps): JSX.Eleme
     formState: { errors },
   } = useForm();
 
-  //const onSubmit = (data: any) => console.log(data);
   const onSubmit = (data: any) => {
     if (arrText[0] === "Войти") {
-      fetch("http://127.0.0.1:8000/api/auth/token/", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-		}).then((res) => {
-			if (res.ok) {
-				setModalActive(false)
-				setLoginIcon(true)
-				alert('добро пожаловать')
-				//console.log(data.username);
-				console.log(res);
-				
-			}
-		 });
+      setUserData(data);
+      authorize(data).then((res) => {
+        sessionStorage.setItem("tokenData", JSON.stringify(res));
+        setModalActive(false);
+        setLoginIcon(true);
+      });
     } else {
       fetch("http://127.0.0.1:8000/api/auth/register/", {
         method: "post",

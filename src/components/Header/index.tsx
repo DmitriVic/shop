@@ -1,10 +1,12 @@
-import { Registration } from '../Registration'
-import s from './index.module.css'
+import { useEffect, useState } from "react";
+import { getUserInfo, refreshToken } from "../../Api/Auth";
+import { Registration } from "../Registration";
+import s from "./index.module.css";
 // import { ButtonProps } from './Button.props'
 // import cn from 'classnames'
 // import ArrowIcon from './arrow.svg';
 
-import { indexProps } from "./index.props"
+import { indexProps } from "./index.props";
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
 // 	return (
@@ -20,18 +22,52 @@ import { indexProps } from "./index.props"
 // 			})}>
 // 				<ArrowIcon />
 // 			</span>}
-			
+
 // 	</button>)
 // }
 
+export const Header = ({}: indexProps): JSX.Element => {
+  const [userData, setUserData] = useState({});
+  //console.log(userData);
+  
+ 
+  
+  function hadleClickRefresh(params: any) {
+	const storageData = sessionStorage.getItem("tokenData");
+    if (storageData !== null) {
+      const myDataObject = JSON.parse(storageData);
+      refreshToken(myDataObject.refresh)
+		.then((res) =>
+        alert(`Токен access получен  ${res.access}`)
+      );
+    } else {
+      alert(
+        "ssisionStorege пусто, чтобы обновить токен, войдите пользователем и получите токен"
+      );
+    }
+  }
+  // очищаем ssesionStorege при перезагрузке страницы
+  window.addEventListener("beforeunload", function () {
+    sessionStorage.clear();
+  });
 
-export const Header = ({  }:indexProps): JSX.Element => {
-	return (
-		<div className={s.header}>
-			<div className={s.branch}>Dev</div>
-			<h1>header</h1>
-			<Registration/>
-		</div>
-	)
-}
+  const handleClickUserInfo = () => {
+	//getUserInfo()
+  };
 
+  return (
+    <div className={s.header}>
+      <div className={s.branch}>Dev</div>
+      <div className={s.wrapper}>
+        <h1>header</h1>
+        <button style={{ cursor: "pointer" }} onClick={hadleClickRefresh}>
+          Обновить токен
+        </button>
+        <button onClick={handleClickUserInfo}>
+          Получить инфо по пользователю
+        </button>
+      </div>
+      <Registration setUserData={setUserData} />
+    </div>
+  );
+};
