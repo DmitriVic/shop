@@ -29,6 +29,9 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 		<div className={className}>
 			<div className={s.wrapper}>
 				<h1>Брошки от Антошки</h1>
+				<div className={s.links}>
+					
+				</div>
 			</div>
 		</div>
 	)
