@@ -1,0 +1,27 @@
+/* stylelint-disable-next-line no-empty-source */
+.wrapper{
+	display: grid;
+	grid-template-columns: auto  minmax(320px, 1224px) auto;
+	grid-template-rows: auto 1fr auto;
+	min-height: 100vh;
+	/* gap: 40px 30px; */
+	grid-template-areas:
+	"header header header "
+	". body ."
+	"footer footer footer ";
+
+}
+.header{
+	grid-area: header;
+	height: 96px;
+	background: #1dc9cf;
+}
+.main{
+	grid-area: body;
+	outline: none;
+}
+.footer{
+	height: 100px;
+	background: #4c5353;
+	grid-area: footer;
+}

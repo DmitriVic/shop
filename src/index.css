@@ -7,7 +7,30 @@
   -webkit-text-size-adjust: 100%;
 }
 
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	box-sizing: border-box;
+}
 
+html,
+body {
+	padding: 0;
+	margin: 0;
+	scroll-behavior: smooth;
+	font-family: Roboto, sans-serif;
+	overflow-x: hidden;
+}
+
+ul li {
+	list-style: none;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
 
 
 
