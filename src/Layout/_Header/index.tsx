@@ -10,6 +10,7 @@ import  vk  from './img/vk.svg'
 import  telegram  from './img/telegram.svg'
 import  magnifier  from './img/magnifier.svg'
 import { Link } from 'react-router-dom'
+import { HeaderMenu } from '../../components/HeaderMenu'
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
 // 	return (
@@ -53,13 +54,14 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 			<div className={s.wrapper}>
 				<div className={s['wrapper__content']}>
 					<div></div>
-					<h1>Брошки</h1>
+					<div className={s.title}>Брошки</div>
 					<div className={s.links}>
 						<img className={s.heart} src={heart} alt="" />
 						<img className={s.basket} src={basket} alt="" />
 					</div>
 				</div>
 			</div>
+			<HeaderMenu/>
 		</div>
 	)
 }

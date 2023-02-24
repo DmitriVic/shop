@@ -6,5 +6,6 @@ export interface indexProps extends DetailedHTMLProps<HtmlHTMLAttributes<HTMLDiv
 	// children: ReactNode;
 	// appearance: 'primary' | 'ghost';
 	// arrow?: 'right' | 'down' | 'none';
-	setUserData : Dispatch<SetStateAction<object>>
+	// modalActive: boolean
+	// setModalActive: Dispatch<SetStateAction<boolean>>
 }
