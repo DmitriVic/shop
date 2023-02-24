@@ -13,7 +13,7 @@
 }
 ```
 - Вид ответа Body (JSON):
-```
+```JSON
 {
     "url": "http://127.0.0.1:8000/api/auth/user/<str:username>/",
     "username": "<str:username>"
@@ -29,7 +29,7 @@ key= Authorization
 value= JWT <HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>
 ```
 - Вид ответа Body (JSON):
-```
+```JSON
 {
     "username": "<str:username>", 
     "email": "exemple@mail.ru",
@@ -68,7 +68,7 @@ value= JWT <HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>
 }
 ```
 - Вид ответа Body (JSON):
-```
+```JSON
 {
     "username": "<str:username>", 
     "email": "exemple@mail.ru",
@@ -98,7 +98,7 @@ value= JWT <HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>
 }
 ```
 - Вид ответа Body (JSON):
-```
+```JSON
 {
     "url": "http://127.0.0.1:8000/api/auth/user/<str:username>/",
     "username": "<str:username>"
@@ -119,7 +119,7 @@ limit= 5  <------------- устанавиливает сколько значе�
 offset= 10<int>
 ```
 - Вид ответа Body (JSON):
-```
+```JSON
 {
     "count": 25,
     "next": "http://127.0.0.1:8000/api/auth/user/list/?limit=5&offset=5",
@@ -156,10 +156,10 @@ offset= 10<int>
 }
 ```
 - Вид ответа Body (JSON):
-```
+```JSON
 {
-    "refresh": "<HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>",
-    "access": "<HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>"
+    "refresh": <HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>,
+    "access": <HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>
 }
 ```
 ### 7. Обновление токена по истечении времени:
@@ -174,7 +174,7 @@ offset= 10<int>
 }
 ```
 - Вид ответа Body (JSON):
-```
+```JSON
 {
     "access": <HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>,
     "refresh": <HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>
