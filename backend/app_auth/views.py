@@ -1,5 +1,5 @@
 from rest_framework import mixins, status
-from rest_framework.generics import GenericAPIView, ListAPIView, CreateAPIView, UpdateAPIView
+from rest_framework.generics import GenericAPIView, ListAPIView, CreateAPIView, UpdateAPIView, RetrieveAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
@@ -29,15 +29,17 @@ class CreateUserApiView(CreateAPIView):
     serializer_class = UserCreateSerializer
 
 
-class DetailUserApiView(UpdateAPIView):
+class DetailUserApiView(RetrieveAPIView, UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
+    lookup_field = 'username'
     permission_classes = (IsAdminOrIsOwner, )
 
 
 class UpdatePassUserApiView(UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UpdatePassUserSerializer
+    lookup_field = 'username'
     permission_classes = (IsAdminOrIsOwner,)
 
 # class UserViewSet(mixins.RetrieveModelMixin,

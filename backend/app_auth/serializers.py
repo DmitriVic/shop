@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app_auth.models import User
+from .models import User
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -25,6 +25,7 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ('username', 'email', 'first_name', 'second_name', 'last_name',
                   'get_full_name', 'isd', 'phonenumber', 'zip_code', 'delivery_address')
+        lookup_field = 'username'
         read_only_fields = 'get_full_name',
 
 
@@ -46,7 +47,7 @@ class ListUserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ['url', 'username', 'is_staff', 'get_full_name']
         extra_kwargs = {
-            'url': {'view_name': 'detail_user', 'lookup_field': 'pk'},
+            'url': {'view_name': 'detail_user', 'lookup_field': 'username'},
         }
         # fields = ['url', 'username', 'is_staff', 'password']
         # write_only_fields = 'password',
