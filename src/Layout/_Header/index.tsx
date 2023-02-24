@@ -4,6 +4,12 @@
 // import ArrowIcon from './arrow.svg';
 
 import { indexProps } from "./index.props"
+import  heart  from './img/heart.svg'
+import  basket  from './img/basket.svg'
+import  vk  from './img/vk.svg'
+import  telegram  from './img/telegram.svg'
+import  magnifier  from './img/magnifier.svg'
+import { Link } from 'react-router-dom'
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
 // 	return (
@@ -27,10 +33,31 @@ import { indexProps } from "./index.props"
 export const _Header = ({ className }:indexProps): JSX.Element => {
 	return (
 		<div className={className}>
+			<div className={s.panel}>
+			<div className={s.content}>
+				<a className={s.tel} href="tel: 88008888888">8 (800) 888-88-88</a>
+				
+				<div className={s['right-content']}>
+					<label htmlFor="search">
+					<img src={magnifier} className={s.magnifier} alt="" />
+					<input className={s.search} type="text" name="text" id="search" placeholder='Поиск Брошек' />
+					</label>
+					<div>
+						<img className={s.vk} src={vk} alt="" />
+						<img className={s.telegram} src={telegram} alt="" />
+					</div>
+					<Link to="authorization" className={s.enter}>Войти</Link>
+				</div>
+			</div>
+			</div>
 			<div className={s.wrapper}>
-				<h1>Брошки от Антошки</h1>
-				<div className={s.links}>
-					
+				<div className={s['wrapper__content']}>
+					<div></div>
+					<h1>Брошки</h1>
+					<div className={s.links}>
+						<img className={s.heart} src={heart} alt="" />
+						<img className={s.basket} src={basket} alt="" />
+					</div>
 				</div>
 			</div>
 		</div>

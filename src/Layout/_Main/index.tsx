@@ -1,9 +1,9 @@
-// import s from './Button.module.css'
+import s from "./index.module.css";
 // import { ButtonProps } from './Button.props'
 // import cn from 'classnames'
 // import ArrowIcon from './arrow.svg';
 
-import { indexProps } from "./index.props"
+import { indexProps } from "./index.props";
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
 // 	return (
@@ -19,16 +19,17 @@ import { indexProps } from "./index.props"
 // 			})}>
 // 				<ArrowIcon />
 // 			</span>}
-			
+
 // 	</button>)
 // }
 
+export const _Main = ({ className, children }: indexProps): JSX.Element => {
+  return (
+    <div className={className}>
+      <div className={s.wrapper}>
+			{children}
 
-export const _Main = ({ className }:indexProps): JSX.Element => {
-	return (
-		<div className={className}>
-			<div>_Main</div>
 		</div>
-	)
-}
-
+    </div>
+  );
+};

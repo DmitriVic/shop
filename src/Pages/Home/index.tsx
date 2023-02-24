@@ -24,10 +24,10 @@ import { indexProps } from "./index.props"
 // }
 
 
-export const шаблон = ({  }:indexProps): JSX.Element => {
+export const Home = ({  }:indexProps): JSX.Element => {
 	return (
 		<>
-			
+			<div>Домашняя страница</div>
 		</>
 	)
 }

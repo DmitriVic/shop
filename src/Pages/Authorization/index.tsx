@@ -1,4 +1,4 @@
-// import s from './index.module.css'
+import s from './index.module.css'
 // import { ButtonProps } from './Button.props'
 // import cn from 'classnames'
 // import ArrowIcon from './arrow.svg';
@@ -24,10 +24,10 @@ import { indexProps } from "./index.props"
 // }
 
 
-export const шаблон = ({  }:indexProps): JSX.Element => {
+export const Authorization = ({  }:indexProps): JSX.Element => {
 	return (
 		<>
-			
+			<div>Authorization</div>
 		</>
 	)
 }

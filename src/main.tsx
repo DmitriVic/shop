@@ -1,10 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { Layout } from "./Layout";
+// import { RouterProvider, Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+// import { Layout } from "./Layout";
+// import { Authorization } from "./Pages/Authorization";
+// import { Home } from "./Pages/Home";
+import App from "./App";
+
+// const router = createBrowserRouter(createRoutesFromElements(
+// 	<Route path="/" element={<Layout/>}>
+// 				<Route index element={<Home/>}/>
+// 				<Route path="/authorization" element={<Authorization/>}/>
+// 	</Route>
+// ))
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <Layout />
+   {/* <RouterProvider router={router}/> */}
+	<App/>
   </React.StrictMode>
 );
