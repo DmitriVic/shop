@@ -1,4 +1,17 @@
 /* stylelint-disable-next-line no-empty-source */
 .header-menu{
 	width: 100%;
+	display: flex;
+	justify-content: center;
+	background: #fff;
+	padding: 10px;
+	border-bottom: 1px solid #AEAEAE;
+}
+
+.header-menu__wrapper{
+	max-width: 1224px;
+	width: 100%;
+	justify-content: space-between;
+	display: grid;
+	grid-auto-flow: column;
 }

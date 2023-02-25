@@ -6,6 +6,7 @@ import { Layout } from "./Layout";
 import { Authorization } from "./Pages/Authorization";
 import { Home } from "./Pages/Home";
 import { Registration } from "./Pages/Registration";
+import { Account } from "./Pages/Account";
 
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -13,6 +14,7 @@ const router = createBrowserRouter(createRoutesFromElements(
 				<Route index element={<Home/>}/>
 				<Route path="authorization" element={<Authorization/>}/>
 				<Route path="registration" element={<Registration/>}/>
+				<Route path="account" element={<Account/>}/>
 	</Route>
 ))
 

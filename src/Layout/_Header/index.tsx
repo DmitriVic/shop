@@ -54,8 +54,9 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 			<div className={s.wrapper}>
 				<div className={s['wrapper__content']}>
 					<div></div>
-					<div className={s.title}>Брошки</div>
+					<Link to="/" className={s.title}>Брошки(link дом.стр)</Link>
 					<div className={s.links}>
+						<Link to="account" >Личный кабинет</Link>
 						<img className={s.heart} src={heart} alt="" />
 						<img className={s.basket} src={basket} alt="" />
 					</div>

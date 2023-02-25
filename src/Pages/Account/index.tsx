@@ -1,9 +1,9 @@
- import s from './index.module.css'
+import s from './index.module.css'
 // import { ButtonProps } from './Button.props'
 // import cn from 'classnames'
 // import ArrowIcon from './arrow.svg';
 
-import { Link } from "react-router-dom"
+import { FormEdit } from "../../components/FormEdit"
 import { indexProps } from "./index.props"
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
@@ -25,27 +25,12 @@ import { indexProps } from "./index.props"
 // }
 
 
-export const HeaderMenu = ({  }:indexProps): JSX.Element => {
+export const Account = ({  }:indexProps): JSX.Element => {
 	return (
-		<div className={s['header-menu']}>
-			<ul className={s['header-menu__wrapper']} >
-				<Link to="">Каталог украшений</Link>
-				<Link to="">Коллекции</Link>
-				<Link to="">Акции</Link>
-				<Link to="">Адреса магазинов</Link>
-				<Link to="">Сервисы</Link>
-				<Link to="">Программа лояльности</Link>
-				<Link to="">Вакансии</Link>
-				<Link to="">Партнерам</Link>
-			</ul>
-		</div>
+		<>
+			<div className={s['title']}>Личный кабинет</div>
+			<FormEdit/>
+		</>
 	)
 }
-
-
-
-
-
-
-
 

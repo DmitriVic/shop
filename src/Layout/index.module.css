@@ -1,5 +1,6 @@
 /* stylelint-disable-next-line no-empty-source */
 .wrapper{
+	background: #F1F2F4;
 	display: grid;
 	grid-template-columns: auto  minmax(320px, 1224px) auto;
 	grid-template-rows: auto 1fr auto;
