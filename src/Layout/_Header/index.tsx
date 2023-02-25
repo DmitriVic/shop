@@ -53,7 +53,7 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 			</div>
 			<div className={s.wrapper}>
 				<div className={s['wrapper__content']}>
-					<div></div>
+					
 					<Link to="/" className={s.title}>Брошки(link дом.стр)</Link>
 					<div className={s.links}>
 						<Link to="account" >Личный кабинет</Link>

@@ -53,16 +53,23 @@
 	max-width: 1224px;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
 	color: #fff;
+	position: relative;
 }
 .enter{
 	cursor: pointer;
 }
 
 .links{
+	display: flex;
+	align-items: center;
 	cursor: pointer;
 	gap: 10;
+	position: absolute;
+	right: 0;
+	top: 0;
+	min-height: 42px;
 }
 
 .heart{
