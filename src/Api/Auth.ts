@@ -17,15 +17,12 @@ export const registerUser = (data: any) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  }).then((response) => {
-	return response.ok ? response.json() : Promise.reject(response)
   })
-  .catch(e => e.json())
-
+    .then((response) => {
+      return response.ok ? response.json() : Promise.reject(response);
+    })
+    .catch((e) => e.json());
 };
-// .then((response) => console.log(response.username[0]))
-
-//.catch(error => console.log(error.text()))
 
 export const authorize = (data: any) => {
   return fetch("http://127.0.0.1:8000/api/auth/token/", {
