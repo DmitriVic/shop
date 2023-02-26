@@ -7,12 +7,13 @@ import { useForm } from "react-hook-form";
 import { indexProps } from "./index.props";
 import { useState } from "react";
 import eye from "./img/eye.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { registerUser } from "../../Api/Auth";
 
 export const FormReg = ({}: indexProps): JSX.Element => {
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
   const [errorUserExists, setErrorUserExists] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -24,6 +25,9 @@ export const FormReg = ({}: indexProps): JSX.Element => {
 	 .then((data) => {
       if (data.username[0] === "Пользователь с таким именем уже существует.") {
         setErrorUserExists(data.username[0]);
+      } else {
+        alert("Пользователь успешно зарегистрирован, выполните вход");
+        navigate("/authorization");
       }
     });
   };
