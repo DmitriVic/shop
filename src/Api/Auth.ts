@@ -18,10 +18,8 @@ export const registerUser = (data: any) => {
     },
     body: JSON.stringify(data),
   })
-    .then((response) => {
-      return response.ok ? response.json() : Promise.reject(response);
-    })
-    .catch((e) => e.json());
+   
+
 };
 
 export const authorize = (data: any) => {
