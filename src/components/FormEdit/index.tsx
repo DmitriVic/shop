@@ -16,7 +16,6 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
   return (
     <div className={s.container}>
 		 <form className={s['form-auth']} onSubmit={handleSubmit(onSubmit)}>
-      <input className={s['inpt']} type="text" placeholder="Ник" {...register("Ник", {})} />
       <input className={s['inpt']} type="email" placeholder="Почта" {...register("Почта", {})} />
       <input className={s['inpt']} type="text" placeholder="Имя" {...register("Имя", {})} />
       <input className={s['inpt']} type="text" placeholder="Отчество" {...register("Отчество", {})} />

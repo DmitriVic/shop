@@ -87,3 +87,7 @@ h1 {
 	background: #AEAEAE;
 	color: #fff;
 }
+
+.errors{
+	color: red;
+}

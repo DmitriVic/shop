@@ -8,21 +8,33 @@ import { indexProps } from "./index.props";
 import { useState } from "react";
 import eye from "./img/eye.svg";
 import { Link } from "react-router-dom";
+import { registerUser } from "../../Api/Auth";
 
 export const FormReg = ({}: indexProps): JSX.Element => {
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
+  const [errorUserExists, setErrorUserExists] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => console.log(data);
-  console.log(errors);
+  const onSubmit = (data: any) => {
+	registerUser(data)
+	.then(data => console.log(data))
+	
+	//.then(data => setErrorUserExists(data.username[0]))
+	}
+	
+	
+
+  // console.log(errors);
 
   const togglePasswordVisibility = () => {
     console.log(isPasswordVisible);
     setPasswordVisibility((a) => !a);
+
+
   };
 
   return (
@@ -33,12 +45,18 @@ export const FormReg = ({}: indexProps): JSX.Element => {
           <a href="">По номеру телефона</a>
           <a href="">По Email</a>
         </div>
-        <input
-          className={s.inpt}
-          type="text"
-          placeholder="Имя"
-          {...register("name", { required: true, maxLength: 80 })}
-        />
+        <label htmlFor="">
+			<input
+			  className={s.inpt}
+			  type="text"
+			  placeholder="Имя"
+			  {...register("username", { required: true, maxLength: 80 })}
+			  onChange={()=>(setErrorUserExists(false))}
+			/>
+						{errors.username?.type === 'required' && <p className={s['errors']} role="alert">Имя обязательно</p>}
+						{errorUserExists && <p className={s['errors']} role="alert">{errorUserExists}</p>}
+		  </label>
+
         <label htmlFor="password" className={s.password}>
           <input
             className={s.inpt}
@@ -46,10 +64,12 @@ export const FormReg = ({}: indexProps): JSX.Element => {
             type={isPasswordVisible ? "text" : "password"}
             placeholder="Пароль"
             {...register("password", { required: true, maxLength: 12 })}
-          />
+          />	
           <span className={s["hidden-pass"]} onClick={togglePasswordVisibility}>
             <img src={eye} alt="" className={s.eye} />
           </span>
+			 {errors.password?.type === 'required' && <p className={s['errors']} role="alert">Пароль обязателен</p>}
+
         </label>
         <label htmlFor="">
           <button className={s.btn1} type="submit">Продолжить</button>

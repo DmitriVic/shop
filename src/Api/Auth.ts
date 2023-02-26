@@ -1,61 +1,82 @@
 //Возвращает токены из ssesionStorege
-export const tokenDate =()=>{
-	const storageData = sessionStorage.getItem("tokenData");
-    if (storageData !== null) {
-     return JSON.parse(storageData);
-	 }
-}
+export const tokenDate = () => {
+  const storageData = sessionStorage.getItem("tokenData");
+  if (storageData !== null) {
+    return JSON.parse(storageData);
+  }
+};
 
-export const putTokenData = (data:any) =>{
-	sessionStorage.setItem("tokenData", JSON.stringify(data));
-}
+export const putTokenData = (data: any) => {
+  sessionStorage.setItem("tokenData", JSON.stringify(data));
+};
 
-export const authorize =(data:any) =>{
-	return fetch("http://127.0.0.1:8000/api/auth/token/", {
-		method: "post",
-		headers: {
-		  "Content-Type": "application/json",
-		},
-		body: JSON.stringify(data),
-	 })	
-	 .then((response) => {
-		return response.ok ? response.json() : Promise.reject(`Ошибка: ${response.status}`)
+export const registerUser = (data: any) => {
+  return fetch("http://127.0.0.1:8000/api/auth/user/reg/", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }).then((response) => {
+	return response.ok ? response.json() : Promise.reject(response)
   })
-}
+  .catch(e => e.json())
 
-export const refreshToken = (token:string) =>{
-return fetch('http://127.0.0.1:8000/api/auth/token/refresh/',{
-		method: 'post',
-		headers: {
-			'Content-type' : 'application/json'
-		},
-		body: JSON.stringify({
-			refresh:token})
-	})
-	.then((response) => {
-		return response.ok ? response.json() : Promise.reject(`Ошибка: ${response.status}`)
-  })
-}
+};
+// .then((response) => console.log(response.username[0]))
 
-export const getUserInfo = (tokenAccess:any)=> {
-	console.log(tokenAccess);
-	console.log(tokenAccess.access);
-	
-	return fetch("http://127.0.0.1:8000/api/auth/users/103/", {
-			method: "get",
-			headers: {
-				'Authorization' : `Bearer ${tokenAccess.access}`
-			}
-		 })
-		 .then(response =>{
-			return response.ok ? response.json() : Promise.reject(`Ошибка: ${response.status}`)
-		 })
-}
+//.catch(error => console.log(error.text()))
+
+export const authorize = (data: any) => {
+  return fetch("http://127.0.0.1:8000/api/auth/token/", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }).then((response) => {
+    return response.ok
+      ? response.json()
+      : Promise.reject(`Ошибка: ${response.status}`);
+  });
+};
+
+export const refreshToken = (token: string) => {
+  return fetch("http://127.0.0.1:8000/api/auth/token/refresh/", {
+    method: "post",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      refresh: token,
+    }),
+  }).then((response) => {
+    return response.ok
+      ? response.json()
+      : Promise.reject(`Ошибка: ${response.status}`);
+  });
+};
+
+export const getUserInfo = (tokenAccess: any) => {
+  console.log(tokenAccess);
+  console.log(tokenAccess.access);
+
+  return fetch("http://127.0.0.1:8000/api/auth/users/103/", {
+    method: "get",
+    headers: {
+      Authorization: `Bearer ${tokenAccess.access}`,
+    },
+  }).then((response) => {
+    return response.ok
+      ? response.json()
+      : Promise.reject(`Ошибка: ${response.status}`);
+  });
+};
 
 // export const getUserInfo = (tokenAccess:any)=> {
 // 	console.log(tokenAccess);
 // 	console.log(tokenAccess.access);
-	
+
 // 	return fetch("http://127.0.0.1:8000/api/auth/users/103/", {
 // 			method: "get",
 // 			headers: {
