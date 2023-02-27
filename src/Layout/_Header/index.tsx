@@ -13,6 +13,10 @@ import  magnifier  from './img/magnifier.svg'
 import { Link } from 'react-router-dom'
 import { HeaderMenu } from '../../components/HeaderMenu'
 import { tokenDate } from '../../Api/Auth'
+import { useZustand } from '../../store'
+
+
+
 
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
@@ -37,9 +41,20 @@ import { tokenDate } from '../../Api/Auth'
 export const _Header = ({ className }:indexProps): JSX.Element => {
 
 	//console.log(sessionStorage.getItem("tokenDate"));
+	console.log(useZustand());
+	
+	 const auth = useZustand((state:any) => state.isAuth)
+	
 
+
+	// console.log(auth);
+	
+	
+	
+	
+	
 		const token = sessionStorage.getItem('tokenData')
-		console.log(token);
+		//console.log(token);
 		// if (token === true) {
 		// 	console.log('null000');
 			
@@ -73,14 +88,14 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 						<img className={s.telegram} src={telegram} alt="" />
 					</div>
 					
-					<Link to={ token ? "account" : "authorization" } className={s.enter}>{token ? <img src={person} alt="" /> : <p>Войти</p> }</Link>
+					<Link to={ auth ? "account" : "authorization" } className={s.enter}>{auth ? <img src={person} alt="" /> : <p>Войти</p> }</Link>
 				</div>
 			</div>
 			</div>
 			<div className={s.wrapper}>
 				<div className={s['wrapper__content']}>
 					
-					<Link to="/" className={s.title}>Брошки(link дом.стр)</Link>
+					<Link to="/"  className={s.title}>Брошки(link дом.стр)</Link>
 					<div className={s.links}>
 						<Link to="account" >Личный кабинет</Link>
 						<img className={s.heart} src={heart} alt="" />

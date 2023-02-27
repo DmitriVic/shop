@@ -9,9 +9,11 @@ import { useState } from "react";
 import eye from "./img/eye.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { authUser } from "../../Api/Auth";
+import { useZustand } from "../../store";
 
 export const FormAuth = ({}: indexProps): JSX.Element => {
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
+   const isAuthActive = useZustand((state:any) => state.isAuthActive)
   const navigate = useNavigate()
 
   const {
@@ -31,6 +33,7 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
       }
       const data = await response.json();
       sessionStorage.setItem("tokenData", JSON.stringify(data));
+		isAuthActive()
 		 navigate('../account')
 		
     };

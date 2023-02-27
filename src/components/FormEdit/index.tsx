@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 export const FormEdit = ({}: indexProps): JSX.Element => {
 	const { register, handleSubmit, formState: { errors } } = useForm();
 	const onSubmit = (data:any) => console.log(data);
-	console.log(errors);
+	//console.log(errors);
   return (
     <div className={s.container}>
 		 <form className={s['form-auth']} onSubmit={handleSubmit(onSubmit)}>

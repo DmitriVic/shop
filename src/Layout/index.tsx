@@ -10,6 +10,7 @@ import { _Main } from "./_Main"
 import { _Header } from "./_Header"
 import { indexProps } from "./index.props"
 import { Outlet } from 'react-router-dom'
+import { useZustand } from '../store'
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
 // 	return (
@@ -31,6 +32,15 @@ import { Outlet } from 'react-router-dom'
 
 
 export const Layout = ({  }:indexProps): JSX.Element => {
+	const token = sessionStorage.getItem('tokenData')
+	const isAuthActive = useZustand((state:any) => state.isAuthActive)
+	
+	if (token) {
+		isAuthActive()
+	}
+	
+	
+
 	return (
 		<div className={s.wrapper}>	
 			<_Header
