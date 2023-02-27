@@ -8,6 +8,7 @@ import  heart  from './img/heart.svg'
 import  person  from './img/person.svg'
 import  basket  from './img/basket.svg'
 import  vk  from './img/vk.svg'
+import  logo  from './img/logo.png'
 import  telegram  from './img/telegram.svg'
 import  magnifier  from './img/magnifier.svg'
 import { Link } from 'react-router-dom'
@@ -67,10 +68,10 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 			</div>
 			<div className={s.wrapper}>
 				<div className={s['wrapper__content']}>
-					
-					<Link to="/"  className={s.title}>Брошки(link дом.стр)</Link>
+					<Link to={"/"}><img  className={s['logo']} src={logo} alt="" /></Link>
+					{/* <Link to="/"  className={s.title}>Брошки(link дом.стр)</Link> */}
 					<div className={s.links}>
-						<Link to="account" >Личный кабинет</Link>
+						{/* <Link to="account" >Личный кабинет</Link> */}
 						<img className={s.heart} src={heart} alt="" />
 						<img className={s.basket} src={basket} alt="" />
 					</div>

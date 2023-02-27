@@ -15,7 +15,7 @@
 }
 .header{
 	grid-area: header;
-	background: #1dc9cf;
+	background: #F1A0BE;
 }
 .main{
 	grid-area: body;

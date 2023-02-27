@@ -43,7 +43,7 @@
 	
 
 .wrapper{
-	padding: 25px 10px;
+	padding: 0px 10px;
 	width: 100%;
 
 	
@@ -53,7 +53,7 @@
 	max-width: 1224px;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	color: #fff;
 	position: relative;
 }
@@ -65,11 +65,12 @@
 	display: flex;
 	align-items: center;
 	cursor: pointer;
-	gap: 10;
-	position: absolute;
+	column-gap: 5px;
+	/* gap: 10; */
+	/* position: absolute;
 	right: 0;
 	top: 0;
-	min-height: 42px;
+	min-height: 42px; */
 }
 
 .heart{
@@ -102,4 +103,8 @@
 .magnifier {
 	height: 25px;
 	width: 25px;
+}
+
+.logo{
+	width: 100px;
 }
