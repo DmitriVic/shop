@@ -30,12 +30,13 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
         setError("root.serverError", {
           type: "Пользователь с таким именем уже существует",
         });
+		  throw new Error("401");
       }
-      const data = await response.json();
+       const data = await response.json();
+		 //console.log(data)
       sessionStorage.setItem("tokenData", JSON.stringify(data));
 		isAuthActive()
 		 navigate('../account')
-		
     };
     ff();
 
