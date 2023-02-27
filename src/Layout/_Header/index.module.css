@@ -49,6 +49,7 @@
 	
 }
 .wrapper__content{
+	padding: 50px 0;
 	margin: 0 auto;
 	max-width: 1224px;
 	display: flex;
@@ -106,5 +107,8 @@
 }
 
 .logo{
-	width: 100px;
+	position: absolute;
+	width: 200px;
+	top: 15px;
+	left: 0;
 }
