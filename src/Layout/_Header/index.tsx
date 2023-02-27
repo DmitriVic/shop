@@ -5,12 +5,15 @@
 
 import { indexProps } from "./index.props"
 import  heart  from './img/heart.svg'
+import  person  from './img/person.svg'
 import  basket  from './img/basket.svg'
 import  vk  from './img/vk.svg'
 import  telegram  from './img/telegram.svg'
 import  magnifier  from './img/magnifier.svg'
 import { Link } from 'react-router-dom'
 import { HeaderMenu } from '../../components/HeaderMenu'
+import { tokenDate } from '../../Api/Auth'
+
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
 // 	return (
@@ -32,6 +35,28 @@ import { HeaderMenu } from '../../components/HeaderMenu'
 
 
 export const _Header = ({ className }:indexProps): JSX.Element => {
+
+	//console.log(sessionStorage.getItem("tokenDate"));
+
+		const token = sessionStorage.getItem('tokenData')
+		console.log(token);
+		// if (token === true) {
+		// 	console.log('null000');
+			
+		// }
+		
+	
+	// useEffect(() => {
+	// 	const tokenAccess = sessionStorage.getItem('tokenDate')
+	// 	console.log(tokenAccess);
+	// }, [])
+// 	const userData = sessionStorage.getItem('tokenDate');
+// if (userData) {
+//   console.log(userData);
+// } else {
+//   console.log('No user data found');
+// }
+
 	return (
 		<div className={className}>
 			<div className={s.panel}>
@@ -47,7 +72,8 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 						<img className={s.vk} src={vk} alt="" />
 						<img className={s.telegram} src={telegram} alt="" />
 					</div>
-					<Link to="authorization" className={s.enter}>Войти</Link>
+					
+					<Link to={ token ? "account" : "authorization" } className={s.enter}>{token ? <img src={person} alt="" /> : <p>Войти</p> }</Link>
 				</div>
 			</div>
 			</div>

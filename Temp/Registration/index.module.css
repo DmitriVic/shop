@@ -1,0 +1,14 @@
+.registration{
+	cursor: pointer;
+	padding: 20px;
+}
+
+.registration:hover{
+	transition: background 0.5s ease-in-out;
+	border-radius: 50%;
+	background: red;
+}
+
+.exit{
+	cursor: pointer;
+}

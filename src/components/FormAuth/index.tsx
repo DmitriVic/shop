@@ -1,24 +1,45 @@
 import s from "./index.module.css";
 // import { ButtonProps } from './Button.props'
-// import cn from 'classnames'
+import cn from "classnames";
 // import ArrowIcon from './arrow.svg';
 
 import { useForm } from "react-hook-form";
 import { indexProps } from "./index.props";
 import { useState } from "react";
 import eye from "./img/eye.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { authUser } from "../../Api/Auth";
 
 export const FormAuth = ({}: indexProps): JSX.Element => {
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
+  const navigate = useNavigate()
 
   const {
     register,
+    setError,
     handleSubmit,
-    formState: { errors },
+
+    formState: { errors, isValid },
   } = useForm();
-  const onSubmit = (data: any) => console.log(data);
-  console.log(errors);
+  const onSubmit = (obj: any) => {
+    const ff = async () => {
+      const response = await authUser(obj);
+      if (response.status === 401) {
+        setError("root.serverError", {
+          type: "Пользователь с таким именем уже существует",
+        });
+      }
+      const data = await response.json();
+      sessionStorage.setItem("tokenData", JSON.stringify(data));
+		 navigate('../account')
+		
+    };
+    ff();
+
+    //sessionStorage.setItem("tokenData", JSON.stringify(res));
+  };
+
+  // console.log(errors);
 
   const togglePasswordVisibility = () => {
     console.log(isPasswordVisible);
@@ -33,12 +54,21 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
           <a href="">По номеру телефона</a>
           <a href="">По Email</a>
         </div>
-        <input
-          className={s.inpt}
-          type="text"
-          placeholder="Имя"
-          {...register("name", { required: true, maxLength: 80 })}
-        />
+
+        <label htmlFor="">
+          <input
+            className={s.inpt}
+            type="text"
+            placeholder="Имя"
+            {...register("username", { required: true, maxLength: 80 })}
+          />
+
+          {errors.username?.type === "required" && (
+            <p className={s["errors"]} role="alert">
+              Имя обязательно
+            </p>
+          )}
+        </label>
         <label htmlFor="password" className={s.password}>
           <input
             className={s.inpt}
@@ -50,9 +80,25 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
           <span className={s["hidden-pass"]} onClick={togglePasswordVisibility}>
             <img src={eye} alt="" className={s.eye} />
           </span>
+
+			 {errors.password?.type === "required" && (
+            <p className={s["errors"]} role="alert">
+              Пароль обязателен
+            </p>
+          )}
+
         </label>
         <label htmlFor="">
-          <button className={s.btn1} type="submit">Продолжить</button>
+          {errors.root?.serverError.type && (
+            <p className={s["errors"]}>Неверный логин или пароль</p>
+          )}
+
+          <button
+            className={cn(s["btn1"], { [s.active]: isValid })}
+            type="submit"
+          >
+            Продолжить
+          </button>
           <div className={s.agreement}>
             Нажимая кнопку «Продолжить», Вы соглашаетесь на обработку и передачу
             своих персональных данных в соответствии с положением об обработке и
@@ -65,19 +111,19 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
             placeholder="Checkbox"
             {...register("Checkbox", {})}
             id="checkbox"
-				className={s.checkbox}
+            className={s.checkbox}
           />
           <span>
             Я предоставляю свое согласие на получение рекламных рассылок
           </span>
         </label>
-		  <div>
-			<div>Нет аккаунта?</div>
-			<Link to='../registration'><button className={s.btn2}>Зарегистрироваться</button></Link>
-			
-		</div>
+        <div>
+          <div>Нет аккаунта?</div>
+          <Link to="../registration">
+            <button className={s.btn2}>Зарегистрироваться</button>
+          </Link>
+        </div>
       </form>
-      
     </div>
   );
 };

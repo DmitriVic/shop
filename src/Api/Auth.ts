@@ -10,6 +10,7 @@ export const putTokenData = (data: any) => {
   sessionStorage.setItem("tokenData", JSON.stringify(data));
 };
 
+
 export const registerUser = (data: any) => {
   return fetch("http://127.0.0.1:8000/api/auth/user/reg/", {
     method: "post",
@@ -18,22 +19,17 @@ export const registerUser = (data: any) => {
     },
     body: JSON.stringify(data),
   })
-   
-
 };
 
-export const authorize = (data: any) => {
-  return fetch("http://127.0.0.1:8000/api/auth/token/", {
+
+export async function  authUser  (obj: any)  {
+  return await fetch("http://127.0.0.1:8000/api/auth/token/", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
-  }).then((response) => {
-    return response.ok
-      ? response.json()
-      : Promise.reject(`Ошибка: ${response.status}`);
-  });
+    body: JSON.stringify(obj),
+  })
 };
 
 export const refreshToken = (token: string) => {
