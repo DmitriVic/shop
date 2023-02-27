@@ -27,7 +27,7 @@ import { indexProps } from "./index.props"
 export const Home = ({  }:indexProps): JSX.Element => {
 	return (
 		<>
-			<div>Домашняя страница</div>
+			{/* <div>Домашняя страница</div> */}
 		</>
 	)
 }
