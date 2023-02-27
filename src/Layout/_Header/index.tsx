@@ -40,37 +40,10 @@ import { useZustand } from '../../store'
 
 export const _Header = ({ className }:indexProps): JSX.Element => {
 
-	//console.log(sessionStorage.getItem("tokenDate"));
-	console.log(useZustand());
 	
-	 const auth = useZustand((state:any) => state.isAuth)
-	
-
-
-	// console.log(auth);
-	
-	
-	
-	
-	
+	 const auth = useZustand((state:any) => state.isAuth)	
 		const token = sessionStorage.getItem('tokenData')
-		//console.log(token);
-		// if (token === true) {
-		// 	console.log('null000');
-			
-		// }
-		
-	
-	// useEffect(() => {
-	// 	const tokenAccess = sessionStorage.getItem('tokenDate')
-	// 	console.log(tokenAccess);
-	// }, [])
-// 	const userData = sessionStorage.getItem('tokenDate');
-// if (userData) {
-//   console.log(userData);
-// } else {
-//   console.log('No user data found');
-// }
+
 
 	return (
 		<div className={className}>
