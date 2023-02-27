@@ -1,13 +1,14 @@
 import s from "./index.module.css";
 // import { ButtonProps } from './Button.props'
-// import cn from 'classnames'
+import cn from 'classnames'
 // import ArrowIcon from './arrow.svg';
 
 import { useForm } from "react-hook-form";
 import { indexProps } from "./index.props";
 import { useState } from "react";
 import eye from "./img/eye.svg";
-import { Link, useNavigate } from "react-router-dom";
+import eyeOpen from "./img/eye-open.svg";
+import { Link,  useNavigate } from "react-router-dom";
 import { registerUser } from "../../Api/Auth";
 
 export const FormReg = ({}: indexProps): JSX.Element => {
@@ -19,7 +20,7 @@ export const FormReg = ({}: indexProps): JSX.Element => {
     handleSubmit,
     setError,
     clearErrors,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm();
   const onSubmit = (data: any) => {
     registerUser(data)
@@ -62,7 +63,7 @@ export const FormReg = ({}: indexProps): JSX.Element => {
             type="text"
             placeholder="Имя"
             {...register("username", { required: true, maxLength: 80 })}
-            onChange={() => clearErrors()}
+            onClick={() => clearErrors()}
           />
           {errors.root?.serverError.type && (
             <p className={s["errors"]}>
@@ -86,7 +87,7 @@ export const FormReg = ({}: indexProps): JSX.Element => {
             {...register("password", { required: true, maxLength: 12 })}
           />
           <span className={s["hidden-pass"]} onClick={togglePasswordVisibility}>
-            <img src={eye} alt="" className={s.eye} />
+            <img src={isPasswordVisible ? eye : eyeOpen} alt="" className={s.eye} />
           </span>
           {errors.password?.type === "required" && (
             <p className={s["errors"]} role="alert">
@@ -95,9 +96,11 @@ export const FormReg = ({}: indexProps): JSX.Element => {
           )}
         </label>
         <label htmlFor="">
-          <button className={s.btn1} type="submit">
+
+          <button   className={cn(s['btn1'], { [s.active]: isValid })} type="submit">
             Продолжить
           </button>
+
           <div className={s.agreement}>
             Нажимая кнопку «Продолжить», Вы соглашаетесь на обработку и передачу
             своих персональных данных в соответствии с положением об обработке и
