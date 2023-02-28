@@ -1,6 +1,6 @@
 //Вынуть токены из ssesionStorege
 export const tokenDate = () => {
-  const storageData = sessionStorage.getItem("tokenData");
+  const storageData = localStorage.getItem("tokenData");
   if (storageData !== null) {
     return JSON.parse(storageData);
   }
@@ -8,7 +8,7 @@ export const tokenDate = () => {
 
 //Положить токен в ssesionStorege
 export const putTokenData = (data: any) => {
-  sessionStorage.setItem("tokenData", JSON.stringify(data));
+  localStorage.setItem("tokenData", JSON.stringify(data));
 };
 
 

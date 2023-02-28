@@ -62,7 +62,7 @@ export const FormReg = ({}: indexProps): JSX.Element => {
             className={s.inpt}
             type="text"
             placeholder="Имя"
-            {...register("username", { required: true, maxLength: 80 })}
+            {...register("username", { required: true, maxLength: 20, pattern: /^\S*$/ })}
             onClick={() => clearErrors()}
           />
           {errors.root?.serverError.type && (
@@ -74,6 +74,11 @@ export const FormReg = ({}: indexProps): JSX.Element => {
           {errors.username?.type === "required" && (
             <p className={s["errors"]} role="alert">
               Имя обязательно
+            </p>
+          )}
+          {errors.username?.type === "pattern" && (
+            <p className={s["errors"]} role="alert">
+              Пробелы не допустимы
             </p>
           )}
         </label>

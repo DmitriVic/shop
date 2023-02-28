@@ -73,7 +73,7 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
             className={s.inpt}
             type="text"
             placeholder="Имя"
-            {...register("username", { required: true, maxLength: 80 })}
+            {...register("username", { required: true, maxLength: 20 })}
           />
 
           {errors.username?.type === "required" && (
