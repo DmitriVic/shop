@@ -9,7 +9,10 @@ import { useState } from "react";
 import eye from "./img/eye.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { authUser } from "../../Api/Auth";
+import { putTokenData } from "../../Api/Auth";
 import { useZustand } from "../../store";
+
+
 
 export const FormAuth = ({}: indexProps): JSX.Element => {
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
@@ -25,19 +28,25 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
   } = useForm();
   const onSubmit = (obj: any) => {
     const ff = async () => {
-      const response = await authUser(obj);
-      if (response.status === 401) {
-        setError("root.serverError", {
-          type: "Пользователь с таким именем уже существует",
-        });
-		  throw new Error("401");
-      }
-       const data = await response.json();
-		 //console.log(data)
-      sessionStorage.setItem("tokenData", JSON.stringify(data));
-		isAuthActive()
-		 navigate('../account')
+		try {
+			const response = await authUser(obj);
+			if (response.status === 401) {
+			  setError("root.serverError", {
+				 type: "Пользователь с таким именем уже существует",
+			  });
+			  throw new Error("401");
+			}
+			 const data = await response.json();
+			 putTokenData(data)
+			//sessionStorage.setItem("tokenData", JSON.stringify(data));
+			isAuthActive()
+			 navigate('../account')
+		} catch (error) {
+			console.log("Ошибка ответа сервера");
+			
+		}
     };
+
     ff();
 
     //sessionStorage.setItem("tokenData", JSON.stringify(res));
