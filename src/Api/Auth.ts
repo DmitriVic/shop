@@ -1,4 +1,4 @@
-//Возвращает токены из ssesionStorege
+//Вынуть токены из ssesionStorege
 export const tokenDate = () => {
   const storageData = sessionStorage.getItem("tokenData");
   if (storageData !== null) {
@@ -6,6 +6,7 @@ export const tokenDate = () => {
   }
 };
 
+//Положить токен в ssesionStorege
 export const putTokenData = (data: any) => {
   sessionStorage.setItem("tokenData", JSON.stringify(data));
 };
@@ -52,16 +53,19 @@ export const getUserInfo = (tokenAccess: any) => {
   console.log(tokenAccess);
   console.log(tokenAccess.access);
 
-  return fetch("http://127.0.0.1:8000/api/auth/users/103/", {
+  return fetch("http://127.0.0.1:8000/api/auth/users/Дмитрий/", {
     method: "get",
     headers: {
       Authorization: `Bearer ${tokenAccess.access}`,
     },
   }).then((response) => {
+	console.log(response);
     return response.ok
       ? response.json()
       : Promise.reject(`Ошибка: ${response.status}`);
   });
+  
+  
 };
 
 // export const getUserInfo = (tokenAccess:any)=> {

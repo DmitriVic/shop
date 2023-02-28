@@ -13,7 +13,7 @@ import  telegram  from './img/telegram.svg'
 import  magnifier  from './img/magnifier.svg'
 import { Link } from 'react-router-dom'
 import { HeaderMenu } from '../../components/HeaderMenu'
-import { tokenDate } from '../../Api/Auth'
+import { getUserInfo, tokenDate } from '../../Api/Auth'
 import { useZustand } from '../../store'
 
 
@@ -43,8 +43,14 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 
 	
 	 const auth = useZustand((state:any) => state.isAuth)	
-		const token = sessionStorage.getItem('tokenData')
+		//const token = sessionStorage.getItem('tokenData')
 
+	const	handleGetUserInfo = () => {
+		console.log(tokenDate())
+		getUserInfo(tokenDate())
+	}
+		
+		
 
 	return (
 		<div className={className}>
@@ -72,6 +78,7 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 					{/* <Link to="/"  className={s.title}>Брошки(link дом.стр)</Link> */}
 					<div className={s.links}>
 						{/* <Link to="account" >Личный кабинет</Link> */}
+						<p onClick={handleGetUserInfo}>Просмотр профиля пользователя</p>
 						<img className={s.heart} src={heart} alt="" />
 						<img className={s.basket} src={basket} alt="" />
 					</div>
