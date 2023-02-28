@@ -1,10 +1,17 @@
-:root {
+/* :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
+} */
+
+:root{
+	--font-family: 'Roboto', sans-serif;
+	--main-color: #F1A0BE;
+	--second-color: #AB7285;
+	--button-active-color: #972750;
 }
 
 * {
@@ -21,6 +28,7 @@ body {
 	scroll-behavior: smooth;
 	font-family: Roboto, sans-serif;
 	overflow-x: hidden;
+	font-family: var(--font-family);
 }
 
 ul li {
@@ -36,15 +44,3 @@ input {
 	outline: none;
 }
 
-@media (prefers-color-scheme: light) {
-	:root {
-		color: #213547;
-		background-color: #ffffff;
-	}
-	a:hover {
-		color: #747bff;
-	}
-	button {
-		background-color: #f9f9f9;
-	}
-}

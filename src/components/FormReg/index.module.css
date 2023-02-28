@@ -93,5 +93,5 @@ h1 {
 }
 
 .active{
-	background: #95284F;
+	background: var(--button-active-color);
 }
