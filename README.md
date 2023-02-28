@@ -22,7 +22,7 @@ python -m venv .venv
 * [x] После команды активации в начале командной строки должна быть надпись `(.venv)...` 
 * [x] Устанавливаем связи согласно файлу requirements.txt
 ```
-python.exe -m pip install -r requirements.txt
+python.exe -m pip install -r req.txt
 ```
 * [x] Переходим в папку `shop\backend` и запускаем сервер:
 ```
