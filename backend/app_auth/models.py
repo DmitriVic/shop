@@ -8,6 +8,9 @@ class User(AbstractUser):
     second_name = models.CharField(max_length=150, blank=True, verbose_name='Отчество')
     isd = models.CharField(max_length=4, blank=True, verbose_name='Телефонный код станы')
     phonenumber = models.CharField(max_length=10, blank=True, verbose_name='Телефон')
+    avatar = models.ImageField(upload_to='avatars', blank=True, null=True)
+    place = models.CharField(max_length=100, blank=True, verbose_name='Город')
+    birthday = models.DateField(blank=True, verbose_name='День рождения')
 
     @property
     def get_full_name(self):
