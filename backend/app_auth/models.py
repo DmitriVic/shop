@@ -10,6 +10,7 @@ class User(AbstractUser):
     phonenumber = models.CharField(max_length=10, blank=True, verbose_name='Телефон')
     avatar = models.ImageField(upload_to='avatars', blank=True, null=True)
     place = models.CharField(max_length=100, blank=True, verbose_name='Город')
+    birthday = models.DateField(blank=True, verbose_name='День рождения')
 
     @property
     def get_full_name(self):
