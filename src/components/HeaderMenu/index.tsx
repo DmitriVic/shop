@@ -32,10 +32,10 @@ export const HeaderMenu = ({  }:indexProps): JSX.Element => {
 				<Link to="">Каталог украшений</Link>
 				<Link to="">Коллекции</Link>
 				<Link to="">Акции</Link>
-				<Link to="">Адреса магазинов</Link>
+				{/* <Link to="">Адреса магазинов</Link>
 				<Link to="">Сервисы</Link>
 				<Link to="">Программа лояльности</Link>
-				<Link to="">Вакансии</Link>
+				<Link to="">Вакансии</Link> */}
 				<Link to="">Партнерам</Link>
 			</ul>
 		</div>

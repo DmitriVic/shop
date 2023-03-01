@@ -13,6 +13,9 @@ import { Home } from "./Pages/Home";
 import { Registration } from "./Pages/Registration";
 import { Account } from "./Pages/Account";
 import { Notfoundpage } from "./Pages/Notfoundpage";
+import { Profile } from "./Pages/Profile";
+import { Orders } from "./Pages/Orders";
+import { Favourites } from "./Pages/Favourites";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,8 +24,9 @@ const router = createBrowserRouter(
       <Route path="authorization" element={<Authorization />} />
       <Route path="registration" element={<Registration />} />
       <Route path="account" element={<Account />}>
-        <Route path="contacts" element={<p>Our contact</p>} />
-        <Route path="team" element={<p>Our team</p>} />
+        <Route path="Profile" element={<Profile/>} />
+        <Route path="Orders" element={<Orders/>} />
+        <Route path="Favourites" element={<Favourites/>} />
       </Route>
 		<Route path="*" element={<Notfoundpage />} />
     </Route>
