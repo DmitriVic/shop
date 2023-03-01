@@ -13,23 +13,83 @@ h1 {
 .form-auth{
 	border-radius: 3px;
 	padding: 40px;
-	width: 400px;
-	/* margin: 40px; */
-	display: grid;
-	gap: 20px;
+	display: grid; 
+	grid-template-columns: 1fr 1fr; 
+	grid-template-rows: 1fr 1fr ; 
+	gap: 0px 0px; 
+	grid-template-areas: 
+	  "a b"
+	  "a c"
+	  ". ."; 
+	gap: 40px;
 	color: #757575;
 	font-size: 14px;
 	background: #fff;
 }
-.links{
+
+.person-date{
+	grid-area: a;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+
+}
+
+.person-date__box{
+	display: flex;
+	column-gap: 50px;
+}
+
+.buttons{
+	margin-top: 80px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	row-gap: 30px;
+}
+
+
+.data-communication{
+	grid-area: b;
+	display: grid;
+	
+}
+
+.delivery-address{
+	display: grid;
+	grid-area: c;
+	
+}
+
+.title {
+	font-size: 26px;
+	color: #000;
+	font-weight: 500;
+}
+
+
+
+.avatar {
+	width: 100px;
+	height: 100px;
+	background: #000;
+}
+
+.initials{
+	max-width: 350px;
+}
+/* .links{
 	font-size: 12px;
 	display: flex;
 	gap: 10px;
 	
-}
+} */
 
 .inpt {
 	border-bottom: 1px solid #AEAEAE;
+	max-width: 350px;
 	width: 100%;
 	/* padding: 10px 0; */
 	margin: 10px 0;
@@ -37,6 +97,7 @@ h1 {
 
 .btn1 {
 	border-radius: 2px;
+	max-width: 350px;
 	width: 100%;
 	padding: 10px 0;
 	font-size: 18px;
@@ -44,7 +105,7 @@ h1 {
 	background: #AEAEAE;
 	color: #fff;
 }
-.agreement{
+/* .agreement{
 	margin-top: 10px;
 	font-size: 14px;
 	text-align: center;
@@ -73,7 +134,7 @@ h1 {
 
 .label-check span {
 	margin-left: 5px;
-}
+} */
 
 .btn2{
 	display: block;
@@ -95,3 +156,4 @@ h1 {
 .active{
 	background: var(--button-active-color);
 }
+
