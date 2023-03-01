@@ -68,7 +68,7 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 						<img className={s.telegram} src={telegram} alt="" />
 					</div>
 					
-					<Link to={ auth ? "account" : "authorization" } className={s.enter}>{auth ? <img src={person} alt="" /> : <p>Войти</p> }</Link>
+					<Link to={ auth ? "account/Profile" : "authorization" } className={s.enter}>{auth ? <img src={person} alt="" /> : <p>Войти</p> }</Link>
 				</div>
 			</div>
 			</div>
