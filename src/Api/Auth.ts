@@ -1,3 +1,6 @@
+
+
+
 //Вынуть токены из ssesionStorege
 export const tokenDate = () => {
   const storageData = localStorage.getItem("tokenData");
@@ -6,11 +9,14 @@ export const tokenDate = () => {
   }
 };
 
+//-------------------------------------------------------------------------------------------------- 
+
 //Положить токен в ssesionStorege
-export const putTokenData = (data: any) => {
-  localStorage.setItem("tokenData", JSON.stringify(data));
+export const putTokenData = (data: any, tokenData:string ) => {
+  localStorage.setItem( tokenData, JSON.stringify(data));
 };
 
+//-------------------------------------------------------------------------------------------------- 
 
 export const registerUser = (data: any) => {
   return fetch("http://127.0.0.1:8000/api/auth/user/reg/", {
@@ -22,6 +28,7 @@ export const registerUser = (data: any) => {
   })
 };
 
+//-------------------------------------------------------------------------------------------------- 
 
 export async function  authUser  (obj: any)  {
   return await fetch("http://127.0.0.1:8000/api/auth/token/", {
@@ -32,6 +39,20 @@ export async function  authUser  (obj: any)  {
     body: JSON.stringify(obj),
   })
 };
+
+//--------------------------------------------------------------------------------------------------
+
+// export async function  editUser  (obj: any)  {
+// 	return await fetch("http://127.0.0.1:8000/api/auth/token/", {
+// 	  method: "post",
+// 	  headers: {
+// 		 "Content-Type": "application/json",
+// 	  },
+// 	  body: JSON.stringify(obj),
+// 	})
+//  };
+
+
 
 export const refreshToken = (token: string) => {
   return fetch("http://127.0.0.1:8000/api/auth/token/refresh/", {

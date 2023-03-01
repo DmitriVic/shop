@@ -37,8 +37,9 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 			  throw new Error("401");
 			}
 			 const data = await response.json();
-			 putTokenData(data)
-			//sessionStorage.setItem("tokenData", JSON.stringify(data));
+			 console.log(obj.username);
+			 putTokenData(data, 'tokenData')
+			putTokenData(obj.username, 'userName')
 			isAuthActive()
 			 navigate('../account')
 		} catch (error) {

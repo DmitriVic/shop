@@ -32,13 +32,14 @@ import { useZustand } from '../store'
 
 
 export const Layout = ({  }:indexProps): JSX.Element => {
-	const token = sessionStorage.getItem('tokenData')
+	const token = localStorage.getItem('tokenData')
 	const isAuthActive = useZustand((state:any) => state.isAuthActive)
 	
 	if (token) {
 		isAuthActive()
 	}
 	
+
 	
 
 	return (
