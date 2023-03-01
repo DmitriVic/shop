@@ -41,7 +41,7 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 			 putTokenData(data, 'tokenData')
 			putTokenData(obj.username, 'userName')
 			isAuthActive()
-			 navigate('../account')
+			navigate('/')
 		} catch (error) {
 			console.log("Ошибка ответа сервера");
 			

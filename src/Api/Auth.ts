@@ -1,4 +1,11 @@
 
+export const removeUserName = () => {
+	localStorage.removeItem('userName');
+ };
+
+//Удалить инфо о плозователе из localStorage
+
+//-------------------------------------------------------------------------------------------------- 
 
 
 //Вынуть токены из ssesionStorege

@@ -5,6 +5,9 @@ import cn from 'classnames'
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { indexProps } from "./index.props";
+import { useNavigate } from "react-router-dom";
+import { removeUserName } from "../../Api/Auth";
+import { useZustand } from "../../store";
 
 interface IFormInput {
   email: string;
@@ -16,7 +19,20 @@ interface IFormInput {
   delivery_address: string;
 }
 
+
+//const isAuthActive = useZustand((state:any) => state.isAuthActive)
+
 export const FormEdit = ({}: indexProps): JSX.Element => {
+	const isAuthDisActive = useZustand((state:any) => state.isAuthDisActive)
+
+	const navigate = useNavigate()
+	const handleExit = (e:any) => {
+		e.preventDefault()
+		removeUserName()
+		isAuthDisActive()
+		navigate('/')
+	}
+
   const {
     register,
     handleSubmit,
@@ -71,7 +87,9 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 				<button type="submit" className={s["btn1"]}>
 				  Сохранить
 				</button>
-				<button className={s["btn1"]}>Выйти</button>
+
+				<button onClick={handleExit} className={cn(s["btn1"],s["btn-hover"])}>Выйти</button>
+
 			 </div>
          
         </div>

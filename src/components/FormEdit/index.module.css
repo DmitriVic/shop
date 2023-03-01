@@ -105,6 +105,10 @@ h1 {
 	background: #AEAEAE;
 	color: #fff;
 }
+
+.btn-hover:hover {
+	background: var(--button-active-color);
+}
 /* .agreement{
 	margin-top: 10px;
 	font-size: 14px;

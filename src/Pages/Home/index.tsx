@@ -1,4 +1,4 @@
-// import s from './index.module.css'
+import s from './index.module.css'
 // import { ButtonProps } from './Button.props'
 // import cn from 'classnames'
 // import ArrowIcon from './arrow.svg';
@@ -27,7 +27,7 @@ import { indexProps } from "./index.props"
 export const Home = ({  }:indexProps): JSX.Element => {
 	return (
 		<>
-			{/* <div>Домашняя страница</div> */}
+		<div style={{fontSize: '40px', textAlign: "center"}}>Домашняя страница</div>
 		</>
 	)
 }
