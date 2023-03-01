@@ -5,7 +5,7 @@ import s from './index.module.css'
 
 import { FormEdit } from "../../components/FormEdit"
 import { indexProps } from "./index.props"
-import { Outlet, Route, Routes } from 'react-router-dom'
+import { NavLink, Outlet, Route, Routes } from 'react-router-dom'
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
 // 	return (
@@ -30,6 +30,11 @@ export const Account = ({  }:indexProps): JSX.Element => {
 	return (
 		<>
 			<div className={s['title']}>Личный кабинет</div>
+			<ul className={s['nav']}>
+				<NavLink to={''} >Профиль</NavLink>
+				<NavLink to={''} >Заказы</NavLink>
+				<NavLink to={''} >Избранное</NavLink>
+			</ul>
 			<FormEdit/>
 			{/* <Routes>
 				<Route path="a1" element={<div>Hello world</div>}/>
