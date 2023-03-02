@@ -41,8 +41,17 @@ h1 {
 	column-gap: 50px;
 }
 
+@media (max-width:1024px) {
+	.person-date__box{
+		display: flex;
+		column-gap: 50px;
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
 .buttons{
-	margin-top: 80px;
+	margin-top: 50px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -72,9 +81,17 @@ h1 {
 
 
 .avatar {
-	width: 100px;
-	height: 100px;
+	max-width: 150px;
+	min-height: 150px;
+	display: flex;
 	background: #000;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.image{
+	width: 100%;
+	object-fit: cover;
 }
 
 .initials{
@@ -161,3 +178,7 @@ h1 {
 	background: var(--button-active-color);
 }
 
+.date-birth{
+	font-size: 16px;
+	color: #757575;
+}

@@ -8,8 +8,8 @@ import { indexProps } from "./index.props";
 import { useState } from "react";
 import eye from "./img/eye.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { authUser } from "../../Api/Auth";
-import { putTokenData } from "../../Api/Auth";
+import { authUser, putDataLocalStorage } from "../../Api/Auth";
+
 import { useZustand } from "../../store";
 
 
@@ -38,8 +38,8 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 			}
 			 const data = await response.json();
 			 console.log(obj.username);
-			 putTokenData(data, 'tokenData')
-			putTokenData(obj.username, 'userName')
+			 putDataLocalStorage(data, 'tokenData')
+			 putDataLocalStorage(obj.username, 'userName')
 			isAuthActive()
 			navigate('/')
 		} catch (error) {

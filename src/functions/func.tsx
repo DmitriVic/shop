@@ -1,5 +1,6 @@
-import { removeUserName } from "../Api/Auth"
+import { removeUserNameLocalStorage } from "../Api/Auth"
 
 export const handleExit = () => {
-	removeUserName()
+	removeUserNameLocalStorage()
 }
+

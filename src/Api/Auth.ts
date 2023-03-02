@@ -1,16 +1,18 @@
 
-export const removeUserName = () => {
-	localStorage.removeItem('userName');
- };
+
 
 //Удалить инфо о плозователе из localStorage
+
+export const removeUserNameLocalStorage = () => {
+	localStorage.removeItem('userName');
+ };
 
 //-------------------------------------------------------------------------------------------------- 
 
 
-//Вынуть токены из ssesionStorege
-export const tokenDate = () => {
-  const storageData = localStorage.getItem("tokenData");
+//Вынуть значение из localStorage 
+export const getDataLocalStorage = (data:string) => {
+  const storageData = localStorage.getItem(data);
   if (storageData !== null) {
     return JSON.parse(storageData);
   }
@@ -18,8 +20,8 @@ export const tokenDate = () => {
 
 //-------------------------------------------------------------------------------------------------- 
 
-//Положить токен в ssesionStorege
-export const putTokenData = (data: any, tokenData:string ) => {
+//Положить ключ-значение в localStorage
+export const putDataLocalStorage = (tokenData:string ,data: any) => {
   localStorage.setItem( tokenData, JSON.stringify(data));
 };
 
@@ -59,9 +61,12 @@ export async function  authUser  (obj: any)  {
 // 	})
 //  };
 
+//--------------------------------------------------------------------------------------------------
 
 
-export const refreshToken = (token: string) => {
+// обновить токен
+export const refreshToken = () => {
+	const token =	getDataLocalStorage('tokenData').refresh
   return fetch("http://127.0.0.1:8000/api/auth/token/refresh/", {
     method: "post",
     headers: {
@@ -74,17 +79,19 @@ export const refreshToken = (token: string) => {
     return response.ok
       ? response.json()
       : Promise.reject(`Ошибка: ${response.status}`);
-  });
+  }).then(data => (putDataLocalStorage('tokenData', data)))
 };
 
+
+//--------------------------------------------------------------------------------------------------
+
 export const getUserInfo = (tokenAccess: any) => {
-  console.log(tokenAccess);
   console.log(tokenAccess.access);
 
-  return fetch("http://127.0.0.1:8000/api/auth/users/Дмитрий/", {
+  return fetch("http://127.0.0.1:8000/api/auth/user/dima", {
     method: "get",
     headers: {
-      Authorization: `Bearer ${tokenAccess.access}`,
+      Authorization: `JWT ${tokenAccess.access}`,
     },
   }).then((response) => {
 	console.log(response);
@@ -95,6 +102,9 @@ export const getUserInfo = (tokenAccess: any) => {
   
   
 };
+
+
+
 
 // export const getUserInfo = (tokenAccess:any)=> {
 // 	console.log(tokenAccess);
