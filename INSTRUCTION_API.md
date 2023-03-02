@@ -56,29 +56,35 @@ Authorization: 'JWT eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc3NzY0MTkxLCJpYXQi
 Последнее значение в словаре без запятой
 ```
 {
-    "email": "<email>",
-    "first_name": "<str>",
-    "second_name": "<str>",
-    "last_name": "<str>",
-    "isd": "<str(int_4)>",
-    "phonenumber": "<str(int_10)>",
-    "zip_code": "<str(int_10)>",
-    "delivery_address": "<str>"
+    "email": "admin@mail.ru",
+    "first_name": "Админ",
+    "second_name": "Админович",
+    "last_name": "Админов",
+    "birthday": "2010-01-13",
+    "isd": "7",
+    "phonenumber": "9876543212",
+    "zip_code": "192242",
+    "delivery_address": "На деревню Бабушке 154",
+    "place": "Санкт-Петербург",
+    "avatar": "http://127.0.0.1:8000/media/avatars/prikol-nye-kartinki-na-avu1.jpg"
 }
 ```
 - Вид ответа Body (JSON):
 ```JSON
 {
-    "username": "<str:username>", 
-    "email": "exemple@mail.ru",
+    "username": "admin",
+    "email": "admin@mail.ru",
     "first_name": "Админ",
     "second_name": "Админович",
     "last_name": "Админов",
     "get_full_name": "Админ Админович Админов",
-    "isd": "7",                  <---------------------------Телефонный код страны
+    "birthday": "2010-01-13",
+    "isd": "7",
     "phonenumber": "9876543212",
-    "zip_code": "192242",        <---------------------------Почтовый индекс
-    "delivery_address": "На деревню Бабушке 154"
+    "zip_code": "192242",
+    "delivery_address": "На деревню Бабушке 154",
+    "place": "Санкт-Петербург",
+    "avatar": "http://127.0.0.1:8000/media/avatars/prikol-nye-kartinki-na-avu1.jpg"
 }
 ```
 ### 4. Редактирование пароля профиля пользователя:
