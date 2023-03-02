@@ -49,8 +49,7 @@ value= JWT <HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>
 - Требование авторизации: `требуется либо модератор либо владелец профиля` 
 - Вид запроса Heders:
 ```
-key= Authorization
-value= JWT eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc3NzY0MTkxLCJpYXQiOjE2Nzc3NjM4OTEsImp0aSI6ImVjYmJkMjI5MTBkMzRmNTk5MDUxNTgzYWJkMzc3ZmU5IiwidXNlcl9pZCI6NDV9.uSUxsPqzTGajPMFnLKI4jnWLqCBPUwxfuI0uqK-PH_A
+Authorization: 'JWT eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc3NzY0MTkxLCJpYXQiOjE2Nzc3NjM4OTEsImp0aSI6ImVjYmJkMjI5MTBkMzRmNTk5MDUxNTgzYWJkMzc3ZmU5IiwidXNlcl9pZCI6NDV9.uSUxsPqzTGajPMFnLKI4jnWLqCBPUwxfuI0uqK-PH_A'
 ```
 - Вид запроса Body (JSON):   
 Любое количество из перечисленных значений.   
