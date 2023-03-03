@@ -5,13 +5,26 @@
 	display: flex;
 	justify-content: center;
 	width: 100%;
+	height: 100%;
 	background: #F1F2F4;
 }
 h1 {
 	color: #1DC9CF;
 }
 .form-auth{
-	border-radius: 3px;
+	display: grid;
+	padding: 20px;
+	grid-template-columns: 1fr auto; 
+	gap: 0px 0px; 
+	grid-template-areas: 
+	  "a b"
+	  "c d"; 
+	color: #757575;
+	font-size: 14px;
+	background: #fff;
+	gap: 40px;
+	/* grid-template-columns: 1fr 1fr; */
+	/* border-radius: 3px;
 	padding: 40px;
 	display: grid; 
 	grid-template-columns: 1fr 1fr; 
@@ -24,7 +37,7 @@ h1 {
 	gap: 40px;
 	color: #757575;
 	font-size: 14px;
-	background: #fff;
+	background: #fff; */
 }
 
 .person-date{
@@ -32,6 +45,8 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	gap: 20px;
+	
 	
 
 }
@@ -51,24 +66,40 @@ h1 {
 }
 
 .buttons{
-	margin-top: 50px;
+	grid-area: c;
+
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
 	row-gap: 30px;
+	
 }
 
 
 .data-communication{
 	grid-area: b;
-	display: grid;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	/* align-items: center;
+	justify-content: space-around; */
 	
 }
 
 .delivery-address{
-	display: grid;
-	grid-area: c;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	/* align-items: center;
+	justify-content: space-around; */
+	grid-area: d;
+	
+}
+.delivery-address__inputs{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
 	
 }
 

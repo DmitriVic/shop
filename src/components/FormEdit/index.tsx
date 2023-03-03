@@ -32,7 +32,7 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
   const handleExit = (e: any) => {
     e.preventDefault();
     //removeUserNameLocalStorage();
-	 localStorage.clear()
+    localStorage.clear();
     isAuthDisActive();
     navigate("/");
   };
@@ -54,7 +54,11 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 
           <div className={s["person-date__box"]}>
             <div className={s["avatar"]}>
-              <img className={s['image']} src="https://r2.mt.ru/u20/photo98BB/20964122176-0/original.gif" alt="" />
+              <img
+                className={s["image"]}
+                src="https://r2.mt.ru/u20/photo98BB/20964122176-0/original.gif"
+                alt=""
+              />
             </div>
 
             <div className={s["initials"]}>
@@ -81,35 +85,32 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
               />
 
               <input
-				  		className={cn(s["date-birth"],s["inpt"])}
-					  type="date"
+                className={cn(s["date-birth"], s["inpt"])}
+                type="date"
                 placeholder="dateBirth"
-                {...register("birthday", { })}
+                {...register("birthday", {})}
               />
             </div>
           </div>
 
           {/* <input placeholder="Дата рождения" className={cn(s["date-birth"],s["inpt"])} type="text" /> */}
+        </div>
 
-          <div className={s["buttons"]}>
-            <button type="submit" className={s["btn1"]}>
-              Сохранить
-            </button>
+        <div className={s["buttons"]}>
+          <button type="submit" className={s["btn1"]}>
+            Сохранить
+          </button>
 
-				<button
-            
-              className={cn(s["btn1"], s["btn-hover"])}
-            >
-              Сменить пароль
-            </button>
+          <button className={cn(s["btn1"], s["btn-hover"])}>
+            Сменить пароль
+          </button>
 
-            <button
-              onClick={handleExit}
-              className={cn(s["btn1"], s["btn-hover"])}
-            >
-              Выйти
-            </button>
-          </div>
+          <button
+            onClick={handleExit}
+            className={cn(s["btn1"], s["btn-hover"])}
+          >
+            Выйти
+          </button>
         </div>
 
         <div className={s["data-communication"]}>
@@ -149,28 +150,28 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 
         <div className={s["delivery-address"]}>
           <div className={s["title"]}>Адрес доставки</div>
-          <input
-            className={s["inpt"]}
-            type="number"
-            placeholder="Индекс"
-            {...register("zip_code", {})}
-          />
-
-          <input
-            type="text"
-            className={s["inpt"]}
-            placeholder="Город"
-            name=""
-            id=""
-          />
-
-          <input
-            className={s["inpt"]}
-            type="text"
-            placeholder="Адрес"
-            {...register("delivery_address", {})}
-          />
-        </div>
+          <div className={s['delivery-address__inputs']}>
+				<input
+				  className={s["inpt"]}
+				  type="number"
+				  placeholder="Индекс"
+				  {...register("zip_code", {})}
+				/>
+				<input
+				  type="text"
+				  className={s["inpt"]}
+				  placeholder="Город"
+				  name=""
+				  id=""
+				/>
+				<input
+				  className={s["inpt"]}
+				  type="text"
+				  placeholder="Адрес"
+				  {...register("delivery_address", {})}
+				/>
+						  </div>
+			 </div>
       </form>
     </div>
   );

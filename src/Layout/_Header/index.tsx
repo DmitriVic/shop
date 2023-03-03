@@ -52,13 +52,19 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 	refreshToken()
 	}
 	const test = ()=> {
-		var date1 = new Date(2020, 6, 25);
-		var date2 = new Date(2020, 7, 20);
+		//var date1 = new Date(2020, 6, 25);
+		//var date2 = new Date(2020, 7, 20);
 		// var differenceInMilliSeconds = date2.getTime() - date1.getTime();
 		// var differenceInSeconds = differenceInMilliSeconds / 1000;
-		console.log(date1.toString());
+		//console.log(date1.toString());
+		const newDate = new Date()
+		 const tokenData = getDataLocalStorage('tokenData')
+		 const time = tokenData.timeCreateToken
+		const date = new Date(time)
+		console.log(date);
+		console.log(newDate > date);
+
 		
-		 
 	}
 		
 
