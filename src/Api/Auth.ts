@@ -1,6 +1,12 @@
 
 
 
+export const createDateToken = () => {
+	const date = new Date()
+}
+
+//--------------------------------------------------------------------------------------------------
+
 //Удалить инфо о плозователе из localStorage
 
 export const removeUserNameLocalStorage = () => {

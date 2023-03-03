@@ -37,11 +37,20 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 			  throw new Error("401");
 			}
 			 const data = await response.json();
-			 console.log(obj.username);
-			 putDataLocalStorage(data, 'tokenData')
-			 putDataLocalStorage(obj.username, 'userName')
+			// console.log(obj.username);
+			 const time = new Date().toString()
+			 data.timeCreateToken = time
+			 //putDataLocalStorage('timeCreateToken',time)
+			 putDataLocalStorage('tokenData',data )
+			 putDataLocalStorage('userName',obj.username )
 			isAuthActive()
 			navigate('/')
+			//-------------------
+
+
+
+
+			//-------------------
 		} catch (error) {
 			console.log("Ошибка ответа сервера");
 			

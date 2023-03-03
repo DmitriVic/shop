@@ -51,7 +51,15 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 	const	handleRefreshToken = () => {
 	refreshToken()
 	}
+	const test = ()=> {
+		var date1 = new Date(2020, 6, 25);
+		var date2 = new Date(2020, 7, 20);
+		// var differenceInMilliSeconds = date2.getTime() - date1.getTime();
+		// var differenceInSeconds = differenceInMilliSeconds / 1000;
+		console.log(date1.toString());
 		
+		 
+	}
 		
 
 	return (
@@ -80,6 +88,7 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 					{/* <Link to="/"  className={s.title}>Брошки(link дом.стр)</Link> */}
 					<div className={s.links}>
 						{/* <Link to="account" >Личный кабинет</Link> */}
+						<p onClick={test}>TEST</p>
 						<p onClick={handleGetUserInfo}>Просмотр профиля пользователя</p>
 						<br />
 						<p onClick={handleRefreshToken}>refresh токен</p>

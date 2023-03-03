@@ -31,7 +31,8 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
   const navigate = useNavigate();
   const handleExit = (e: any) => {
     e.preventDefault();
-    removeUserNameLocalStorage();
+    //removeUserNameLocalStorage();
+	 localStorage.clear()
     isAuthDisActive();
     navigate("/");
   };
