@@ -13,7 +13,7 @@ import  telegram  from './img/telegram.svg'
 import  magnifier  from './img/magnifier.svg'
 import { Link } from 'react-router-dom'
 import { HeaderMenu } from '../../components/HeaderMenu'
-import { getDataLocalStorage, getUserInfo, refreshToken} from '../../Api/Auth'
+import { checkAccessToken, checkRefreshToken, getDataLocalStorage, getUserInfo, refreshToken} from '../../Api/Auth'
 import { useZustand } from '../../store'
 
 
@@ -52,20 +52,19 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 	refreshToken()
 	}
 	const test = ()=> {
-		//var date1 = new Date(2020, 6, 25);
-		//var date2 = new Date(2020, 7, 20);
-		// var differenceInMilliSeconds = date2.getTime() - date1.getTime();
-		// var differenceInSeconds = differenceInMilliSeconds / 1000;
-		//console.log(date1.toString());
-		const newDate = new Date()
-		 const tokenData = getDataLocalStorage('tokenData')
-		 const time = tokenData.timeCreateToken
-		const date = new Date(time)
-		console.log(date);
-		console.log(newDate > date);
 
+		// if (checkAccessToken()) {
+		// 	return console.log('менять токен');
+			
+		// } else {
+		// 	return console.log(' не менять токен');
+			
+		// }
+
+		checkRefreshToken()
 		
 	}
+		
 		
 
 	return (

@@ -1,8 +1,41 @@
 
+//--------------------------------------------------------------------------------------------------
 
+//Проверка Refresh токена, при прохождении 24часа от создания токена выход из акаунта
 
-export const createDateToken = () => {
-	const date = new Date()
+//import { useNavigate } from "react-router-dom"
+
+export const checkRefreshToken = ()=> {
+	//const navigate = useNavigate() 
+	const newDate = new Date()
+	const tokenData = getDataLocalStorage('tokenData')
+	const timeDate = tokenData.timeCreateToken
+	const date = new Date(timeDate)
+	
+	const differenceInSeconds = (newDate.getTime() - date.getTime()) / 1000
+	if (differenceInSeconds > 86400) {
+		localStorage.clear()
+	} else {
+		//console.log('токен действителен');
+	}
+}
+
+//--------------------------------------------------------------------------------------------------
+
+// Проверка Access токена, при прохождении 290с от создания токена вернет true esle false
+
+ export const checkAccessToken = ()=> {
+	const newDate = new Date()
+	const tokenData = getDataLocalStorage('tokenData')
+	const timeDate = tokenData.timeCreateToken
+	const date = new Date(timeDate)
+	
+	const differenceInSeconds = (newDate.getTime() - date.getTime()) / 1000
+	if (differenceInSeconds > 290) {
+		return true 
+	} else {
+		return false
+	}
 }
 
 //--------------------------------------------------------------------------------------------------

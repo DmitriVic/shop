@@ -150,28 +150,28 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 
         <div className={s["delivery-address"]}>
           <div className={s["title"]}>Адрес доставки</div>
-          <div className={s['delivery-address__inputs']}>
-				<input
-				  className={s["inpt"]}
-				  type="number"
-				  placeholder="Индекс"
-				  {...register("zip_code", {})}
-				/>
-				<input
-				  type="text"
-				  className={s["inpt"]}
-				  placeholder="Город"
-				  name=""
-				  id=""
-				/>
-				<input
-				  className={s["inpt"]}
-				  type="text"
-				  placeholder="Адрес"
-				  {...register("delivery_address", {})}
-				/>
-						  </div>
-			 </div>
+          <div className={s["delivery-address__inputs"]}>
+            <input
+              className={s["inpt"]}
+              type="number"
+              placeholder="Индекс"
+              {...register("zip_code", {})}
+            />
+            <input
+              className={s["inpt"]}
+              type="text"
+              placeholder="city"
+              {...register("place", {})}
+            />
+
+            <input
+              className={s["inpt"]}
+              type="text"
+              placeholder="Адрес"
+              {...register("delivery_address", {})}
+            />
+          </div>
+        </div>
       </form>
     </div>
   );
