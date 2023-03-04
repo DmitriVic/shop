@@ -8,8 +8,8 @@ import { indexProps } from "./index.props";
 import { useState } from "react";
 import eye from "./img/eye.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { authUser } from "../../Api/Auth";
-import { putTokenData } from "../../Api/Auth";
+import { authUser, putDataLocalStorage } from "../../Api/Auth";
+
 import { useZustand } from "../../store";
 
 
@@ -37,11 +37,20 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 			  throw new Error("401");
 			}
 			 const data = await response.json();
-			 console.log(obj.username);
-			 putTokenData(data, 'tokenData')
-			putTokenData(obj.username, 'userName')
+			// console.log(obj.username);
+			 const time = new Date().toString()
+			 data.timeCreateToken = time
+			 //putDataLocalStorage('timeCreateToken',time)
+			 putDataLocalStorage('tokenData',data )
+			 putDataLocalStorage('userName',obj.username )
 			isAuthActive()
 			navigate('/')
+			//-------------------
+
+
+
+
+			//-------------------
 		} catch (error) {
 			console.log("Ошибка ответа сервера");
 			

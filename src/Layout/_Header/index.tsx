@@ -13,7 +13,7 @@ import  telegram  from './img/telegram.svg'
 import  magnifier  from './img/magnifier.svg'
 import { Link } from 'react-router-dom'
 import { HeaderMenu } from '../../components/HeaderMenu'
-import { getUserInfo, tokenDate } from '../../Api/Auth'
+import { checkAccessToken, checkRefreshToken, getDataLocalStorage, refreshToken} from '../../Api/Auth'
 import { useZustand } from '../../store'
 
 
@@ -45,9 +45,24 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 	 const auth = useZustand((state:any) => state.isAuth)	
 		//const token = sessionStorage.getItem('tokenData')
 
-	const	handleGetUserInfo = () => {
-		console.log(tokenDate())
-		getUserInfo(tokenDate())
+	// const	handleGetUserInfo = () => {
+	// 	getUserInfo(getDataLocalStorage('tokenData'))
+	// }
+	const	handleRefreshToken = () => {
+	refreshToken()
+	}
+	const test = ()=> {
+
+		// if (checkAccessToken()) {
+		// 	return console.log('менять токен');
+			
+		// } else {
+		// 	return console.log(' не менять токен');
+			
+		// }
+
+		checkRefreshToken()
+		
 	}
 		
 		
@@ -78,7 +93,10 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 					{/* <Link to="/"  className={s.title}>Брошки(link дом.стр)</Link> */}
 					<div className={s.links}>
 						{/* <Link to="account" >Личный кабинет</Link> */}
-						<p onClick={handleGetUserInfo}>Просмотр профиля пользователя</p>
+						<p onClick={test}>TEST</p>
+						{/* <p onClick={handleGetUserInfo}>Просмотр профиля пользователя</p> */}
+						<br />
+						<p onClick={handleRefreshToken}>refresh токен</p>
 						<img className={s.heart} src={heart} alt="" />
 						<img className={s.basket} src={basket} alt="" />
 					</div>

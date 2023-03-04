@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { create } from "zustand"
 
+// const token = localStorage.getItem('tokenData')
+// const isAuthActive = useZustand((state:any) => state.isAuthActive)
 
 
 export const useZustand = create(set => ({
 	isAuth: false,
-	dota: true,
 
 	isAuthActive: () => set( {isAuth: true}),
 	isAuthDisActive: () => set( {isAuth: false})

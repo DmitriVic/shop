@@ -1,16 +1,57 @@
 
-export const removeUserName = () => {
-	localStorage.removeItem('userName');
- };
+//--------------------------------------------------------------------------------------------------
+
+//Проверка Refresh токена, при прохождении 24часа от создания токена выход из акаунта
+
+//import { useNavigate } from "react-router-dom"
+
+export const checkRefreshToken = ()=> {
+	//const navigate = useNavigate() 
+	const newDate = new Date()
+	const tokenData = getDataLocalStorage('tokenData')
+	const timeDate = tokenData.timeCreateToken
+	const date = new Date(timeDate)
+	
+	const differenceInSeconds = (newDate.getTime() - date.getTime()) / 1000
+	if (differenceInSeconds > 86400) {
+		localStorage.clear()
+	} else {
+		//console.log('токен действителен');
+	}
+}
+
+//--------------------------------------------------------------------------------------------------
+
+// Проверка Access токена, при прохождении 290с от создания токена вернет true esle false
+
+ export const checkAccessToken = ()=> {
+	const newDate = new Date()
+	const tokenData = getDataLocalStorage('tokenData')
+	const timeDate = tokenData.timeCreateToken
+	const date = new Date(timeDate)
+	
+	const differenceInSeconds = (newDate.getTime() - date.getTime()) / 1000
+	if (differenceInSeconds > 290) {
+		return true 
+	} else {
+		return false
+	}
+}
+
+//--------------------------------------------------------------------------------------------------
 
 //Удалить инфо о плозователе из localStorage
+
+export const removeUserNameLocalStorage = () => {
+	localStorage.removeItem('userName');
+ };
 
 //-------------------------------------------------------------------------------------------------- 
 
 
-//Вынуть токены из ssesionStorege
-export const tokenDate = () => {
-  const storageData = localStorage.getItem("tokenData");
+//Вынуть значение из localStorage 
+export const getDataLocalStorage = (data:string) => {
+  const storageData = localStorage.getItem(data);
   if (storageData !== null) {
     return JSON.parse(storageData);
   }
@@ -18,8 +59,8 @@ export const tokenDate = () => {
 
 //-------------------------------------------------------------------------------------------------- 
 
-//Положить токен в ssesionStorege
-export const putTokenData = (data: any, tokenData:string ) => {
+//Положить ключ-значение в localStorage
+export const putDataLocalStorage = (tokenData:string ,data: any) => {
   localStorage.setItem( tokenData, JSON.stringify(data));
 };
 
@@ -59,9 +100,12 @@ export async function  authUser  (obj: any)  {
 // 	})
 //  };
 
+//--------------------------------------------------------------------------------------------------
 
 
-export const refreshToken = (token: string) => {
+// обновить токен
+export const refreshToken = () => {
+	const token =	getDataLocalStorage('tokenData').refresh
   return fetch("http://127.0.0.1:8000/api/auth/token/refresh/", {
     method: "post",
     headers: {
@@ -74,27 +118,37 @@ export const refreshToken = (token: string) => {
     return response.ok
       ? response.json()
       : Promise.reject(`Ошибка: ${response.status}`);
-  });
+  })
+  .then(data => {
+	const time = new Date().toString()
+	data.timeCreateToken = time
+	putDataLocalStorage('tokenData', data)
+})
 };
 
-export const getUserInfo = (tokenAccess: any) => {
-  console.log(tokenAccess);
-  console.log(tokenAccess.access);
 
-  return fetch("http://127.0.0.1:8000/api/auth/users/Дмитрий/", {
-    method: "get",
-    headers: {
-      Authorization: `Bearer ${tokenAccess.access}`,
-    },
-  }).then((response) => {
-	console.log(response);
-    return response.ok
-      ? response.json()
-      : Promise.reject(`Ошибка: ${response.status}`);
-  });
+//--------------------------------------------------------------------------------------------------
+
+// export const getUserInfo = (tokenAccess: any) => {
+//   console.log(tokenAccess.access);
+
+//   return fetch("http://127.0.0.1:8000/api/auth/user/dima", {
+//     method: "get",
+//     headers: {
+//       Authorization: `JWT ${tokenAccess.access}`,
+//     },
+//   }).then((response) => {
+// 	console.log(response);
+//     return response.ok
+//       ? response.json()
+//       : Promise.reject(`Ошибка: ${response.status}`);
+//   });
   
   
-};
+// };
+
+
+
 
 // export const getUserInfo = (tokenAccess:any)=> {
 // 	console.log(tokenAccess);

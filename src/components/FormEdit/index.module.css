@@ -5,13 +5,26 @@
 	display: flex;
 	justify-content: center;
 	width: 100%;
+	
 	background: #F1F2F4;
 }
 h1 {
 	color: #1DC9CF;
 }
 .form-auth{
-	border-radius: 3px;
+	display: grid;
+	padding: 20px;
+	grid-template-columns: 1fr minmax(350px, auto); 
+	gap: 0px 0px; 
+	grid-template-areas: 
+	  "a b"
+	  "c d"; 
+	color: #757575;
+	font-size: 14px;
+	background: #fff;
+	gap: 40px;
+	/* grid-template-columns: 1fr 1fr; */
+	/* border-radius: 3px;
 	padding: 40px;
 	display: grid; 
 	grid-template-columns: 1fr 1fr; 
@@ -24,10 +37,21 @@ h1 {
 	gap: 40px;
 	color: #757575;
 	font-size: 14px;
-	background: #fff;
+	background: #fff; */
+}
+@media (max-width:768px) {
+	.form-auth{
+		grid-template-columns: 1fr;
+		grid-template-areas: 
+	  "a"
+	  "b"
+	  "d" 
+	  "c"; 
+	}
 }
 
 .person-date{
+	gap: 20px;
 	grid-area: a;
 	display: flex;
 	flex-direction: column;
@@ -41,25 +65,50 @@ h1 {
 	column-gap: 50px;
 }
 
+@media (max-width:1024px) {
+	.person-date__box{
+		display: flex;
+		column-gap: 50px;
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
 .buttons{
-	margin-top: 80px;
+	grid-area: c;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
 	row-gap: 30px;
+	
 }
 
 
 .data-communication{
+	
 	grid-area: b;
-	display: grid;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	/* align-items: center;
+	justify-content: space-around; */
 	
 }
 
 .delivery-address{
-	display: grid;
-	grid-area: c;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	/* align-items: center;
+	justify-content: space-around; */
+	grid-area: d;
+	
+}
+.delivery-address__inputs{
+	max-width: 350px;
+	display: flex;
+	flex-direction: column;
 	
 }
 
@@ -72,9 +121,17 @@ h1 {
 
 
 .avatar {
-	width: 100px;
-	height: 100px;
+	max-width: 150px;
+	min-height: 150px;
+	display: flex;
 	background: #000;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.image{
+	width: 100%;
+	object-fit: cover;
 }
 
 .initials{
@@ -89,8 +146,8 @@ h1 {
 
 .inpt {
 	border-bottom: 1px solid #AEAEAE;
-	max-width: 350px;
 	width: 100%;
+	
 	/* padding: 10px 0; */
 	margin: 10px 0;
 }
@@ -161,3 +218,7 @@ h1 {
 	background: var(--button-active-color);
 }
 
+.date-birth{
+	font-size: 16px;
+	color: #757575;
+}

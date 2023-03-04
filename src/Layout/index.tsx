@@ -51,9 +51,9 @@ export const Layout = ({  }:indexProps): JSX.Element => {
 			className={s.main}>
 				<Outlet/>
 			</_Main>
-			<Footer
+			{/* <Footer
 			className={s.footer}
-			/>
+			/> */}
 		</div>
 	)
 }
