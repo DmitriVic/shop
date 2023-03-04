@@ -149,6 +149,12 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 5,
+    'DATE_FORMAT': '%d-%m-%Y',
+    'DATE_INPUT_FORMATS': [
+        '%d-%m-%Y',  # '25-10-2006'
+        '%d/%m/%Y',  # '25/10/2006'
+        '%d/%m/%y',  # '25/10/06'
+    ]
 }
 
 SIMPLE_JWT = {
@@ -201,3 +207,10 @@ AUTH_USER_MODEL = 'app_auth.User'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
 MEDIA_URL = '/media/'
+
+DATE_INPUT_FORMATS = [
+    '%d-%m-%Y',  # '25-10-2006'
+    '%d/%m/%Y',  # '25/10/2006'
+    '%d/%m/%y',  # '25/10/06'
+]
+
