@@ -13,7 +13,7 @@ import  telegram  from './img/telegram.svg'
 import  magnifier  from './img/magnifier.svg'
 import { Link } from 'react-router-dom'
 import { HeaderMenu } from '../../components/HeaderMenu'
-import { checkAccessToken, checkRefreshToken, getDataLocalStorage, getUserInfo, refreshToken} from '../../Api/Auth'
+import { checkAccessToken, checkRefreshToken, getDataLocalStorage, refreshToken} from '../../Api/Auth'
 import { useZustand } from '../../store'
 
 
@@ -45,9 +45,9 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 	 const auth = useZustand((state:any) => state.isAuth)	
 		//const token = sessionStorage.getItem('tokenData')
 
-	const	handleGetUserInfo = () => {
-		getUserInfo(getDataLocalStorage('tokenData'))
-	}
+	// const	handleGetUserInfo = () => {
+	// 	getUserInfo(getDataLocalStorage('tokenData'))
+	// }
 	const	handleRefreshToken = () => {
 	refreshToken()
 	}
@@ -94,7 +94,7 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 					<div className={s.links}>
 						{/* <Link to="account" >Личный кабинет</Link> */}
 						<p onClick={test}>TEST</p>
-						<p onClick={handleGetUserInfo}>Просмотр профиля пользователя</p>
+						{/* <p onClick={handleGetUserInfo}>Просмотр профиля пользователя</p> */}
 						<br />
 						<p onClick={handleRefreshToken}>refresh токен</p>
 						<img className={s.heart} src={heart} alt="" />

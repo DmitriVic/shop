@@ -8,7 +8,8 @@ import { indexProps } from "./index.props";
 import { useNavigate } from "react-router-dom";
 
 import { useZustand } from "../../store";
-import { removeUserNameLocalStorage } from "../../Api/Auth";
+import { editUser } from "../../Api/Api";
+
 
 interface IFormInput {
   email: string;
@@ -42,7 +43,17 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+	// const obj = {	
+	// 		email: "admin@mail.ru",
+	// 		first_name: "Админ",
+	// 		second_name: "Админович",
+	// 		last_name: "Админов",
+	// }
+	console.log(data);
+	
+	editUser(data)
+  }
 
   //console.log(errors);
   //console.log(errors.phonenumber);
@@ -125,7 +136,7 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
                   pattern: /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/,
                 })}
               />
-              {errors.phonenumber && (
+              {errors.phonenumber?.type === "pattern" && (
                 <p className={s["errors"]}>Введите корректно номер телефона</p>
               )}
             </label>
@@ -135,7 +146,6 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
                 type="email"
                 placeholder="Почта"
                 {...register("email", {
-                  required: true,
                   pattern: /^\S+@\S+$/i,
                 })}
               />
@@ -160,7 +170,7 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
             <input
               className={s["inpt"]}
               type="text"
-              placeholder="city"
+              placeholder="Город"
               {...register("place", {})}
             />
 

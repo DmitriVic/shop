@@ -118,29 +118,34 @@ export const refreshToken = () => {
     return response.ok
       ? response.json()
       : Promise.reject(`Ошибка: ${response.status}`);
-  }).then(data => (putDataLocalStorage('tokenData', data)))
+  })
+  .then(data => {
+	const time = new Date().toString()
+	data.timeCreateToken = time
+	putDataLocalStorage('tokenData', data)
+})
 };
 
 
 //--------------------------------------------------------------------------------------------------
 
-export const getUserInfo = (tokenAccess: any) => {
-  console.log(tokenAccess.access);
+// export const getUserInfo = (tokenAccess: any) => {
+//   console.log(tokenAccess.access);
 
-  return fetch("http://127.0.0.1:8000/api/auth/user/dima", {
-    method: "get",
-    headers: {
-      Authorization: `JWT ${tokenAccess.access}`,
-    },
-  }).then((response) => {
-	console.log(response);
-    return response.ok
-      ? response.json()
-      : Promise.reject(`Ошибка: ${response.status}`);
-  });
+//   return fetch("http://127.0.0.1:8000/api/auth/user/dima", {
+//     method: "get",
+//     headers: {
+//       Authorization: `JWT ${tokenAccess.access}`,
+//     },
+//   }).then((response) => {
+// 	console.log(response);
+//     return response.ok
+//       ? response.json()
+//       : Promise.reject(`Ошибка: ${response.status}`);
+//   });
   
   
-};
+// };
 
 
 
