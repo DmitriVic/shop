@@ -1,3 +1,5 @@
+from django.shortcuts import redirect
+from django.urls import reverse
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAdminUser
 
@@ -29,3 +31,7 @@ class UpdatePassUserApiView(UpdateAPIView):
     serializer_class = UpdatePassUserSerializer
     lookup_field = 'username'
     permission_classes = (IsAdminOrIsOwner,)
+
+
+def index(request):
+    return redirect(reverse('list_user'))
