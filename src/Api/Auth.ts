@@ -1,4 +1,4 @@
-
+const keyUserData = 'userData'
 //--------------------------------------------------------------------------------------------------
 
 
@@ -16,7 +16,7 @@ export const checkRefreshToken = ()=> {
 	const date = new Date(timeDate)
 	
 	const differenceInSeconds = (newDate.getTime() - date.getTime()) / 1000
-	console.log(differenceInSeconds);
+	//console.log(differenceInSeconds);
 	
 	if (differenceInSeconds > 86400) {
 		localStorage.clear()

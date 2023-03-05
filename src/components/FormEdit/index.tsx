@@ -45,7 +45,7 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     formState: { errors },
   } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-	console.log(data);
+	//console.log(data);
 	if (checkRefreshToken()) {
 	isAuthDisActive();
 	return navigate("/");
