@@ -67,7 +67,8 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
             <div className={s["avatar"]}>
               <img
                 className={s["image"]}
-                src="https://r2.mt.ru/u20/photo98BB/20964122176-0/original.gif"
+                
+               // src="https://r2.mt.ru/u20/photo98BB/20964122176-0/original.gif"
                 alt=""
               />
             </div>
@@ -133,7 +134,7 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
                 type="tel"
                 placeholder="Телефонный номер"
                 {...register("phonenumber", {
-                  pattern: /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/,
+                 // pattern: /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/,
                 })}
               />
               {errors.phonenumber?.type === "pattern" && (

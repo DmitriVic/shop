@@ -8,19 +8,21 @@ export async function  editUser  (data:object)  {
 	const user = getDataLocalStorage('userName')
 	const accessToken = getDataLocalStorage('tokenData').access
 	
-	//console.log(accessToken);
-	// return axios.put(`http://127.0.0.1:8000/api/auth/user/${user}`,{data},{
+	// console.log(accessToken);
+	// return axios.put(`http://127.0.0.1:8000/api/auth/user/${user}/`,{data},{
 	// 	headers:{
 	// 		Authorization: `JWT ${accessToken}`
 	// 	}})
 	// 	.then((res) => {console.log(res)})
-	console.log(accessToken);
+	// console.log(accessToken);
 	
 	return fetch(`http://127.0.0.1:8000/api/auth/user/${user}/`, {
 	  method: "put",
 	  headers: {
 		 Authorization: `JWT ${accessToken}`,
-	  },
+		 "Content-Type": "application/json",
+		},
+		body: JSON.stringify(data),
 	}).then((response) => {
 	 console.log(response);
 	  return response.ok
