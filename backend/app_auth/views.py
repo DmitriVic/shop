@@ -26,7 +26,7 @@ class DetailUserApiView(RetrieveAPIView, UpdateAPIView):
     permission_classes = (IsAdminOrIsOwner, )
 
     def put(self, request, *args, **kwargs):
-        print(request.data)
+        print('request.data=', request.data)
         return self.update(request, *args, **kwargs)
 
 
