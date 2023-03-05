@@ -24,7 +24,7 @@ export async function  editUser  (data:object)  {
 		 Authorization: `JWT ${accessToken}`,
 		 "Content-Type": "application/json",
 		},
-		body: JSON.stringify({birthday : "03-01-2023"}),
+		body: JSON.stringify(data),
 	}).then((response) => {
 	 console.log(response);
 	  return response.ok
