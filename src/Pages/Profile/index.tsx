@@ -3,6 +3,7 @@
 // import cn from 'classnames'
 // import ArrowIcon from './arrow.svg';
 
+import { useEffect } from "react"
 import { FormEdit } from "../../components/FormEdit"
 import { indexProps } from "./index.props"
 
@@ -26,6 +27,12 @@ import { indexProps } from "./index.props"
 
 
 export const Profile = ({  }:indexProps): JSX.Element => {
+	useEffect(() => {
+	
+	
+	
+	}, [])
+	
 	return (
 		<>
 			<FormEdit/>

@@ -27,6 +27,9 @@ import { NavLink, Outlet, Route, Routes } from 'react-router-dom'
 
 
 export const Account = ({  }:indexProps): JSX.Element => {
+
+
+	
 	return (
 		<>
 			<div className={s['title']}>Личный кабинет</div>
