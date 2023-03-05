@@ -149,7 +149,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 5,
-    'DATE_FORMAT': '%d-%m-%Y',
+    # 'DATE_FORMAT': '%d-%m-%Y',
     # 'DATE_INPUT_FORMATS': [
     #     '%d-%m-%Y',  # '25-10-2006'
     #     '%d/%m/%Y',  # '25/10/2006'

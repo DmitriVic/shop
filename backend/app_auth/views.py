@@ -30,7 +30,6 @@ class DetailUserApiView(RetrieveAPIView, UpdateAPIView):
         return self.update(request, *args, **kwargs)
 
 
-
 class UpdatePassUserApiView(UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UpdatePassUserSerializer
