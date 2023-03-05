@@ -25,6 +25,11 @@ class DetailUserApiView(RetrieveAPIView, UpdateAPIView):
     lookup_field = 'username'
     permission_classes = (IsAdminOrIsOwner, )
 
+    def put(self, request, *args, **kwargs):
+        print(request.data)
+        return self.update(request, *args, **kwargs)
+
+
 
 class UpdatePassUserApiView(UpdateAPIView):
     queryset = User.objects.all()
