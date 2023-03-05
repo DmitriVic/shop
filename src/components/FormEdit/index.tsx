@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useZustand } from "../../store";
 import { editUser } from "../../Api/Api";
+import { checkRefreshToken } from "../../Api/Auth";
 
 
 interface IFormInput {
@@ -44,14 +45,11 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     formState: { errors },
   } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-	// const obj = {	
-	// 		email: "admin@mail.ru",
-	// 		first_name: "Админ",
-	// 		second_name: "Админович",
-	// 		last_name: "Админов",
-	// }
 	console.log(data);
-	
+	if (checkRefreshToken()) {
+	isAuthDisActive();
+	return navigate("/");
+	}
 	editUser(data)
   }
 

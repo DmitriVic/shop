@@ -1,11 +1,14 @@
 
 //--------------------------------------------------------------------------------------------------
 
+
+
 //Проверка Refresh токена, при прохождении 24часа от создания токена выход из акаунта
 
-//import { useNavigate } from "react-router-dom"
+
 
 export const checkRefreshToken = ()=> {
+
 	//const navigate = useNavigate() 
 	const newDate = new Date()
 	const tokenData = getDataLocalStorage('tokenData')
@@ -13,10 +16,14 @@ export const checkRefreshToken = ()=> {
 	const date = new Date(timeDate)
 	
 	const differenceInSeconds = (newDate.getTime() - date.getTime()) / 1000
+	console.log(differenceInSeconds);
+	
 	if (differenceInSeconds > 86400) {
 		localStorage.clear()
+		return true
 	} else {
-		//console.log('токен действителен');
+		console.log('токен действителен');
+		return false
 	}
 }
 
@@ -106,6 +113,8 @@ export async function  authUser  (obj: any)  {
 // обновить токен
 export const refreshToken = () => {
 	const token =	getDataLocalStorage('tokenData').refresh
+	//console.log(token);
+	
   return fetch("http://127.0.0.1:8000/api/auth/token/refresh/", {
     method: "post",
     headers: {

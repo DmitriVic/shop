@@ -1,5 +1,5 @@
 import axios from "axios";
-import { checkAccessToken, getDataLocalStorage, refreshToken } from "./Auth";
+import { checkAccessToken, checkRefreshToken, getDataLocalStorage, refreshToken } from "./Auth";
 
 export async function  editUser  (data:object)  {
 	if (checkAccessToken()) {
