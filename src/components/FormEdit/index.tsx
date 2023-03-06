@@ -33,9 +33,9 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
   const [itype, setType] = useState("text");
   //console.log(itype);
   //const userInfo = getDataLocalStorage('userInfo')
-  const [userInfo, setUserInfo] = useState(getDataLocalStorage('userInfo'))
+  const [stateUserInfo, setStateUserInfo] = useState(getDataLocalStorage('userInfo'))
  
- // console.log(userInfo);
+  console.log(stateUserInfo);
   
   //const [first2, setfirst2] = useState('16.03.2023')
   const isAuthDisActive = useZustand((state: any) => state.isAuthDisActive);
@@ -80,22 +80,24 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     editUser(data);
   };
 
-//   useEffect(() => {
+  useEffect(() => {
+	const userInfo = getDataLocalStorage('userInfo')
+console.log('работает useeffect');
 
-// 	if (userInfo) {
-// 			console.log(Object.keys(userInfo));
-// 			const data = Object.keys(userInfo)
-// 		const newData =	data.forEach((key:any) => {
-// 				setValue(key, userInfo[key]);
-// 			 });
-// 			 setUserInfo(newData)
-// 	}else {
-// 		getUserInfo()
-// 	}
+	if (userInfo) {
+			//console.log(Object.keys(userInfo));
+			const data = Object.keys(userInfo)
+		data.forEach((key:any) => {
+				setValue(key, userInfo[key]);
+			 });
+			 setStateUserInfo(data)
+	}else {
+		getUserInfo()
+	}
 		
   
 	 
-//   }, [userInfo])
+  }, [])
   
 
   //console.log(errors);

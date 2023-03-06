@@ -12,7 +12,7 @@ export async function editUser(data: any) {
 	if (data['birthday'] === '') {
 	  delete data['birthday'];
 	}})
-console.log(data);
+//console.log(data);
   const user = getDataLocalStorage("userName");
   const accessToken = getDataLocalStorage("tokenData").access;
   //const newdata = {birthday: " "}
@@ -23,8 +23,8 @@ console.log(data);
       Authorization: `JWT ${accessToken}`,
     },
   })
-  .then((res) => {console.log(res)})
-  //.then((res) => { putDataLocalStorage('userInfo', res.data) });
+  //.then((res) => {console.log(res)})
+  .then((res) => { putDataLocalStorage('userInfo', res.data) });
 }
 
 //----------------------------------------------------------------------------------------------------

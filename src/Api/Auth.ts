@@ -22,7 +22,7 @@ export const checkRefreshToken = ()=> {
 		localStorage.clear()
 		return true
 	} else {
-		console.log('токен действителен');
+		//console.log('токен действителен');
 		return false
 	}
 }
