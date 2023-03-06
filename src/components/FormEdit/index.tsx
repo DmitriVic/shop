@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useZustand } from "../../store";
 import { editUser } from "../../Api/Api";
 import { checkRefreshToken } from "../../Api/Auth";
-
+import { useState } from "react";
 
 interface IFormInput {
   email: string;
@@ -23,11 +23,17 @@ interface IFormInput {
   delivery_address: string;
   place: string;
   avatar: string;
+  isd: number;
 }
 
 //const isAuthActive = useZustand((state:any) => state.isAuthActive)
 
 export const FormEdit = ({}: indexProps): JSX.Element => {
+  // const ref = useRef();
+  const [itype, setType] = useState("text");
+  console.log(itype);
+
+  //const [first2, setfirst2] = useState('16.03.2023')
   const isAuthDisActive = useZustand((state: any) => state.isAuthDisActive);
 
   const navigate = useNavigate();
@@ -45,13 +51,13 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     formState: { errors },
   } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-	//console.log(data);
-	if (checkRefreshToken()) {
-	isAuthDisActive();
-	return navigate("/");
-	}
-	editUser(data)
-  }
+    //console.log(data);
+    if (checkRefreshToken()) {
+      isAuthDisActive();
+      return navigate("/");
+    }
+    editUser(data);
+  };
 
   //console.log(errors);
   //console.log(errors.phonenumber);
@@ -65,8 +71,7 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
             <div className={s["avatar"]}>
               <img
                 className={s["image"]}
-                
-               // src="https://r2.mt.ru/u20/photo98BB/20964122176-0/original.gif"
+                // src="https://r2.mt.ru/u20/photo98BB/20964122176-0/original.gif"
                 alt=""
               />
             </div>
@@ -96,9 +101,13 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 
               <input
                 className={cn(s["date-birth"], s["inpt"])}
-                type="date"
-                placeholder="dateBirth"
+                //type={first? 'text': 'date'}
+                //placeholder={first2}
+					 placeholder='введите дату'
+                type={itype}
                 {...register("birthday", {})}
+                onFocus={() => setType("date")}
+                onBlur={() => setType("text")}
               />
             </div>
           </div>
@@ -126,19 +135,28 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
         <div className={s["data-communication"]}>
           <div className={s["title"]}>Данные для связи</div>
           <div>
-            <label htmlFor="">
+            <div className={s["code-number"]}>
+              <input
+                className={cn(s["inpt-code"], s["inpt"])}
+                type="tel"
+                placeholder="Код"
+                {...register("isd", {
+                  // pattern: /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/,
+                })}
+              />
               <input
                 className={s["inpt"]}
                 type="tel"
-                placeholder="Телефонный номер"
+                placeholder="Телефонный номер-10 цифр"
                 {...register("phonenumber", {
-                 // pattern: /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/,
+                  // pattern: /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/,
                 })}
               />
-              {errors.phonenumber?.type === "pattern" && (
-                <p className={s["errors"]}>Введите корректно номер телефона</p>
-              )}
-            </label>
+            </div>
+            {errors.phonenumber?.type === "pattern" && (
+              <p className={s["errors"]}>Введите корректно номер телефона</p>
+            )}
+
             <label htmlFor="">
               <input
                 className={s["inpt"]}

@@ -151,6 +151,14 @@ h1 {
 	/* padding: 10px 0; */
 	margin: 10px 0;
 }
+.inpt-code{
+	width: 50px;
+}
+
+.code-number {
+	display: flex;
+	column-gap: 5px;
+}
 
 .btn1 {
 	border-radius: 2px;
