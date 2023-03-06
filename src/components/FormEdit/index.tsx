@@ -8,9 +8,9 @@ import { indexProps } from "./index.props";
 import { useNavigate } from "react-router-dom";
 
 import { useZustand } from "../../store";
-import { editUser } from "../../Api/Api";
+import { editUser, getUserInfo } from "../../Api/Api";
 import { checkRefreshToken, getDataLocalStorage } from "../../Api/Auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface IFormInput {
   email: string;
@@ -32,8 +32,10 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
   // const ref = useRef();
   const [itype, setType] = useState("text");
   //console.log(itype);
-  const userInfo = getDataLocalStorage('userInfo')
-  console.log(userInfo);
+  //const userInfo = getDataLocalStorage('userInfo')
+  const [userInfo, setUserInfo] = useState(getDataLocalStorage('userInfo'))
+ 
+ // console.log(userInfo);
   
   //const [first2, setfirst2] = useState('16.03.2023')
   const isAuthDisActive = useZustand((state: any) => state.isAuthDisActive);
@@ -51,7 +53,7 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     register,
     handleSubmit,
 	 setValue ,
-    formState: { errors },
+    formState: { errors }, reset 
   } = useForm<IFormInput>({
 	defaultValues:{
 		
@@ -77,6 +79,28 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     editUser(data);
   };
 
+  useEffect(() => {
+
+	if (userInfo) {
+			console.log(Object.keys(userInfo));
+			const data = Object.keys(userInfo)
+		const newData =	data.forEach((key:any) => {
+				setValue(key, userInfo[key]);
+			 });
+			 setUserInfo(newData)
+	}else {
+		getUserInfo()
+	}
+		//console.log(userInfo);
+		
+		
+	// getUserInfo()
+	// .then((res) => {console.log(res)})
+  
+	 
+  }, [userInfo])
+  
+
   //console.log(errors);
   //console.log(errors.phonenumber);
   return (
@@ -89,7 +113,7 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
             <div className={s["avatar"]}>
               <img
                 className={s["image"]}
-                 src="https://r2.mt.ru/u20/photo98BB/20964122176-0/original.gif"
+                 src="https://stihi.ru/pics/2021/12/11/4214.jpg"
                 alt=""
               />
             </div>

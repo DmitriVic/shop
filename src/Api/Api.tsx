@@ -16,7 +16,8 @@ export async function editUser(data: object) {
     headers: {
       Authorization: `JWT ${accessToken}`,
     },
-  });
+  })
+  .then((res) => { putDataLocalStorage('userInfo', res.data) });
 }
 
 //----------------------------------------------------------------------------------------------------

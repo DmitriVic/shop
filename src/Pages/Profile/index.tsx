@@ -29,15 +29,15 @@ import { indexProps } from "./index.props"
 
 
 export const Profile = ({  }:indexProps): JSX.Element => {
-	useEffect(() => {
-		const userInfo = getDataLocalStorage("userInfo");
+	// useEffect(() => {
+	// 	const userInfo = getDataLocalStorage("userInfo");
 		
 		
-		getUserInfo()
-	console.log('useeffect');
+	// 	getUserInfo()
+	// console.log('useeffect');
 	
 	
-	}, [])
+	// }, [])
 	
 	return (
 		<>
