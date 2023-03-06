@@ -3,13 +3,13 @@ import s from "./index.module.css";
 import cn from "classnames";
 // import ArrowIcon from './arrow.svg';
 
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { indexProps } from "./index.props";
 import { useNavigate } from "react-router-dom";
 
 import { useZustand } from "../../store";
 import { editUser } from "../../Api/Api";
-import { checkRefreshToken } from "../../Api/Auth";
+import { checkRefreshToken, getDataLocalStorage } from "../../Api/Auth";
 import { useState } from "react";
 
 interface IFormInput {
@@ -17,13 +17,13 @@ interface IFormInput {
   first_name: string;
   second_name: string;
   last_name: string;
-  birthday: number;
-  phonenumber: number;
-  zip_code: number;
+  birthday: number | string;
+  phonenumber: number | string;
+  zip_code: number | string;
   delivery_address: string;
   place: string;
   avatar: string;
-  isd: number;
+  isd: number | string;
 }
 
 //const isAuthActive = useZustand((state:any) => state.isAuthActive)
@@ -31,8 +31,10 @@ interface IFormInput {
 export const FormEdit = ({}: indexProps): JSX.Element => {
   // const ref = useRef();
   const [itype, setType] = useState("text");
-  console.log(itype);
-
+  //console.log(itype);
+  const userInfo = getDataLocalStorage('userInfo')
+  console.log(userInfo);
+  
   //const [first2, setfirst2] = useState('16.03.2023')
   const isAuthDisActive = useZustand((state: any) => state.isAuthDisActive);
 
@@ -48,8 +50,24 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
   const {
     register,
     handleSubmit,
+	 setValue ,
     formState: { errors },
-  } = useForm<IFormInput>();
+  } = useForm<IFormInput>({
+	defaultValues:{
+		
+		// email: '',
+		// first_name: '',
+		// second_name: '',
+		// last_name: '',
+		// birthday: '',
+		// phonenumber: '',
+		// zip_code: '',
+		// delivery_address: '',
+		// place: '',
+		// avatar: '',
+		// isd: '',
+	}
+  });
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     //console.log(data);
     if (checkRefreshToken()) {
@@ -71,7 +89,7 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
             <div className={s["avatar"]}>
               <img
                 className={s["image"]}
-                // src="https://r2.mt.ru/u20/photo98BB/20964122176-0/original.gif"
+                 src="https://r2.mt.ru/u20/photo98BB/20964122176-0/original.gif"
                 alt=""
               />
             </div>
@@ -79,6 +97,7 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
             <div className={s["initials"]}>
               <label htmlFor="">
                 <input
+					 
                   id="first_name"
                   className={s["inpt"]}
                   type="text"
@@ -130,7 +149,26 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
           >
             Выйти
           </button>
+
+
+
+
+
+
+
+			 <div >setvalue</div>
+
+
+
+
+
+
+
+
+
         </div>
+
+
 
         <div className={s["data-communication"]}>
           <div className={s["title"]}>Данные для связи</div>

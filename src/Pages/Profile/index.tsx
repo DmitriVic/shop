@@ -4,6 +4,8 @@
 // import ArrowIcon from './arrow.svg';
 
 import { useEffect } from "react"
+import { getUserInfo } from "../../Api/Api"
+import { getDataLocalStorage } from "../../Api/Auth"
 import { FormEdit } from "../../components/FormEdit"
 import { indexProps } from "./index.props"
 
@@ -28,14 +30,20 @@ import { indexProps } from "./index.props"
 
 export const Profile = ({  }:indexProps): JSX.Element => {
 	useEffect(() => {
-	
+		const userInfo = getDataLocalStorage("userInfo");
+		
+		
+		getUserInfo()
+	console.log('useeffect');
 	
 	
 	}, [])
 	
 	return (
 		<>
-			<FormEdit/>
+			<FormEdit
+	
+			/>
 		</>
 	)
 }

@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom'
 import { HeaderMenu } from '../../components/HeaderMenu'
 import { checkAccessToken, checkRefreshToken, getDataLocalStorage, refreshToken} from '../../Api/Auth'
 import { useZustand } from '../../store'
+import { getUserInfo } from '../../Api/Api'
 
 
 
@@ -64,7 +65,9 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 		checkRefreshToken()
 		
 	}
-		
+		async function f1(params:any) {
+			//getUserInfo()
+		}
 		
 
 	return (
@@ -83,7 +86,7 @@ export const _Header = ({ className }:indexProps): JSX.Element => {
 						<img className={s.telegram} src={telegram} alt="" />
 					</div>
 					
-					<Link to={ auth ? "account/Profile" : "authorization" } className={s.enter}>{auth ? <img src={person} alt="" /> : <p>Войти</p> }</Link>
+					<Link to={ auth ? "account/Profile" : "authorization" } className={s.enter}>{auth ? <img onClick={f1} src={person} alt="" /> : <p>Войти</p> }</Link>
 				</div>
 			</div>
 			</div>
