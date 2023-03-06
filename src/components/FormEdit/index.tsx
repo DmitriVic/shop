@@ -71,7 +71,7 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 	}
   });
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    //console.log(data);
+    console.log(data);
     if (checkRefreshToken()) {
       isAuthDisActive();
       return navigate("/");
@@ -149,8 +149,8 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 					 placeholder='введите дату'
                 type={itype}
                 {...register("birthday", {})}
-                onFocus={() => setType("date")}
-                onBlur={() => setType("text")}
+               //  onFocus={() => setType("date")}
+               //  onBlur={() => setType("text")}
               />
             </div>
           </div>

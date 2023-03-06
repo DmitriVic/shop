@@ -8,6 +8,7 @@ export async function editUser(data: object) {
   if (checkAccessToken()) {
     await refreshToken();
   }
+console.log(data);
 
   const user = getDataLocalStorage("userName");
   const accessToken = getDataLocalStorage("tokenData").access;
