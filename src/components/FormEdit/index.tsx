@@ -71,7 +71,8 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 	}
   });
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
+
+    //console.log(data);
     if (checkRefreshToken()) {
       isAuthDisActive();
       return navigate("/");
@@ -79,26 +80,22 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     editUser(data);
   };
 
-  useEffect(() => {
+//   useEffect(() => {
 
-	if (userInfo) {
-			console.log(Object.keys(userInfo));
-			const data = Object.keys(userInfo)
-		const newData =	data.forEach((key:any) => {
-				setValue(key, userInfo[key]);
-			 });
-			 setUserInfo(newData)
-	}else {
-		getUserInfo()
-	}
-		//console.log(userInfo);
+// 	if (userInfo) {
+// 			console.log(Object.keys(userInfo));
+// 			const data = Object.keys(userInfo)
+// 		const newData =	data.forEach((key:any) => {
+// 				setValue(key, userInfo[key]);
+// 			 });
+// 			 setUserInfo(newData)
+// 	}else {
+// 		getUserInfo()
+// 	}
 		
-		
-	// getUserInfo()
-	// .then((res) => {console.log(res)})
   
 	 
-  }, [userInfo])
+//   }, [userInfo])
   
 
   //console.log(errors);
@@ -141,13 +138,14 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
                 placeholder="Фамилия"
                 {...register("last_name", {})}
               />
-
+	
               <input
                 className={cn(s["date-birth"], s["inpt"])}
                 //type={first? 'text': 'date'}
                 //placeholder={first2}
 					 placeholder='введите дату'
-                type={itype}
+               //  type={itype}
+                type='date'
                 {...register("birthday", {})}
                //  onFocus={() => setType("date")}
                //  onBlur={() => setType("text")}

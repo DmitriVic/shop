@@ -4,21 +4,27 @@ import { checkAccessToken, getDataLocalStorage, putDataLocalStorage, refreshToke
 // -----------------------------------------------------------------------------------------------
 
 //Функция выполняет запрос редактирования
-export async function editUser(data: object) {
+export async function editUser(data: any) {
   if (checkAccessToken()) {
     await refreshToken();
   }
+   Object.keys(data).forEach(() => {
+	if (data['birthday'] === '') {
+	  delete data['birthday'];
+	}})
 console.log(data);
-
   const user = getDataLocalStorage("userName");
   const accessToken = getDataLocalStorage("tokenData").access;
-
+  //const newdata = {birthday: " "}
+  //console.log(newdata);
+  
   return await axios.put(`http://127.0.0.1:8000/api/auth/user/${user}/`, data, {
     headers: {
       Authorization: `JWT ${accessToken}`,
     },
   })
-  .then((res) => { putDataLocalStorage('userInfo', res.data) });
+  .then((res) => {console.log(res)})
+  //.then((res) => { putDataLocalStorage('userInfo', res.data) });
 }
 
 //----------------------------------------------------------------------------------------------------
