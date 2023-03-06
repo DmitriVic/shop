@@ -26,7 +26,9 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
                   'birthday', 'isd', 'phonenumber', 'zip_code', 'delivery_address', 'place', 'avatar')
         lookup_field = 'username'
         read_only_fields = ('get_full_name', 'username',)
-
+        extra_kwargs = {
+            'birthday': {'required': False},
+        }
 
 class UpdatePassUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
