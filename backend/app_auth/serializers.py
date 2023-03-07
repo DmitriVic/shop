@@ -22,10 +22,13 @@ class UserCreateSerializer(serializers.HyperlinkedModelSerializer):
 class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'second_name', 'last_name', 'get_full_name',
+        fields = ('username', 'email', 'first_name', 'second_name', 'last_name', 
+                  # 'get_full_name',
                   'birthday', 'isd', 'phonenumber', 'zip_code', 'delivery_address', 'place', 'avatar')
         lookup_field = 'username'
-        read_only_fields = ('get_full_name', 'username',)
+        read_only_fields = (
+            # 'get_full_name', 
+            'username',)
         extra_kwargs = {
             'birthday': {'required': False, 'allow_null': True},
         }
