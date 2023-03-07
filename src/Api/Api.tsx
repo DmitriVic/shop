@@ -12,11 +12,28 @@ export async function editUser(data: any) {
 	if (data['birthday'] === '') {
 	  delete data['birthday'];
 	}})
-//console.log(data);
+
+
+	const userInfo = getDataLocalStorage("userInfo");
   const user = getDataLocalStorage("userName");
   const accessToken = getDataLocalStorage("tokenData").access;
-  //const newdata = {birthday: " "}
-  //console.log(newdata);
+
+
+  let result:any = {};
+
+// for (let key in data) {
+//   if (data[key] !== userInfo[key]) {
+//     result[key] = data[key];
+//   }
+// }
+Object.entries(data).forEach(([key, value]) => {
+	if (value !== userInfo[key]) {
+	  result[key] = value;
+	}
+ });
+console.log(result);
+
+
   
   return await axios.put(`http://127.0.0.1:8000/api/auth/user/${user}/`, data, {
     headers: {

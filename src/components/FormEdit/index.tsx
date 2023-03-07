@@ -3,7 +3,7 @@ import s from "./index.module.css";
 import cn from "classnames";
 // import ArrowIcon from './arrow.svg';
 
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import { SubmitHandler,  useForm } from "react-hook-form";
 import { indexProps } from "./index.props";
 import { useNavigate } from "react-router-dom";
 
@@ -33,9 +33,9 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
   const [itype, setType] = useState("text");
   //console.log(itype);
   //const userInfo = getDataLocalStorage('userInfo')
-  const [stateUserInfo, setStateUserInfo] = useState(getDataLocalStorage('userInfo'))
+  const [stateUserInfo, setStateUserInfo] = useState(false)
  
-  console.log(stateUserInfo);
+  //console.log(stateUserInfo);
   
   //const [first2, setfirst2] = useState('16.03.2023')
   const isAuthDisActive = useZustand((state: any) => state.isAuthDisActive);
@@ -85,14 +85,26 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 console.log('работает useeffect');
 
 	if (userInfo) {
-			//console.log(Object.keys(userInfo));
 			const data = Object.keys(userInfo)
 		data.forEach((key:any) => {
 				setValue(key, userInfo[key]);
 			 });
-			 setStateUserInfo(data)
+			 setStateUserInfo((e) => (!e))
+			 console.log('userInfo');
+			 
 	}else {
-		getUserInfo()
+		async function f1 () {
+		await	getUserInfo()
+		const userInfo = getDataLocalStorage('userInfo')
+		const data = Object.keys(userInfo)
+		data.forEach((key:any) => {
+				setValue(key, userInfo[key]);
+			 });
+			 setStateUserInfo((e) => (!e))
+			 console.log('иначе userInfo');
+		}
+		f1()
+		
 	}
 		
   
@@ -146,11 +158,11 @@ console.log('работает useeffect');
                 //type={first? 'text': 'date'}
                 //placeholder={first2}
 					 placeholder='введите дату'
-               //  type={itype}
-                type='date'
+                type={itype}
+                //type='date'
                 {...register("birthday", {})}
-               //  onFocus={() => setType("date")}
-               //  onBlur={() => setType("text")}
+                onFocus={() => setType("date")}
+                onBlur={() => setType("text")}
               />
             </div>
           </div>
