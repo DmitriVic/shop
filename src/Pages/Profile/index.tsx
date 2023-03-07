@@ -7,6 +7,7 @@ import { useEffect } from "react"
 import { getUserInfo } from "../../Api/Api"
 import { getDataLocalStorage } from "../../Api/Auth"
 import { FormEdit } from "../../components/FormEdit"
+import { Test } from "../../components/Test"
 import { indexProps } from "./index.props"
 
 // export const Button = ({ appearance, arrow = 'none',  children, className, ...props }: ButtonProps): JSX.Element => {
@@ -41,9 +42,8 @@ export const Profile = ({  }:indexProps): JSX.Element => {
 	
 	return (
 		<>
-			<FormEdit
-	
-			/>
+			<FormEdit />
+			{/* <Test/> */}
 		</>
 	)
 }

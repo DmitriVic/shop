@@ -19,13 +19,9 @@ export async function editUser(data: any) {
   const accessToken = getDataLocalStorage("tokenData").access;
 
 
-  let result:any = {};
+  
 
-// for (let key in data) {
-//   if (data[key] !== userInfo[key]) {
-//     result[key] = data[key];
-//   }
-// }
+let result:any = {};
 Object.entries(data).forEach(([key, value]) => {
 	if (value !== userInfo[key]) {
 	  result[key] = value;
@@ -80,3 +76,10 @@ export async function getUserInfo() {
 // 	 : Promise.reject(`Ошибка: ${response.status}`);
 // })
 // .then((res) => {console.log(res)})
+
+
+// for (let key in data) {
+//   if (data[key] !== userInfo[key]) {
+//     result[key] = data[key];
+//   }
+// }

@@ -17,33 +17,31 @@ interface IFormInput {
   first_name: string;
   second_name: string;
   last_name: string;
-  birthday: number | string;
+  birthday:  string | null;
   phonenumber: number | string;
   zip_code: number | string;
   delivery_address: string;
   place: string;
-  avatar: string;
+  avatar: FileList;
   isd: number | string;
+  file: any
 }
 
 //const isAuthActive = useZustand((state:any) => state.isAuthActive)
 
 export const FormEdit = ({}: indexProps): JSX.Element => {
-  // const ref = useRef();
   const [itype, setType] = useState("text");
-  //console.log(itype);
-  //const userInfo = getDataLocalStorage('userInfo')
   const [stateUserInfo, setStateUserInfo] = useState(false)
  
-  //console.log(stateUserInfo);
-  
-  //const [first2, setfirst2] = useState('16.03.2023')
+
+
+
+
   const isAuthDisActive = useZustand((state: any) => state.isAuthDisActive);
 
   const navigate = useNavigate();
   const handleExit = (e: any) => {
     e.preventDefault();
-    //removeUserNameLocalStorage();
     localStorage.clear();
     isAuthDisActive();
     navigate("/");
@@ -53,8 +51,10 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     register,
     handleSubmit,
 	 setValue ,
-    formState: { errors }, reset 
+	 
+    formState: { errors, isDirty}, 
   } = useForm<IFormInput>({
+	mode:"onChange",
 	defaultValues:{
 		
 		// email: '',
@@ -71,14 +71,40 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 	}
   });
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
+	data.email = data.email.toLocaleLowerCase();
+	if (data.birthday === "") {
+		data.birthday = null
+		console.log('null');
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	//const formData = new FormData();
+	//formData.append('avatar', data.file[0]);
+	//formData.append('name123', data.first_name);
 
-    //console.log(data);
+	// console.log(data);
+	// console.log(formData);
+	
+
+
     if (checkRefreshToken()) {
       isAuthDisActive();
       return navigate("/");
     }
     editUser(data);
   };
+
+
+
+  console.log(isDirty);
+
+
 
   useEffect(() => {
 	const userInfo = getDataLocalStorage('userInfo')
@@ -127,6 +153,7 @@ console.log('работает useeffect');
                  src="https://stihi.ru/pics/2021/12/11/4214.jpg"
                 alt=""
               />
+				  {/* <input type="file" className={s['file']} {...register('avatar')} /> */}
             </div>
 
             <div className={s["initials"]}>
@@ -171,7 +198,7 @@ console.log('работает useeffect');
         </div>
 
         <div className={s["buttons"]}>
-          <button type="submit" className={s["btn1"]}>
+          <button  type="submit" className={cn(s["btn1"], s["btn-hover"])}>
             Сохранить
           </button>
 
