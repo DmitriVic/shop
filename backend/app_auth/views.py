@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from django.urls import reverse
-from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, RetrieveAPIView, DestroyAPIView
 from rest_framework.permissions import IsAdminUser
 
 from .permissions import IsAdminOrIsOwner
@@ -19,7 +19,7 @@ class CreateUserApiView(CreateAPIView):
     serializer_class = UserCreateSerializer
 
 
-class DetailUserApiView(RetrieveAPIView, UpdateAPIView):
+class DetailUserApiView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
     lookup_field = 'username'
