@@ -44,3 +44,9 @@ npm run server
 ```
 npm run all
 ```
+## Доступ к документации API Shop
+* [x] Дополнительно установить модуль `drf-yasg`:
+```
+pip install drf-yasg
+```
+* [x] Доступ к документации `http://127.0.0.1:8000/swagger/`
