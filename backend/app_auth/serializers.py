@@ -24,14 +24,16 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ('username', 'email', 'first_name', 'second_name', 'last_name', 
                   # 'get_full_name',
-                  'birthday', 'isd', 'phonenumber', 'zip_code', 'delivery_address', 'place', 'avatar')
+                  'avatar',
+                  'birthday', 'isd', 'phonenumber', 'zip_code', 'delivery_address', 'place')
         lookup_field = 'username'
         read_only_fields = (
             # 'get_full_name', 
-            'username',)
+            'username', 'avatar')
         extra_kwargs = {
             'birthday': {'required': False, 'allow_null': True},
         }
+
 
 class UpdatePassUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -52,7 +54,17 @@ class UpdatePassUserSerializer(serializers.HyperlinkedModelSerializer):
 class ListUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'is_staff', 'get_full_name']
+        fields = ['url', 'username', 'is_staff', 'get_full_name', 'avatar']
+        extra_kwargs = {
+            'url': {'view_name': 'detail_user', 'lookup_field': 'username'},
+        }
+
+
+class OnlyUserAvatarSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('url', 'username', 'avatar')
+        read_only_fields = ('url', 'username',)
         extra_kwargs = {
             'url': {'view_name': 'detail_user', 'lookup_field': 'username'},
         }

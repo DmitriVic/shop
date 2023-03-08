@@ -94,7 +94,7 @@ Authorization: 'JWT eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc3NzY0MTkxLCJpYXQi
 - Вид запроса Heders:
 ```
 key= Authorization
-value= JWT <HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>
+value= 'JWT eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc3NzY0MTkxLCJpYXQiOjE2Nzc3NjM4OTEsImp0aSI6ImVjYmJkMjI5MTBkMzRmNTk5MDUxNTgzYWJkMzc3ZmU5IiwidXNlcl9pZCI6NDV9.uSUxsPqzTGajPMFnLKI4jnWLqCBPUwxfuI0uqK-PH_A'
 ```
 - Вид запроса Body (JSON): 
 ```
@@ -183,5 +183,28 @@ offset= 10<int>
 {
     "access": <HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>,
     "refresh": <HEADER>.<PAYLOAD>.<VERIFY SIGNATURE>
+}
+```
+### 8. Редактирование аватара профиля пользователя:
+- Адрес API: `http://127.0.0.1:8000/api/auth/user/<str:username>/avatar/` 
+- Метод: `PATCH, PUT` 
+- Требование авторизации: `требуется либо модератор либо владелец профиля` 
+- Вид запроса Heders:
+```
+key= Authorization
+value= 'JWT eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc3NzY0MTkxLCJpYXQiOjE2Nzc3NjM4OTEsImp0aSI6ImVjYmJkMjI5MTBkMzRmNTk5MDUxNTgzYWJkMzc3ZmU5IiwidXNlcl9pZCI6NDV9.uSUxsPqzTGajPMFnLKI4jnWLqCBPUwxfuI0uqK-PH_A'
+```
+- Вид запроса Body (multipart/form-data): 
+```
+key= 'avatar',
+value= <file>,
+content-type='img/jpg'
+```
+- Вид ответа Body (JSON):
+```JSON
+{
+    "url": "http://127.0.0.1:8000/api/auth/user/user2/",
+    "username": "user2",
+    "avatar": "http://127.0.0.1:8000/media/avatars/EMAL7wD_vzKRIrz.jpg"
 }
 ```

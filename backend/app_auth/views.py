@@ -37,5 +37,12 @@ class UpdatePassUserApiView(UpdateAPIView):
     permission_classes = (IsAdminOrIsOwner,)
 
 
+class UpdateAvatarUserApiView(UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = OnlyUserAvatarSerializer
+    lookup_field = 'username'
+    permission_classes = (IsAdminOrIsOwner,)
+
+
 def index(request):
     return redirect(reverse('list_user'))
