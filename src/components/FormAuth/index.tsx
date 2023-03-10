@@ -62,10 +62,10 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 			 
 			 
 
-			 setStorage("data")
+			 setStorage('Token', data)
 			 //putDataLocalStorage('timeCreateToken',time)
 			//  putDataLocalStorage('tokenData',data )
-			//  putDataLocalStorage('userName',obj.username )
+			  putDataLocalStorage('userName',obj.username )
 
 			 isAuthActive()
 			// navigate('/')
