@@ -21,7 +21,7 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
    const isAuthActive = useZustand((state:any) => state.isAuthActive)
    const isAuth = useZustand((state:any) => state.isAuth)
   	const navigate = useNavigate()
-	const [storage, setStorage] = useLocalStorage([])
+	const [storage, setStorage] = useLocalStorage([],'tokenData')
 	//const [storage2, setStorage2] = useState('storage2')
 	
 	//console.log(storage);
@@ -47,25 +47,19 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 			  });
 			  throw new Error("401");
 			}
+			const data = await response.json();
+	
 			
-			 const data = await response.json();
-			// console.log(obj.username);
 			 const time = new Date().toString()
 			 data.timeCreateToken = time
-			 
-			 //console.log(data);
-			 //console.log(storage);
-			 //console.log(setStorage);
-			 
+			 data.username = obj.username
 			
-			 //console.log(storage2);
-			 
-			 
 
 			 setStorage('Token', data)
+
 			 //putDataLocalStorage('timeCreateToken',time)
 			//  putDataLocalStorage('tokenData',data )
-			  putDataLocalStorage('userName',obj.username )
+			  //putDataLocalStorage('userName',obj.username )
 
 			 isAuthActive()
 			// navigate('/')
