@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useZustand } from "../../store";
 import { editUser, getUserInfo } from "../../Api/Api";
-import { checkRefreshToken, getDataLocalStorage } from "../../Api/Auth";
+import { checkAccessToken, checkRefreshToken, getDataLocalStorage, refreshToken } from "../../Api/Auth";
 import { useEffect, useState } from "react";
 
 interface IFormInput {
@@ -32,14 +32,9 @@ interface IFormInput {
 export const FormEdit = ({}: indexProps): JSX.Element => {
   const [itype, setType] = useState("text");
   const [stateUserInfo, setStateUserInfo] = useState(false)
- 
-
-
-
-
   const isAuthDisActive = useZustand((state: any) => state.isAuthDisActive);
+  const navigate = useNavigate()
 
-  const navigate = useNavigate();
   const handleExit = (e: any) => {
     e.preventDefault();
     localStorage.clear();
@@ -47,62 +42,55 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     navigate("/");
   };
 
+
+
   const {
     register,
     handleSubmit,
 	 setValue ,
-	 
     formState: { errors, isDirty}, 
   } = useForm<IFormInput>({
 	mode:"onChange",
-	defaultValues:{
-		
-		// email: '',
-		// first_name: '',
-		// second_name: '',
-		// last_name: '',
-		// birthday: '',
-		// phonenumber: '',
-		// zip_code: '',
-		// delivery_address: '',
-		// place: '',
-		// avatar: '',
-		// isd: '',
-	}
+
   });
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
+
 	data.email = data.email.toLocaleLowerCase();
 	if (data.birthday === "") {
 		data.birthday = null
-		console.log('null');
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	//const formData = new FormData();
-	//formData.append('avatar', data.file[0]);
-	//formData.append('name123', data.first_name);
-
-	// console.log(data);
-	// console.log(formData);
-	
-
-
+	const refrToken = getDataLocalStorage('tokenData').refresh
+	if (checkAccessToken()) {
+		refreshToken(refrToken);
+	}
     if (checkRefreshToken()) {
       isAuthDisActive();
       return navigate("/");
     }
-    editUser(data);
+	 
+	//  Object.keys(data).forEach(() => {
+	// 	if (data['birthday'] === '') {
+	// 	  delete data['birthday']
+	// 	}})
+	
+	
+		const userInfo = getDataLocalStorage("userInfo");
+	  const user = getDataLocalStorage("tokenData").username
+	  const accessToken = getDataLocalStorage("tokenData").access;
+	
+	
+	  
+	
+	// let result:any = {};
+	// Object.entries(data).forEach(([key, value]) => {
+	// 	if (value !== userInfo[key]) {
+	// 	  result[key] = value;
+	// 	}
+	//  });
+	// console.log(result);
+
+    editUser(user,accessToken,data);
   };
-
-
-
-  console.log(isDirty);
 
 
 
@@ -120,7 +108,19 @@ console.log('работает useeffect');
 			 
 	}else {
 		async function f1 () {
-		await	getUserInfo()
+			const token =	getDataLocalStorage('tokenData').refresh
+			if (checkAccessToken()) {
+				await refreshToken(token);
+			 }
+		
+		  const user = getDataLocalStorage("tokenData").userName;
+		  const accessToken = getDataLocalStorage("tokenData").access;
+
+
+		await	getUserInfo(user,accessToken)
+
+
+
 		const userInfo = getDataLocalStorage('userInfo')
 		const data = Object.keys(userInfo)
 		data.forEach((key:any) => {
@@ -138,8 +138,7 @@ console.log('работает useeffect');
   }, [])
   
 
-  //console.log(errors);
-  //console.log(errors.phonenumber);
+
   return (
     <div className={s.container}>
       <form className={s["form-auth"]} onSubmit={handleSubmit(onSubmit)}>

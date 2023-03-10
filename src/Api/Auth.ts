@@ -111,9 +111,16 @@ export async function  authUser  (obj: any)  {
 
 
 // обновить токен
-export const refreshToken = () => {
-	const token =	getDataLocalStorage('tokenData').refresh
-	//console.log(token);
+export const refreshToken = (token:string) => {
+
+	
+	//--------------------------------------------------------------------------------------------
+	
+	
+	
+	//--------------------------------------------------------------------------------------------
+	
+
 	
   return fetch("http://127.0.0.1:8000/api/auth/token/refresh/", {
     method: "post",
@@ -128,13 +135,26 @@ export const refreshToken = () => {
       ? response.json()
       : Promise.reject(`Ошибка: ${response.status}`);
   })
+
+  
+  //-------------------------------------------------------------------------------------------
+  
+ 
+
+
   .then(data => {
 	const time = new Date().toString()
 	data.timeCreateToken = time
 	putDataLocalStorage('tokenData', data)
 })
-};
 
+
+
+
+//---------------------------------------------------------------------------------------------
+
+
+};
 
 //--------------------------------------------------------------------------------------------------
 

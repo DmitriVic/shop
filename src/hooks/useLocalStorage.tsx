@@ -10,7 +10,7 @@ export function useLocalStorage(initialValue:any, key:any) {
 	}
 
 	const [value, setValue] = useState(getValue)
-console.log(value);
+//console.log(value);
 
 	useEffect(() => {
 	  

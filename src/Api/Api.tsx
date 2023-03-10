@@ -4,30 +4,11 @@ import { checkAccessToken, getDataLocalStorage, putDataLocalStorage, refreshToke
 // -----------------------------------------------------------------------------------------------
 
 //Функция выполняет запрос редактирования
-export async function editUser(data: any) {
-  if (checkAccessToken()) {
-    await refreshToken();
-  }
-   Object.keys(data).forEach(() => {
-	if (data['birthday'] === '') {
-	  delete data['birthday'];
-	}})
+export async function editUser(user:string,accessToken: string, data: object) {
+//   if (checkAccessToken()) {
+//     await refreshToken();
+//   }
 
-
-	const userInfo = getDataLocalStorage("userInfo");
-  const user = getDataLocalStorage("userName");
-  const accessToken = getDataLocalStorage("tokenData").access;
-
-
-  
-
-let result:any = {};
-Object.entries(data).forEach(([key, value]) => {
-	if (value !== userInfo[key]) {
-	  result[key] = value;
-	}
- });
-console.log(result);
 
 
   
@@ -42,13 +23,15 @@ console.log(result);
 
 //----------------------------------------------------------------------------------------------------
 
-export async function getUserInfo() {
-	if (checkAccessToken()) {
-		await refreshToken();
-	 }
+export async function getUserInfo(user:string, accessToken:string) {
+	
+// 	const token =	getDataLocalStorage('tokenData').refresh
+// 	if (checkAccessToken()) {
+// 		await refreshToken(token);
+// 	 }
 
-  const user = getDataLocalStorage("userName");
-  const accessToken = getDataLocalStorage("tokenData").access;
+//   const user = getDataLocalStorage("userName");
+//   const accessToken = getDataLocalStorage("tokenData").access;
   
 //   console.log(user);
 //   console.log(accessToken);

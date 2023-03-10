@@ -55,7 +55,7 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 			 data.username = obj.username
 			
 
-			 setStorage('Token', data)
+			 setStorage( data)
 
 			 //putDataLocalStorage('timeCreateToken',time)
 			//  putDataLocalStorage('tokenData',data )
@@ -86,13 +86,11 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
     console.log(isPasswordVisible);
     setPasswordVisibility((a) => !a);
   };
+
 useEffect(() => {
-	console.log(isAuth);
-	
   if (isAuth) {
 	navigate('/')
   }
-
 }, [storage])
 
   return (
