@@ -18,8 +18,12 @@ export async function editUser(user:string,accessToken: string, data: object) {
     },
   })
   //.then((res) => {console.log(res)})
-  .then((res) => { putDataLocalStorage('userInfo', res.data) });
+  //------------------------------------------------------------------------------------------------
+  //.then((res) => { putDataLocalStorage('userInfo', res.data) });
+
+
 }
+
 
 //----------------------------------------------------------------------------------------------------
 

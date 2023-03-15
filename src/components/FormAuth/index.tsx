@@ -8,7 +8,7 @@ import { indexProps } from "./index.props";
 import { useEffect, useState } from "react";
 import eye from "./img/eye.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { authUser, putDataLocalStorage } from "../../Api/Auth";
+import { addTokenLifeTime, authUser, putDataLocalStorage } from "../../Api/Auth";
 
 import { useZustand } from "../../store";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
@@ -33,13 +33,13 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 
     formState: { errors, isValid },
   } = useForm();
-  const onSubmit = (obj: any) => {
+  const onSubmit = (dataForm: any) => {
 	
     const ff = async () => {
 		
 		try {
 			
-			const response = await authUser(obj);
+			const response = await authUser(dataForm);
 			
 			if (response.status === 401) {
 			  setError("root.serverError", {
@@ -48,14 +48,13 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 			  throw new Error("401");
 			}
 			const data = await response.json();
-	
 			
-			 const time = new Date().toString()
-			 data.timeCreateToken = time
-			 data.username = obj.username
 			
+			addTokenLifeTime(data,dataForm);
 
-			 setStorage( data)
+			 
+
+			 setStorage(data)
 
 			 //putDataLocalStorage('timeCreateToken',time)
 			//  putDataLocalStorage('tokenData',data )
@@ -74,6 +73,8 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 			console.log("Ошибка ответа сервера");
 			
 		}
+
+		 
     };
 
     ff();

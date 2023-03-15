@@ -1,4 +1,15 @@
 const keyUserData = 'userData'
+
+
+
+export  function addTokenLifeTime(data: any,dataForm:any) {
+	const time = new Date().toString();
+	data.timeCreateToken = time;
+	data.username = dataForm.username;
+}
+
+
+
 //--------------------------------------------------------------------------------------------------
 
 
@@ -142,11 +153,11 @@ export const refreshToken = (token:string) => {
  
 
 
-  .then(data => {
-	const time = new Date().toString()
-	data.timeCreateToken = time
-	putDataLocalStorage('tokenData', data)
-})
+//   .then(data => {
+// 	const time = new Date().toString()
+// 	data.timeCreateToken = time
+// 	putDataLocalStorage('tokenData', data)
+// })
 
 
 
