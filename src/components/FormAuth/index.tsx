@@ -33,13 +33,11 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 
     formState: { errors, isValid },
   } = useForm();
-  const onSubmit = (obj: any) => {
+  const onSubmit = async (data: any) => {
 	
-    const ff = async () => {
-		
 		try {
 			
-			const response = await authUser(obj);
+			const response = await authUser(data);
 			
 			if (response.status === 401) {
 			  setError("root.serverError", {
@@ -47,37 +45,22 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 			  });
 			  throw new Error("401");
 			}
-			const data = await response.json();
+			const newData = await response.json();
 	
 			
 			 const time = new Date().toString()
-			 data.timeCreateToken = time
-			 data.username = obj.username
+			 newData.timeCreateToken = time
+			 newData.username = data.username
 			
 
-			 setStorage( data)
-
-			 //putDataLocalStorage('timeCreateToken',time)
-			//  putDataLocalStorage('tokenData',data )
-			  //putDataLocalStorage('userName',obj.username )
-
+			 setStorage( newData)
 			 isAuthActive()
-			// navigate('/')
-			//-------------------
 
-			//setStorage("data")
-			//console.log('usedata');
-			
-
-			//-------------------
 		} catch (error) {
 			console.log("Ошибка ответа сервера");
 			
 		}
-    };
-
-    ff();
-
+   
   };
 
 
@@ -92,6 +75,8 @@ useEffect(() => {
 	navigate('/')
   }
 }, [storage])
+
+
 
   return (
     <div className={s.container}>

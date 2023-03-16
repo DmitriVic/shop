@@ -9,8 +9,9 @@ import { useNavigate } from "react-router-dom";
 
 import { useZustand } from "../../store";
 import { editUser, getUserInfo } from "../../Api/Api";
-import { checkAccessToken, checkRefreshToken, getDataLocalStorage, refreshToken } from "../../Api/Auth";
+import { addTimeToken, checkAccessToken, checkRefreshToken, getDataLocalStorage, refreshToken } from "../../Api/Auth";
 import { useEffect, useState } from "react";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 interface IFormInput {
   email: string;
@@ -34,7 +35,9 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
   const [stateUserInfo, setStateUserInfo] = useState(false)
   const isAuthDisActive = useZustand((state: any) => state.isAuthDisActive);
   const navigate = useNavigate()
-
+  const [storage, setStorage] = useLocalStorage([],'tokenData')
+	//console.log(storage.refresh);
+	
   const handleExit = (e: any) => {
     e.preventDefault();
     localStorage.clear();
@@ -53,15 +56,38 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 	mode:"onChange",
 
   });
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+   const  onSubmit: SubmitHandler<IFormInput> = async (data) => {
 
 	data.email = data.email.toLocaleLowerCase();
 	if (data.birthday === "") {
 		data.birthday = null
 	}
-	const refrToken = getDataLocalStorage('tokenData').refresh
+
+
+
+	//const refrToken = getDataLocalStorage('tokenData').refresh
+
+
+	
+
 	if (checkAccessToken()) {
-		refreshToken(refrToken);
+
+		const res = await refreshToken(storage.refresh)
+		addTimeToken(res)
+		setStorage((prevState:any) => ({...prevState, ...res} ) )
+
+
+		// addTimeToken(res)
+		// setStorage((prevState:any) => ({...prevState, ...res} ) )
+
+	// .then(res => {
+	// 	addTimeToken(res)
+	// 	setStorage((prevState:any) => ({...prevState, ...res} ) )
+	// })
+	
+		
+		//.then((res) => {console.log(res)})
+	
 	}
     if (checkRefreshToken()) {
       isAuthDisActive();
@@ -74,9 +100,9 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 	// 	}})
 	
 	
-		const userInfo = getDataLocalStorage("userInfo");
-	  const user = getDataLocalStorage("tokenData").username
-	  const accessToken = getDataLocalStorage("tokenData").access;
+	// 	const userInfo = getDataLocalStorage("userInfo");
+	//   const user = getDataLocalStorage("tokenData").username
+	//   const accessToken = getDataLocalStorage("tokenData").access;
 	
 	
 	  
@@ -89,53 +115,53 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 	//  });
 	// console.log(result);
 
-    editUser(user,accessToken,data);
+    editUser(storage.username, storage.access, data);
   };
 
 
 
-  useEffect(() => {
-	const userInfo = getDataLocalStorage('userInfo')
-console.log('работает useeffect');
+//   useEffect(() => {
+// 	const userInfo = getDataLocalStorage('userInfo')
+// console.log('работает useeffect');
 
-	if (userInfo) {
-			const data = Object.keys(userInfo)
-		data.forEach((key:any) => {
-				setValue(key, userInfo[key]);
-			 });
-			 setStateUserInfo((e) => (!e))
-			 console.log('userInfo');
+// 	if (userInfo) {
+// 			const data = Object.keys(userInfo)
+// 		data.forEach((key:any) => {
+// 				setValue(key, userInfo[key]);
+// 			 });
+// 			 setStateUserInfo((e) => (!e))
+// 			 console.log('userInfo');
 			 
-	}else {
-		async function f1 () {
-			const token =	getDataLocalStorage('tokenData').refresh
-			if (checkAccessToken()) {
-				await refreshToken(token);
-			 }
+// 	}else {
+// 		async function f1 () {
+// 			const token =	getDataLocalStorage('tokenData').refresh
+// 			if (checkAccessToken()) {
+// 				await refreshToken(token);
+// 			 }
 		
-		  const user = getDataLocalStorage("tokenData").userName;
-		  const accessToken = getDataLocalStorage("tokenData").access;
+// 		  const user = getDataLocalStorage("tokenData").userName;
+// 		  const accessToken = getDataLocalStorage("tokenData").access;
 
 
-		await	getUserInfo(user,accessToken)
+// 		await	getUserInfo(user,accessToken)
 
 
 
-		const userInfo = getDataLocalStorage('userInfo')
-		const data = Object.keys(userInfo)
-		data.forEach((key:any) => {
-				setValue(key, userInfo[key]);
-			 });
-			 setStateUserInfo((e) => (!e))
-			 console.log('иначе userInfo');
-		}
-		f1()
+// 		const userInfo = getDataLocalStorage('userInfo')
+// 		const data = Object.keys(userInfo)
+// 		data.forEach((key:any) => {
+// 				setValue(key, userInfo[key]);
+// 			 });
+// 			 setStateUserInfo((e) => (!e))
+// 			 console.log('иначе userInfo');
+// 		}
+// 		f1()
 		
-	}
+// 	}
 		
   
 	 
-  }, [])
+//   }, [])
   
 
 
