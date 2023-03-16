@@ -75,19 +75,6 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
 		const res = await refreshToken(storage.refresh)
 		addTimeToken(res)
 		setStorage((prevState:any) => ({...prevState, ...res} ) )
-
-
-		// addTimeToken(res)
-		// setStorage((prevState:any) => ({...prevState, ...res} ) )
-
-	// .then(res => {
-	// 	addTimeToken(res)
-	// 	setStorage((prevState:any) => ({...prevState, ...res} ) )
-	// })
-	
-		
-		//.then((res) => {console.log(res)})
-	
 	}
     if (checkRefreshToken()) {
       isAuthDisActive();
