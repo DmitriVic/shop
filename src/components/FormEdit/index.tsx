@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useZustand } from "../../store";
 import { editUser, getUserInfo } from "../../Api/Api";
-import { addTimeToken, checkAccessToken, checkRefreshToken, getDataLocalStorage, refreshToken } from "../../Api/Auth";
+import { addTimeToken, checkAccessToken, checkRefreshToken, getDataLocalStorage, putDataLocalStorage, refreshToken } from "../../Api/Auth";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
@@ -18,7 +18,7 @@ interface IFormInput {
   first_name: string;
   second_name: string;
   last_name: string;
-  birthday:  string | null;
+  birthday?:  string | null;
   phonenumber: number | string;
   zip_code: number | string;
   delivery_address: string;
@@ -32,10 +32,11 @@ interface IFormInput {
 
 export const FormEdit = ({}: indexProps): JSX.Element => {
   const [itype, setType] = useState("text");
-  const [stateUserInfo, setStateUserInfo] = useState(false)
+  
   const isAuthDisActive = useZustand((state: any) => state.isAuthDisActive);
   const navigate = useNavigate()
   const [storage, setStorage] = useLocalStorage([],'tokenData')
+	//const [isEdit, setIsEdit] = useState<any>([])
 	//console.log(storage.refresh);
 	
   const handleExit = (e: any) => {
@@ -45,8 +46,6 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     navigate("/");
   };
 
-
-
   const {
     register,
     handleSubmit,
@@ -54,58 +53,41 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     formState: { errors, isDirty}, 
   } = useForm<IFormInput>({
 	mode:"onChange",
-
   });
+
    const  onSubmit: SubmitHandler<IFormInput> = async (data) => {
 
 	data.email = data.email.toLocaleLowerCase();
 	if (data.birthday === "") {
 		data.birthday = null
 	}
-
-
-
-	//const refrToken = getDataLocalStorage('tokenData').refresh
-
-
+	// console.log(data);
+	// console.log(data.birthday);
 	
-
 	if (checkAccessToken()) {
-
 		const res = await refreshToken(storage.refresh)
 		addTimeToken(res)
-		setStorage((prevState:any) => ({...prevState, ...res} ) )
+		 setStorage((prevState:any) => ({...prevState, ...res} ) )
+		return editUser(storage.username, res.access, data);	
 	}
+
     if (checkRefreshToken()) {
       isAuthDisActive();
       return navigate("/");
     }
-	 
-	//  Object.keys(data).forEach(() => {
-	// 	if (data['birthday'] === '') {
-	// 	  delete data['birthday']
-	// 	}})
-	
-	
-	// 	const userInfo = getDataLocalStorage("userInfo");
-	//   const user = getDataLocalStorage("tokenData").username
-	//   const accessToken = getDataLocalStorage("tokenData").access;
-	
-	
-	  
-	
+
+	 editUser(storage.username, storage.access, data);
+
+
 	// let result:any = {};
 	// Object.entries(data).forEach(([key, value]) => {
 	// 	if (value !== userInfo[key]) {
 	// 	  result[key] = value;
 	// 	}
-	//  });
-	// console.log(result);
-
-    editUser(storage.username, storage.access, data);
+	//  });  
   };
 
-
+  
 
 //   useEffect(() => {
 // 	const userInfo = getDataLocalStorage('userInfo')
@@ -316,3 +298,19 @@ export const FormEdit = ({}: indexProps): JSX.Element => {
     </div>
   );
 };
+
+
+
+//const refrToken = getDataLocalStorage('tokenData').refresh
+
+// Object.keys(data).forEach(() => {
+	// 	if (data['birthday'] === '') {
+	// 	  delete data['birthday']
+	// 	}})
+	// 	console.log(data);
+
+// 	const userInfo = getDataLocalStorage("userInfo");
+	//   const user = getDataLocalStorage("tokenData").username
+	//   const accessToken = getDataLocalStorage("tokenData").access;
+
+	//setIsEdit((prevState:any) => ({...prevState, ...res} ) )

@@ -3,19 +3,16 @@ import axios from "axios"
 const keyUserData = 'userData'
 //--------------------------------------------------------------------------------------------------
 
-
+//Добавление время создания access токена
 
  export const addTimeToken = (data:any) => {
 	const time = new Date().toString()
 	data.timeCreateToken = time
 }
 
-
+//---------------------------------------------------------------------------------------------------
 
 //Проверка Refresh токена, при прохождении 24часа от создания токена выход из акаунта
-
-
-
 export const checkRefreshToken = ()=> {
 
 	//const navigate = useNavigate() 

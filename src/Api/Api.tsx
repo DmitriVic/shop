@@ -11,6 +11,7 @@ import { checkAccessToken, getDataLocalStorage, putDataLocalStorage, refreshToke
 
 //Функция выполняет запрос редактирования
 export async function editUser(user:string,accessToken: string, data: object) {
+	
 //   if (checkAccessToken()) {
 //     await refreshToken();
 //   }
