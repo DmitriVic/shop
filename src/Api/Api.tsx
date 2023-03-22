@@ -52,7 +52,8 @@ export async function getUserInfo(user:string, accessToken:string) {
         Authorization: `JWT ${accessToken}`,
       },
     })
-    .then((res) => { putDataLocalStorage('userInfo', res.data) });
+	 .then((res) => res.data)
+    //.then((res) => { putDataLocalStorage('userInfo', res.data) });
 }
 
 // return fetch(`http://127.0.0.1:8000/api/auth/user/${user}/`, {
