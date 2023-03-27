@@ -6,7 +6,7 @@ class User(AbstractUser):
     zip_code = models.CharField(max_length=10, blank=True, verbose_name='Индекс почты')
     delivery_address = models.CharField(max_length=500, blank=True, verbose_name="Адрес доставки")
     second_name = models.CharField(max_length=150, blank=True, verbose_name='Отчество')
-    isd = models.CharField(max_length=4, blank=True, verbose_name='Телефонный код станы')
+    isd = models.CharField(max_length=4, default=7, verbose_name='Телефонный код станы')
     phonenumber = models.CharField(max_length=10, blank=True, verbose_name='Телефон')
     avatar = models.ImageField(upload_to='avatars', blank=True, null=True)
     place = models.CharField(max_length=100, blank=True, verbose_name='Город')
