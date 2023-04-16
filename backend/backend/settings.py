@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_yasg',
     'app_auth.apps.AuthConfig',
+    'app_fibulas.apps.AppFibulasConfig',
 ]
 
 MIDDLEWARE = [

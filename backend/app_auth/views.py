@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 from django.urls import reverse
+from rest_framework import viewsets
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, RetrieveAPIView, DestroyAPIView
 from rest_framework.permissions import IsAdminUser
 
@@ -16,7 +17,7 @@ class ListUserApiView(ListAPIView):
 class CreateUserApiView(CreateAPIView):
     queryset = User.objects.all()
     lookup_field = 'username'
-    serializer_class = UserCreateSerializer
+    serializer_class = UserCreateUpdatePassSerializer
 
 
 class DetailUserApiView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
@@ -25,14 +26,10 @@ class DetailUserApiView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
     lookup_field = 'username'
     permission_classes = (IsAdminOrIsOwner, )
 
-    def put(self, request, *args, **kwargs):
-        print('request.data=', request.data)
-        return self.update(request, *args, **kwargs)
-
 
 class UpdatePassUserApiView(UpdateAPIView):
     queryset = User.objects.all()
-    serializer_class = UpdatePassUserSerializer
+    serializer_class = UserCreateUpdatePassSerializer
     lookup_field = 'username'
     permission_classes = (IsAdminOrIsOwner,)
 
@@ -46,3 +43,9 @@ class UpdateAvatarUserApiView(UpdateAPIView):
 
 def index(request):
     return redirect(reverse('list_user'))
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    lookup_field = 'username'
