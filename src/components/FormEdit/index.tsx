@@ -3,143 +3,183 @@ import s from "./index.module.css";
 import cn from "classnames";
 // import ArrowIcon from './arrow.svg';
 
-import { SubmitHandler,  useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { indexProps } from "./index.props";
 import { useNavigate } from "react-router-dom";
 
+
 import { useZustand } from "../../store";
-import { editUser, getUserInfo } from "../../Api/Api";
-import { checkRefreshToken, getDataLocalStorage } from "../../Api/Auth";
+import { editUser, getUserInfo, uploadAvatar } from "../../Api/Api";
+import {
+  addTimeToken,
+  checkAccessToken,
+  checkRefreshToken,
+  getDataLocalStorage,
+  refreshToken,
+} from "../../Api/Auth";
 import { useEffect, useState } from "react";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+
+import pencil from './img/pencil.svg'
 
 interface IFormInput {
   email: string;
   first_name: string;
   second_name: string;
   last_name: string;
-  birthday:  string | null;
+  birthday?: string | null;
   phonenumber: number | string;
   zip_code: number | string;
   delivery_address: string;
   place: string;
-  avatar: FileList;
+  avatar: FileList | null;
   isd: number | string;
-  file: any
+  profilePicture: any;
 }
 
-//const isAuthActive = useZustand((state:any) => state.isAuthActive)
+const objInputForm = { email: true, first_name: true, second_name: true, last_name: true, birthday: true, phonenumber:true, zip_code: true, delivery_address: true, place: true, avatar: true, isd: true, file: true, }
 
 export const FormEdit = ({}: indexProps): JSX.Element => {
-  const [itype, setType] = useState("text");
-  const [stateUserInfo, setStateUserInfo] = useState(false)
- 
-
-
-
-
+const [inputForm, setInputForm] = useState<any>(objInputForm)
+  const [itype, setType] = useState<string>("text");
   const isAuthDisActive = useZustand((state: any) => state.isAuthDisActive);
-
   const navigate = useNavigate();
+  const [storage, setStorage] = useLocalStorage([], "tokenData");
+  
+
+  
+
+  const addDefaultValue = (arg: any) => {
+	const data = Object.keys(arg);
+	data.forEach((key: any) => {
+	  setValue(key, arg[key]);
+	});
+ };
   const handleExit = (e: any) => {
     e.preventDefault();
     localStorage.clear();
     isAuthDisActive();
     navigate("/");
   };
+  const handleEditDisableClick = (inputName:any) => {
+	let variable = inputForm[inputName]
+	if (inputForm[inputName] === true) {
+		variable = false
+	} else {
+		variable = true
+	}
+	setInputForm((prevState:any) => ({
+	  ...prevState,
+	  [inputName]: variable ,
+	}))
+ }
 
   const {
     register,
     handleSubmit,
-	 setValue ,
-	 
-    formState: { errors, isDirty}, 
+	 watch,
+    setValue,
+    formState: { errors, isDirty,  },
   } = useForm<IFormInput>({
-	mode:"onChange",
-	defaultValues:{
-		
-		// email: '',
-		// first_name: '',
-		// second_name: '',
-		// last_name: '',
-		// birthday: '',
-		// phonenumber: '',
-		// zip_code: '',
-		// delivery_address: '',
-		// place: '',
-		// avatar: '',
-		// isd: '',
-	}
+   mode: "onChange",
+	//  defaultValues: {
+   //    isd: 7,
+	// 	second_name: 'Дрон'
+   //  },
   });
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-	data.email = data.email.toLocaleLowerCase();
-	if (data.birthday === "") {
-		data.birthday = null
-		console.log('null');
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	//const formData = new FormData();
-	//formData.append('avatar', data.file[0]);
-	//formData.append('name123', data.first_name);
+ 
 
-	// console.log(data);
-	// console.log(formData);
-	
+  
+  
+ 
 
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+	console.log(data);
+	
+    data.email = data.email.toLocaleLowerCase();
+	 
+    if (data.birthday === "") {
+      data.birthday = null;
+    }
+
+    if (checkAccessToken()) {
+      const res = await refreshToken(storage.refresh);
+      addTimeToken(res);
+      setStorage((prevState: any) => ({ ...prevState, ...res }));
+      return editUser(storage.username, res.access, data);
+    }
 
     if (checkRefreshToken()) {
       isAuthDisActive();
       return navigate("/");
     }
-    editUser(data);
+
+   const res = await editUser(storage.username, storage.access, data)
+	const userData = await res.data
+	setStorage((prevState: any) => ({ ...prevState, userData }));
+	 
   };
 
 
 
-  console.log(isDirty);
-
-
-
   useEffect(() => {
-	const userInfo = getDataLocalStorage('userInfo')
-console.log('работает useeffect');
 
-	if (userInfo) {
-			const data = Object.keys(userInfo)
-		data.forEach((key:any) => {
-				setValue(key, userInfo[key]);
-			 });
-			 setStateUserInfo((e) => (!e))
-			 console.log('userInfo');
-			 
-	}else {
-		async function f1 () {
-		await	getUserInfo()
-		const userInfo = getDataLocalStorage('userInfo')
-		const data = Object.keys(userInfo)
-		data.forEach((key:any) => {
-				setValue(key, userInfo[key]);
-			 });
-			 setStateUserInfo((e) => (!e))
-			 console.log('иначе userInfo');
-		}
-		f1()
-		
+	if (checkRefreshToken()) {
+      isAuthDisActive();
+      return navigate("/");
+    }
+
+    if (storage.userData) {
+      addDefaultValue(storage.userData);
+    } else {
+      f();
+    }
+
+    async function f() {
+      if (checkAccessToken()) {
+        const tokenData = await refreshToken(storage.refresh);
+        setStorage((prevState: any) => ({ ...prevState, ...tokenData }));
+        const userData = await getUserInfo(storage.username, tokenData.access);
+        addDefaultValue(userData);
+        setStorage((prevState: any) => ({ ...prevState, userData }));
+        return userData;
+      }
+
+      const userData = await getUserInfo(storage.username, storage.access);
+      addDefaultValue(userData);
+      setStorage((prevState: any) => ({ ...prevState, userData }));
+    }
+  }, []);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	if (event.target.files && event.target.files.length > 0) {
+	  const file = event.target.files[0];
+	  const reader = new FileReader();
+	  reader.readAsDataURL(file);
+	  reader.onload = () => {
+		setValue("avatar", event.target.files as FileList); // устанавливаем значение для поля "avatar"
+		 setInputForm((prevInputForm: any) => ({
+			...prevInputForm,
+			profilePicture: reader.result, // превью изображения
+		 }));
+	  };
+	//   console.log(reader);
+	//   console.log(file);
+	  console.log(storage.access);
+	  
+	  uploadAvatar(storage.username, storage.access, file)
 	}
-		
-  
-	 
-  }, [])
-  
 
-  //console.log(errors);
-  //console.log(errors.phonenumber);
+	console.log('загрузка');
+	
+	
+	//console.log(getDataLocalStorage('tokenData').username);
+	
+	
+	
+};
+
+
   return (
     <div className={s.container}>
       <form className={s["form-auth"]} onSubmit={handleSubmit(onSubmit)}>
@@ -147,50 +187,133 @@ console.log('работает useeffect');
           <div className={s["title"]}>Персональные данные</div>
 
           <div className={s["person-date__box"]}>
-            <div className={s["avatar"]}>
-              <img
-                className={s["image"]}
-                 src="https://stihi.ru/pics/2021/12/11/4214.jpg"
-                alt=""
-              />
-				  {/* <input type="file" className={s['file']} {...register('avatar')} /> */}
+            <div className={s["avatar"]} >
+              
+					{/* <img
+					  className={s["image"]}
+					  src="https://stihi.ru/pics/2021/12/11/4214.jpg"
+					  alt=""
+					/> */}
+					 <div>
+          <label className={s["avatar-label"]}>
+            Загрузить аватар
+            <div  className={s['avatar-wrapper']}>
+					<img className={s["avatar-img"]} src="https://w.forfun.com/fetch/b7/b77ae3f6f1afd7a4ed41fa4be58015a6.jpeg" alt="" />
+					<input
+							// disabled={inputForm.avatar}
+					  className={s["avatar-input"]}
+					  type="file"
+					  accept=".jpg, .png, .jpeg"
+					  {...register("avatar")}
+									  onChange={(e) => {
+										handleFileChange(e);
+										register("avatar");
+									 }}
+					/>
+					
+				</div>
+          </label>
+          {/* <img src={pencil} onClick={() => handleEditDisableClick("avatar")} /> */}
+        </div>
+				
+	
+				  
+		
             </div>
 
+				<div>
+ 
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div className={s["initials"]}>
-              <label htmlFor="">
+
+              <label className={s['label']} htmlFor="first_name">
                 <input
-					 
+					 	disabled={inputForm.first_name}
                   id="first_name"
                   className={s["inpt"]}
                   type="text"
                   placeholder="Имя"
                   {...register("first_name", {})}
                 />
-              </label>
+					 <img src={pencil} onClick={() => (handleEditDisableClick('second_name'))}/>
+					 </label>
+
+
+              <label htmlFor="second_name" className={s['label']}>
+					<input
+					disabled={inputForm.second_name}
+					
+					  className={s["inpt"]}
+					  type="text"
+					  placeholder="Отчество"
+					  {...register("second_name", {})}
+					/>
+					<img src={pencil} onClick={() => (handleEditDisableClick('second_name'))}/>
+				  </label>
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <label htmlFor="last_name" className={s['label']}>
+					<input
+					disabled={inputForm.last_name}
+					  className={s["inpt"]}
+					  type="text"
+					  placeholder="Фамилия"
+					  {...register("last_name", {})}
+					/>
+					<img src={pencil} onClick={() => (handleEditDisableClick('last_name'))}/>
+			  </label>
+
+
+
+
+
+			  
+			  <label htmlFor="date-birth" className={s['label']}>
               <input
-                className={s["inpt"]}
-                type="text"
-                placeholder="Отчество"
-                {...register("second_name", {})}
-              />
-              <input
-                className={s["inpt"]}
-                type="text"
-                placeholder="Фамилия"
-                {...register("last_name", {})}
-              />
-	
-              <input
+				  
                 className={cn(s["date-birth"], s["inpt"])}
                 //type={first? 'text': 'date'}
                 //placeholder={first2}
-					 placeholder='введите дату'
+                placeholder="введите дату"
                 type={itype}
                 //type='date'
                 {...register("birthday", {})}
                 onFocus={() => setType("date")}
                 onBlur={() => setType("text")}
+					 disabled={inputForm.birthday}
+					 
               />
+				  <img src={pencil} onClick={() => (handleEditDisableClick('birthday'))}/>
+				  </label>
+
+
             </div>
           </div>
 
@@ -198,7 +321,7 @@ console.log('работает useeffect');
         </div>
 
         <div className={s["buttons"]}>
-          <button  type="submit" className={cn(s["btn1"], s["btn-hover"])}>
+          <button type="submit" className={cn(s["btn1"], s["btn-hover"])}>
             Сохранить
           </button>
 
@@ -212,39 +335,36 @@ console.log('работает useeffect');
           >
             Выйти
           </button>
-
-
-
-
-
-
-
-			 <div >setvalue</div>
-
-
-
-
-
-
-
-
-
         </div>
-
-
 
         <div className={s["data-communication"]}>
           <div className={s["title"]}>Данные для связи</div>
           <div>
             <div className={s["code-number"]}>
+
+
+
+
+
+
+
+
+
+				<label htmlFor="inpt-code" className={s['label']}>
               <input
+					defaultValue={watch("isd")}
                 className={cn(s["inpt-code"], s["inpt"])}
                 type="tel"
-                placeholder="Код"
-                {...register("isd", {
-                  // pattern: /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/,
-                })}
+               // placeholder="Код"
+                {...register('isd', ) }
               />
+				  {/* <img src={pencil} onClick={() => (handleEditDisableClick('inpt-code'))}/> */}
+				  </label>
+				 
+
+
+
+				  <label htmlFor="phonenumber" className={s['label']}>
               <input
                 className={s["inpt"]}
                 type="tel"
@@ -253,12 +373,15 @@ console.log('работает useeffect');
                   // pattern: /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/,
                 })}
               />
+				  <img src={pencil} onClick={() => (handleEditDisableClick('phonenumber'))}/>
+				  </label>
             </div>
+
             {errors.phonenumber?.type === "pattern" && (
               <p className={s["errors"]}>Введите корректно номер телефона</p>
             )}
 
-            <label htmlFor="">
+<label htmlFor="email" className={s['label']}>
               <input
                 className={s["inpt"]}
                 type="email"
@@ -267,6 +390,7 @@ console.log('работает useeffect');
                   pattern: /^\S+@\S+$/i,
                 })}
               />
+				  <img src={pencil} onClick={() => (handleEditDisableClick('email'))}/>
               {errors.email?.type === "pattern" && (
                 <p className={s["errors"]} role="alert">
                   Введите корректный адрес электронной почты
@@ -304,3 +428,34 @@ console.log('работает useeffect');
     </div>
   );
 };
+
+//const refrToken = getDataLocalStorage('tokenData').refresh
+
+// Object.keys(data).forEach(() => {
+// 	if (data['birthday'] === '') {
+// 	  delete data['birthday']
+// 	}})
+// 	console.log(data);
+
+// 	const userInfo = getDataLocalStorage("userInfo");
+//   const user = getDataLocalStorage("tokenData").username
+//   const accessToken = getDataLocalStorage("tokenData").access;
+
+//setIsEdit((prevState:any) => ({...prevState, ...res} ) )
+
+// const userInfo = getDataLocalStorage('userInfo')
+// const data = Object.keys(userInfo)
+// data.forEach((key:any) => {
+// 		setValue(key, userInfo[key]);
+// 	 });
+// 	 //setStateUserInfo((e) => (!e))
+// 	 console.log('иначе userInfo');
+// if (userInfo) {
+// 		const data = Object.keys(userInfo)
+// 	data.forEach((key:any) => {
+// 			setValue(key, userInfo[key]);
+// 		 });
+// 		// setStateUserInfo((e) => (!e))
+// 		 console.log('userInfo');
+
+//}else {

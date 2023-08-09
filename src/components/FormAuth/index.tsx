@@ -5,20 +5,27 @@ import cn from "classnames";
 
 import { useForm } from "react-hook-form";
 import { indexProps } from "./index.props";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import eye from "./img/eye.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { authUser, putDataLocalStorage } from "../../Api/Auth";
 
 import { useZustand } from "../../store";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+
 
 
 
 export const FormAuth = ({}: indexProps): JSX.Element => {
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
    const isAuthActive = useZustand((state:any) => state.isAuthActive)
-  const navigate = useNavigate()
-
+   const isAuth = useZustand((state:any) => state.isAuth)
+  	const navigate = useNavigate()
+	const [storage, setStorage] = useLocalStorage([],'tokenData')
+	//const [storage2, setStorage2] = useState('storage2')
+	
+	//console.log(storage);
+	
   const {
     register,
     setError,
@@ -26,51 +33,54 @@ export const FormAuth = ({}: indexProps): JSX.Element => {
 
     formState: { errors, isValid },
   } = useForm();
-  const onSubmit = (obj: any) => {
-    const ff = async () => {
+  const onSubmit = async (data: any) => {
+	
 		try {
-			const response = await authUser(obj);
+			
+			const response = await authUser(data);
+			
 			if (response.status === 401) {
 			  setError("root.serverError", {
 				 type: "Пользователь с таким именем уже существует",
 			  });
 			  throw new Error("401");
 			}
-			 const data = await response.json();
-			// console.log(obj.username);
+			const newData = await response.json();
+	
+			
 			 const time = new Date().toString()
-			 data.timeCreateToken = time
-			 //putDataLocalStorage('timeCreateToken',time)
-			 putDataLocalStorage('tokenData',data )
-			 putDataLocalStorage('userName',obj.username )
-			isAuthActive()
-			navigate('/')
-			//-------------------
+			 newData.timeCreateToken = time
+			 newData.username = data.username
+			
 
+			 setStorage( newData)
+			 isAuthActive()
 
-
-
-			//-------------------
 		} catch (error) {
 			console.log("Ошибка ответа сервера");
 			
 		}
-    };
-
-    ff();
-
-    //sessionStorage.setItem("tokenData", JSON.stringify(res));
+   
   };
 
-  // console.log(errors);
+
 
   const togglePasswordVisibility = () => {
     console.log(isPasswordVisible);
     setPasswordVisibility((a) => !a);
   };
 
+useEffect(() => {
+  if (isAuth) {
+	navigate('/')
+  }
+}, [storage])
+
+
+
   return (
     <div className={s.container}>
+		
       <form className={s["form-auth"]} onSubmit={handleSubmit(onSubmit)}>
         <h1>ВXОД</h1>
         <div className={s.links}>
