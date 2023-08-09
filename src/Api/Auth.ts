@@ -15,20 +15,17 @@ const keyUserData = 'userData'
 //Проверка Refresh токена, при прохождении 24часа от создания токена выход из акаунта
 export const checkRefreshToken = ()=> {
 
-	//const navigate = useNavigate() 
 	const newDate = new Date()
 	const tokenData = getDataLocalStorage('tokenData')
 	const timeDate = tokenData.timeCreateToken
 	const date = new Date(timeDate)
 	
 	const differenceInSeconds = (newDate.getTime() - date.getTime()) / 1000
-	//console.log(differenceInSeconds);
 	
 	if (differenceInSeconds > 86400) {
 		localStorage.clear()
 		return true
 	} else {
-		//console.log('токен действителен');
 		return false
 	}
 }
@@ -112,42 +109,8 @@ export const refreshToken = async (token:string) => {
 	})
 	 return  data.data
 
-	
-	//.then((res) => {console.log(res)})
-	
-	//.then((res) => { putDataLocalStorage('userInfo', res.data) });
  }
  
-
-//   return fetch("http://127.0.0.1:8000/api/auth/token/refresh/", {
-//     method: "post",
-//     headers: {
-//       "Content-type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       refresh: token,
-//     }),
-//   }).then((response) => {
-//     return response.ok
-//       ? response.json()
-//       : Promise.reject(`Ошибка: ${response.status}`);
-//   })
-
-// }
-  //-------------------------------------------------------------------------------------------
-  
- 
-
-
-//   .then(data => {
-// 	const time = new Date().toString()
-// 	data.timeCreateToken = time
-// 	putDataLocalStorage('tokenData', data)
-// })
-
-
-
-
 //---------------------------------------------------------------------------------------------
 
 

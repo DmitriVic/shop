@@ -121,12 +121,12 @@ h1 {
 
 
 .avatar {
-	max-width: 150px;
+	/* max-width: 150px;
 	min-height: 150px;
 	display: flex;
 	background: #000;
 	border-radius: 50%;
-	overflow: hidden;
+	overflow: hidden; */
 }
 
 .image{
@@ -148,7 +148,7 @@ h1 {
 	border-bottom: 1px solid #AEAEAE;
 	width: 100%;
 	
-	/* padding: 10px 0; */
+	padding-top: 10px;
 	margin: 10px 0;
 }
 .inpt-code{
@@ -174,36 +174,8 @@ h1 {
 .btn-hover:hover {
 	background: var(--button-active-color);
 }
-/* .agreement{
-	margin-top: 10px;
-	font-size: 14px;
-	text-align: center;
-}
-.hidden-pass{
-	cursor: pointer;
-}
-.password  {
-	position: relative;
-}
-
-.eye{
-	position: absolute;
-	top: 10px;
-	right: 30px;
-}
-
-.label-check {
-	font-size: 14px;
-	text-align: center;
-}
-.checkbox{
-	cursor: pointer;
-}
 
 
-.label-check span {
-	margin-left: 5px;
-} */
 
 .btn2{
 	display: block;
@@ -231,5 +203,80 @@ h1 {
 	color: #757575;
 }
 .file{
-	
+	width: 200px;
+	height: 200px;
+	background: #000;
+	display: flex;
 }
+
+.label {
+	display: flex;
+	font-size: 20px;
+	font-weight: 900;
+	cursor: pointer;
+}
+
+input:disabled {
+	background-color: #f1e7e7;
+ }
+ 
+
+ /* input[type="file"] {
+	display: none;
+ }
+
+ .avatar-input {
+	
+ } */
+
+ .avatar-wrapper{
+	width: 150px;
+  height: 150px;
+  background-image: url('https://w.forfun.com/fetch/b7/b77ae3f6f1afd7a4ed41fa4be58015a6.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+ }
+
+
+
+
+
+
+ /* .avatar-input {
+	position: relative;
+	width: 100px;
+	height: 36px;
+	margin: 20px;
+	font-size: 16px;
+	color: #fff;
+	background-color: #2196f3;
+	border: none;
+	border-radius: 5px;
+	outline: none;
+	cursor: pointer;
+	overflow: hidden;
+	transition: background-color 0.4s ease;
+ }
+ 
+ .avatar-input::before {
+	content: '\f07c';
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translateY(-50%);
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+ }
+ 
+ .avatar-input::-webkit-file-upload-button {
+	visibility: hidden;
+ }
+ 
+ .avatar-input::before,
+ .avatar-input:hover {
+	background-color: #1976d2;
+ } */
+ 

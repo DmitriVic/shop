@@ -80,8 +80,7 @@ useEffect(() => {
 
   return (
     <div className={s.container}>
-		<button onClick={()=>console.log(storage)
-		}>Ткни</button>
+		
       <form className={s["form-auth"]} onSubmit={handleSubmit(onSubmit)}>
         <h1>ВXОД</h1>
         <div className={s.links}>

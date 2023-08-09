@@ -88,6 +88,9 @@ h1 {
 	color: #fff;
 }
 
+.btn2:hover {
+	background: var(--button-active-color)
+}
 .errors {
 	color: red;
 	margin-bottom: 5px;
