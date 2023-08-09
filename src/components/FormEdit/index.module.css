@@ -221,23 +221,30 @@ input:disabled {
  }
  
 
- /* input[type="file"] {
+  input[type="file"] {
 	display: none;
- }
+ } 
 
  .avatar-input {
 	
- } */
+ } 
 
  .avatar-wrapper{
 	width: 150px;
   height: 150px;
-  background-image: url('https://w.forfun.com/fetch/b7/b77ae3f6f1afd7a4ed41fa4be58015a6.jpeg');
+  /* background-image: url('https://w.forfun.com/fetch/b7/b77ae3f6f1afd7a4ed41fa4be58015a6.jpeg'); */
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
+ }
+
+ .avatar-img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: flex;
  }
 
 

@@ -9,18 +9,18 @@ import { useNavigate } from "react-router-dom";
 
 
 import { useZustand } from "../../store";
-import { editUser, getUserInfo } from "../../Api/Api";
+import { editUser, getUserInfo, uploadAvatar } from "../../Api/Api";
 import {
   addTimeToken,
   checkAccessToken,
   checkRefreshToken,
+  getDataLocalStorage,
   refreshToken,
 } from "../../Api/Auth";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 import pencil from './img/pencil.svg'
-import UploadAvatar from "../UploadAvatar";
 
 interface IFormInput {
   email: string;
@@ -45,6 +45,9 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
   const isAuthDisActive = useZustand((state: any) => state.isAuthDisActive);
   const navigate = useNavigate();
   const [storage, setStorage] = useLocalStorage([], "tokenData");
+  
+
+  
 
   const addDefaultValue = (arg: any) => {
 	const data = Object.keys(arg);
@@ -72,7 +75,6 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
  }
 
   const {
-	 control,
     register,
     handleSubmit,
 	 watch,
@@ -161,8 +163,19 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
 			profilePicture: reader.result, // превью изображения
 		 }));
 	  };
+	//   console.log(reader);
+	//   console.log(file);
+	  console.log(storage.access);
+	  
+	  uploadAvatar(storage.username, storage.access, file)
 	}
+
 	console.log('загрузка');
+	
+	
+	//console.log(getDataLocalStorage('tokenData').username);
+	
+	
 	
 };
 
@@ -185,8 +198,9 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
           <label className={s["avatar-label"]}>
             Загрузить аватар
             <div  className={s['avatar-wrapper']}>
+					<img className={s["avatar-img"]} src="https://w.forfun.com/fetch/b7/b77ae3f6f1afd7a4ed41fa4be58015a6.jpeg" alt="" />
 					<input
-							disabled={inputForm.avatar}
+							// disabled={inputForm.avatar}
 					  className={s["avatar-input"]}
 					  type="file"
 					  accept=".jpg, .png, .jpeg"
@@ -196,6 +210,7 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
 										register("avatar");
 									 }}
 					/>
+					
 				</div>
           </label>
           {/* <img src={pencil} onClick={() => handleEditDisableClick("avatar")} /> */}
