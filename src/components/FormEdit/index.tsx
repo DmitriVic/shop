@@ -45,6 +45,8 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
   const isAuthDisActive = useZustand((state: any) => state.isAuthDisActive);
   const navigate = useNavigate();
   const [storage, setStorage] = useLocalStorage([], "tokenData");
+  const [first, setfirst] = useState<boolean>(true)
+
   
 
   
@@ -94,7 +96,7 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
  
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-	console.log(data);
+	// console.log(data);
 	
     data.email = data.email.toLocaleLowerCase();
 	 
@@ -116,9 +118,10 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
 
    const res = await editUser(storage.username, storage.access, data)
 	const userData = await res.data
+	
 	setStorage((prevState: any) => ({ ...prevState, userData }));
-	 
   };
+  
 
 
 
@@ -150,27 +153,54 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
       setStorage((prevState: any) => ({ ...prevState, userData }));
     }
   }, []);
+  
+  const  handleFileChange  = async (event: React.ChangeEvent<HTMLInputElement>) => {
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	//  if (checkAccessToken()) {
+	// 	refreshToken(storage.refresh)
+	// 	.then((res) => {console.log(res)})
+	// }
+	if (checkAccessToken()) {
+      const res = await refreshToken(storage.refresh);
+		console.log(res);
+		
+      addTimeToken(res);
+      setStorage((prevState: any) => ({ ...prevState, ...res }));
+     
+    }
 	if (event.target.files && event.target.files.length > 0) {
-	  const file = event.target.files[0];
-	  const reader = new FileReader();
-	  reader.readAsDataURL(file);
-	  reader.onload = () => {
-		setValue("avatar", event.target.files as FileList); // устанавливаем значение для поля "avatar"
-		 setInputForm((prevInputForm: any) => ({
-			...prevInputForm,
-			profilePicture: reader.result, // превью изображения
-		 }));
-	  };
-	//   console.log(reader);
-	//   console.log(file);
-	  console.log(storage.access);
+		const file = event.target.files[0];
+		 const formData = new FormData
+		 formData.append('avatar', file)
+	//   
+	//   const reader = new FileReader();
+	//   reader.readAsDataURL(file);
+	//   reader.onload = () => {
+	// 	setValue("avatar", event.target.files as FileList); // устанавливаем значение для поля "avatar"
+	// 	 setInputForm((prevInputForm: any) => ({
+	// 		...prevInputForm,
+	// 		profilePicture: reader.result, // превью изображения
+	// 	 }));
+	//   };
+	//   console.log(formData);
+	//   console.log(storage.access);
+	 // console.log(storage.access);
 	  
-	  uploadAvatar(storage.username, storage.access, file)
+	  await uploadAvatar(storage.username, storage.access, formData)
+	  .then((res) => {
+		const userData = {...storage.userData, ...res.data.avatar}
+			console.log(userData);
+			setStorage((prevState: any) => ({ ...prevState, ...userData }))
+		})
+	
+	 
+	  
+	  //setStorage((prevState: any) => ({ ...prevState, ...res.data }))
 	}
-
-	console.log('загрузка');
+	//console.log(storage)
+	 setfirst(elem => !elem)
+	// console.log(first)
+	// console.log('загрузка');
 	
 	
 	//console.log(getDataLocalStorage('tokenData').username);
@@ -178,6 +208,7 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
 	
 	
 };
+
 
 
   return (
@@ -198,7 +229,7 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
           <label className={s["avatar-label"]}>
             Загрузить аватар
             <div  className={s['avatar-wrapper']}>
-					<img className={s["avatar-img"]} src="https://w.forfun.com/fetch/b7/b77ae3f6f1afd7a4ed41fa4be58015a6.jpeg" alt="" />
+					<img className={s["avatar-img"]} src={storage && storage.userData ? storage.userData.avatar : ""} alt="" />
 					<input
 							// disabled={inputForm.avatar}
 					  className={s["avatar-input"]}
@@ -213,7 +244,7 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
 					
 				</div>
           </label>
-          {/* <img src={pencil} onClick={() => handleEditDisableClick("avatar")} /> */}
+          
         </div>
 				
 	

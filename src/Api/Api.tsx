@@ -31,13 +31,12 @@ export async function getUserInfo(user:string, accessToken:string) {
 
 export async function uploadAvatar(user:string, accessToken:string, file:any) {
 	
-	return await axios.put(`http://127.0.0.1:8000/api/auth/user/${user}/avatar/`,  {
+	return await axios.put(`http://127.0.0.1:8000/api/auth/user/${user}/avatar/`, file, {
 		 headers: {
 			Authorization: `JWT ${accessToken}`,
 			"Content-Type": "multipart/form-data",
 		 },
 	  })
-	  .then((res) => console.log(res.data)
-	   )
+	  
  }
  

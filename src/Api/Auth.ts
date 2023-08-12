@@ -107,7 +107,8 @@ export const refreshToken = async (token:string) => {
 	 const data = await axios.post("http://127.0.0.1:8000/api/auth/token/refresh/", {
 		refresh:token
 	})
-	 return  data.data
+	
+	  return  data.data
 
  }
  
