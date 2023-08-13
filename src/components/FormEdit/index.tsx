@@ -154,61 +154,32 @@ const [inputForm, setInputForm] = useState<any>(objInputForm)
     }
   }, []);
   
-  const  handleFileChange  = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
 
-	//  if (checkAccessToken()) {
-	// 	refreshToken(storage.refresh)
-	// 	.then((res) => {console.log(res)})
-	// }
-	if (checkAccessToken()) {
+    if (checkAccessToken()) {
       const res = await refreshToken(storage.refresh);
-		console.log(res);
-		
-      addTimeToken(res);
-      setStorage((prevState: any) => ({ ...prevState, ...res }));
-     
-    }
-	if (event.target.files && event.target.files.length > 0) {
-		const file = event.target.files[0];
-		 const formData = new FormData
-		 formData.append('avatar', file)
-	//   
-	//   const reader = new FileReader();
-	//   reader.readAsDataURL(file);
-	//   reader.onload = () => {
-	// 	setValue("avatar", event.target.files as FileList); // устанавливаем значение для поля "avatar"
-	// 	 setInputForm((prevInputForm: any) => ({
-	// 		...prevInputForm,
-	// 		profilePicture: reader.result, // превью изображения
-	// 	 }));
-	//   };
-	//   console.log(formData);
-	//   console.log(storage.access);
-	 // console.log(storage.access);
-	  
-	  await uploadAvatar(storage.username, storage.access, formData)
-	  .then((res) => {
-		const userData = {...storage.userData, ...res.data.avatar}
-			console.log(userData);
-			setStorage((prevState: any) => ({ ...prevState, ...userData }))
-		})
-	
-	 
-	  
-	  //setStorage((prevState: any) => ({ ...prevState, ...res.data }))
-	}
-	//console.log(storage)
-	 setfirst(elem => !elem)
-	// console.log(first)
-	// console.log('загрузка');
-	
-	
-	//console.log(getDataLocalStorage('tokenData').username);
-	
-	
-	
-};
+      console.log(res);
 
+      addTimeToken(res);
+      await setStorage((prevState: any) => ({ ...prevState, ...res }));
+    }
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const formData = new FormData();
+      formData.append("avatar", file);
+
+		console.log(storage.access)
+		
+      await uploadAvatar(storage.username, storage.access, formData).then(
+        (res) => {
+          const userData = { ...storage.userData, ...res.data };
+          setStorage((prevState: any) => ({ ...prevState, userData }));
+        }
+      );
+    }
+  };
 
 
   return (
